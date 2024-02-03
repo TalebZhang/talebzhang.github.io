@@ -1,0 +1,75 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+h3 {
+  
+  font-size: 25px;
+}
+
+.headname {
+  margin-left:30px;
+}
+
+header {
+  background-color: white;
+  font-family:"Times New Roman", Times, serif;
+  padding: 1px;
+  font-size: 15px;
+  color: black;
+  position: fixed;
+  overflow: hidden;
+  width:100%;
+  top: 0;
+}
+
+.contentxt {
+  width:70%;
+  margin:auto;
+}
+
+.topic {
+  margin-right:10px;
+  margin-top: 10px; 
+  background-color: #f2f2f2;
+  color: #242424;
+  border-radius: 15px;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+}
+
+.tention {
+  color: #242424;
+  padding: 0px 2px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px; 
+}
+
+.authorpage{
+  color: #242424;
+  padding: 0px 2px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+ul{
+  list-style-type: none;
+}
+
+.author{
+}
+
+p{
+  font-family: 'Times New Roman', serif;
+}
