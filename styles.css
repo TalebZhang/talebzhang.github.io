@@ -288,4 +288,63 @@ ul{
    margin-left:100px;
    margin-right:0px;
  }
+
+  .engfont{
+  font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size:17px;
+  letter-spacing:0.004em;
+  font-weight:400;
+  line-height:1.58;
+  color:#2f2f2f;
+}
+ 
+ .tooltip {
+  position: relative;
+  display: inline;
+  border-bottom: 1px dotted gray;
+  font-size: 17px;
+  color:black;
+}
+
+.contentxt {
+  width:77%;
+  margin:auto;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 176px;
+  height:177px;
+  border-radius: 10%;
+  background-color: transparent;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -90px;
+}
+
+.tooltip .tooltiptext1 {
+  visibility: hidden;
+  width: 150px;
+  height:87px;
+  border-radius: 10px;
+  background-color: black;
+  line-height:1.1;
+  color: #fff;
+  text-align: center;
+  padding: 5px 5px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -75px;
+}
 }
