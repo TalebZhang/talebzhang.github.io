@@ -332,7 +332,7 @@ ul{
 .tooltip .tooltiptext1 {
   visibility: hidden;
   width: 150px;
-  height:87px;
+  height:100px;
   border-radius: 10px;
   background-color: black;
   line-height:1.1;
