@@ -165,10 +165,23 @@ a:active {
   font-size: 25px;
 }
 
+.songtitle {
+  font-size: 25px;
+  text-align:center;
+
+}
+
 .headname {
   margin-left:180px;
 }
 
+.audioplay {
+  border-radius:10px;
+  width: 80px;
+  height: 30px;
+  float:right;
+  
+}
 
 .contentxt {
   width:70%;
@@ -274,6 +287,22 @@ ul{
   font-size:20px;
 }
 
+.txtsong{
+  font-family: 'Times New Roman', serif;
+  text-align: center;
+  position: relative;
+  animation-name: example;
+  animation-duration: 215s;
+  animation-delay: 24.5s;
+  animation-timing-function: linear;
+}
+
+
+@keyframes example {
+  0%   {bottom:-100px;}
+  100% {bottom:2800px;}
+}
+
 @media screen and (max-width: 600px) {
   .headnames {
   margin-left:30px;
@@ -288,8 +317,8 @@ ul{
    margin-left:100px;
    margin-right:0px;
  }
-
-  .engfont{
+ 
+ .engfont{
   font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
   font-size:17px;
   letter-spacing:0.004em;
