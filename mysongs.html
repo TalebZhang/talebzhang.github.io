@@ -6,784 +6,134 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="./styles.css">
-</head>
+<style>
+    /* Example CSS styling */
+    .contentxt { text-align: center; margin: 20px; }
+    .authorpage { text-decoration: none; color: black; }
+    .txtbody { font-family: Arial, sans-serif; }
+    .headname { font-size: 2em; }
+    .txtsong { margin-top: 20px; }
+    .topic { margin-right: 10px; }
+    .fa { margin-top: 20px; cursor: pointer; }
+  </style></head>
 
-<body class=".txtbody">
-	<header>
-	  <h1 class="headname"><a href="index.html" class="authorpage">Taleb Zhang</a></h1><hr>
-	</header><br><br><br><br>
+<body class="txtbody">
+  <header>
+    <h1 class="headname"><a href="index.html" class="authorpage">Taleb Zhang</a></h1>
+    <hr>
+  </header>
+  <br><br><br><br>
 
-	<section class="contentxt">
-		<h3 class="songtitle">夜曲</h3>
-		<audio controls autoplay class="audioplay">
-					  <source src="music/yequ.mp3" type="audio/mpeg">
-					Your browser does not support the audio element.
-				  </audio>
+  <section class="contentxt">
+    <h3 class="songtitle">音乐地带</h3>
+   <button id="loopBtn" onclick="toggleLoop()" type="button">单曲循环</button>
+    <button onclick="previousSong()" type="button">上一曲</button>
+    <button onclick="nextSong()" type="button">下一曲</button>    <br> 
+    <audio id="audioPlayer" controls></audio>
+    <br>
+    <!-- Play button to start playlist -->
+    <button id="playBtn" onclick="startPlaylist()">开始播放</button>
+    
+    <div class="author">
+      <ul>
+        <li><a href="index.html" class="authorpage">Taleb Zhang</a></li>
+      </ul>
+    </div>
+    <br>
+    <div id="yequmar" class="txtsong">
+      <span class="yequ1"></span><br><br>
+    </div>
+    <br>
+    <div>
+      <a class="topic">Beautiful Music</a>
+      <a class="topic"></a>
+      <a class="topic">乐行音乐</a><br>
+    </div><br>
+    
+    <i class="fa fa-share-square-o" style="font-size:20px;color:#242424;float:right;"></i><br>
+  </section>
+  <hr>
+  <div class="contentxt">
+    <a href="about.html" class="tention">About</a>
+    <a class="tention">Privacy</a>
+    <a href="index.html" class="tention">Home</a><br>
+  </div>
+  
+  <script>
+    // List of songs (ensure file paths are correct)
+    const playlist = [
+      'music/cxkn.mp3',
+      'music/frj.mp3',
+      'music/nhbkq.mp3',
+      'music/psbwnq.mp3',
+      'music/qyqh.mp3',
+      'music/rsmw.mp3',
+      'music/wlz.mp3',
+      'music/wzys.mp3',
+      'music/yequ.mp3',
+      'music/zlwjd.mp3',
+      'music/zzdnsqn.mp3'
+    ];
 
-		<div class="author">
-			<ul>
-				<li><a href="index.html" class="authorpage">周杰伦</a></li>
-				<li>
-				  <a class="tention">Published in Beautiful Music</a> · 
-				  <a class="tention">3min read</a> · 
-				  <a class="tention">Feb 5, 2024</a>
-				  
-				</li>
-			</ul>
-		</div>
-				
-			<div id="yequmar" class="txtsong">
-				<span class="yequ1">一群嗜血的蚂蚁 被腐肉所吸引</span><br><br>
-				<span class="yequ2">我面无表情 看孤独的风景</span><br><br>
-				<span class="yequ3">失去你 爱恨开始分明</span><br><br>
-				<span class="yequ4">失去你 还有什么事好关心</span><br><br>
-				<span class="yequ5">当鸽子不再象征和平</span><br><br>
-				<span class="yequ6">我终于被提醒</span><br><br>
-				<span class="yequ7">广场上喂食的是秃鹰</span><br><br>
-				<span class="yequ8">我用漂亮的押韵</span><br><br>
-				<span class="yequ9">形容被掠夺一空的爱情</span><br><br>
-				<span class="yequ10">啊 乌云开始遮蔽 夜色不干净</span><br><br>
-				<span class="yequ11">公园里 葬礼的回音 在漫天飞行</span><br><br>
-				<span class="yequ12">送你的白色玫瑰</span><br><br>
-				<span class="yequ13">在纯黑的环境凋零</span><br><br>
-				<span class="yequ14">乌鸦在树枝上诡异的很安静</span><br><br>
-				<span class="yequ15">静静听 我黑色的大衣</span><br><br>
-				<span class="yequ16">想温暖你日渐冰冷的回忆</span><br><br>
-				<span class="yequ17">走过的 走过的 生命</span><br><br>
-				<span class="yequ18">啊 四周弥漫雾气</span><br><br>
-				<span class="yequ19">我在空旷的墓地</span><br><br>
-				<span class="yequ20">老去后还爱你</span><br><br>
-				<span class="yequ21">为你弹奏肖邦的夜曲</span><br><br>
-				<span class="yequ22">纪念我死去的爱情</span><br><br>
-				<span class="yequ23">跟夜风一样的声音</span><br><br>
-				<span class="yequ24">心碎的很好听</span><br><br>
-				<span class="yequ25">手在键盘敲很轻</span><br><br>
-				<span class="yequ26">我给的思念很小心</span><br><br>
-				<span class="yequ27">你埋葬的地方叫幽冥</span><br><br>
-				<span class="yequ28">为你弹奏肖邦的夜曲</span><br><br>
-				<span class="yequ29">纪念我死去的爱情</span><br><br>
-				<span class="yequ30">而我为你隐姓埋名</span><br><br>
-				<span class="yequ31">在月光下弹琴</span><br><br>
-				<span class="yequ32">对你心跳的感应</span><br><br>
-				<span class="yequ33">还是如此温热亲近</span><br><br>
-				<span class="yequ34">怀念你那鲜红的唇印</span><br><br>
-				<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-				<span class="yequ35">那些断翅的蜻蜓 散落在这森林</span><br><br>
-				<span class="yequ36">而我的眼睛 没有丝毫同情</span><br><br>
-				<span class="yequ37">失去你 泪水混浊不清</span><br><br>
-				<span class="yequ38">失去你 我连笑容都有阴影</span><br><br>
-				<span class="yequ39">风在长满青苔的屋顶</span><br><br>
-				<span class="yequ40">嘲笑我的伤心</span><br><br>
-				<span class="yequ41">像一口没有水的枯井</span><br><br>
-				<span class="yequ42">我用凄美的字型</span><br><br>
-				<span class="yequ43">描绘后悔莫及的那爱情</span><br><br>
-				<span class="yequ44">为你弹奏肖邦的夜曲</span><br><br>
-				<span class="yequ45">纪念我死去的爱情</span><br><br>
-				<span class="yequ46">跟夜风一样的声音</span><br><br>
-				<span class="yequ47">心碎的很好听</span><br><br>
-				<span class="yequ48">手在键盘敲很轻</span><br><br>
-				<span class="yequ49">我给的思念很小心</span><br><br>
-				<span class="yequ50">你埋葬的地方叫幽冥</span><br><br>
-				<span class="yequ51">为你弹奏肖邦的夜曲</span><br><br>
-				<span class="yequ52">纪念我死去的爱情</span><br><br>
-				<span class="yequ53">而我为你隐姓埋名</span><br><br>
-				<span class="yequ54">在月光下弹琴</span><br><br>
-				<span class="yequ55">对你心跳的感应</span><br><br>
-				<span class="yequ56">还是如此温热亲近</span><br><br>
-				<span class="yequ57">怀念你那鲜红的唇印</span><br><br>
-				<span class="yequ58">一群嗜血的蚂蚁 被腐肉所吸引</span><br><br>
-				<span class="yequ59">我面无表情 看孤独的风景</span><br><br>
-				<span class="yequ60">失去你 爱恨开始分明</span><br><br>
-				<span class="yequ61">失去你 还有什么事好关心</span><br><br>
-				<span class="yequ62">当鸽子不再象征和平</span><br><br>
-				<span class="yequ63">我终于被提醒</span><br><br>
-				<span class="yequ64">广场上喂食的是秃鹰</span><br><br>
-				<span class="yequ65">我用漂亮的押韵</span><br><br>
-				<span class="yequ66">形容被掠夺一空的爱情</span><br>
-			</div>
-			<br>
-		<div>
-			<a class="topic">Beautiful Music</a>
-			<a class="topic">周杰伦</a>
-			<a class="topic">流行音乐</a><br>
-		</div><br>
-		
-		<i class="fa fa-share-square-o" style="font-size:20px;color:#242424;float:right;"></i><br>
-	</section>
-	<hr>
-	<div class="contentxt">
-	   <a href="about.html" class="tention">About</a>
-	   <a class="tention">Privacy</a>
-	   <a href="index.html" class="tention">Home</a><br>
-	</div>
-	<script>
-		
-		function yeFunction1() {
-		  document.querySelector('.yequ1').style.color = "red";
-		};
-	    function yeFunctiona1() {
-		  document.querySelector('.yequ1').style.color = "#828282";
-		};
-		
-		function yeFunction2() {
-		  document.querySelector('.yequ2').style.color = "red";
-		};
-		function yeFunctiona2() {
-		  document.querySelector('.yequ2').style.color = "#828282";
-		};
-		
-		function yeFunction3() {
-		  document.querySelector('.yequ3').style.color = "red";
-		};
-		function yeFunctiona3() {
-		  document.querySelector('.yequ3').style.color = "#828282";
-		};
-		
-		function yeFunction4() {
-		  document.querySelector('.yequ4').style.color = "red";
-		};
-		function yeFunctiona4() {
-		  document.querySelector('.yequ4').style.color = "#828282";
-		};
-		
-		function yeFunction5() {
-		  document.querySelector('.yequ5').style.color = "red";
-		};
-		function yeFunctiona5() {
-		  document.querySelector('.yequ5').style.color = "#828282";
-		};
-		
-		function yeFunction6() {
-		  document.querySelector('.yequ6').style.color = "red";
-		};
-		function yeFunctiona6() {
-		  document.querySelector('.yequ6').style.color = "#828282";
-		};
-		
-		function yeFunction7() {
-		  document.querySelector('.yequ7').style.color = "red";
-		};
-		function yeFunctiona7() {
-		  document.querySelector('.yequ7').style.color = "#828282";
-		};
-		
-		function yeFunction8() {
-		  document.querySelector('.yequ8').style.color = "red";
-		};
-		function yeFunctiona8() {
-		  document.querySelector('.yequ8').style.color = "#828282";
-		};
-		
-		function yeFunction9() {
-		  document.querySelector('.yequ9').style.color = "red";
-		};
-		function yeFunctiona9() {
-		  document.querySelector('.yequ9').style.color = "#828282";
-		};
-		
-		function yeFunction10() {
-		  document.querySelector('.yequ10').style.color = "red";
-		};
-		function yeFunctiona10() {
-		  document.querySelector('.yequ10').style.color = "#828282";
-		};
-		
-		function yeFunction11() {
-		  document.querySelector('.yequ11').style.color = "red";
-		};
-		function yeFunctiona11() {
-		  document.querySelector('.yequ11').style.color = "#828282";
-		};
-		
-		function yeFunction12() {
-		  document.querySelector('.yequ12').style.color = "red";
-		};
-		function yeFunctiona12() {
-		  document.querySelector('.yequ12').style.color = "#828282";
-		};
-		
-		function yeFunction13() {
-		  document.querySelector('.yequ13').style.color = "red";
-		};
-		function yeFunctiona13() {
-		  document.querySelector('.yequ13').style.color = "#828282";
-		};
-		
-		function yeFunction14() {
-		  document.querySelector('.yequ14').style.color = "red";
-		};
-		function yeFunctiona14() {
-		  document.querySelector('.yequ14').style.color = "#828282";
-		};
-		
-		function yeFunction15() {
-		  document.querySelector('.yequ15').style.color = "red";
-		};
-		function yeFunctiona15() {
-		  document.querySelector('.yequ15').style.color = "#828282";
-		};
-		
-		function yeFunction16() {
-		  document.querySelector('.yequ16').style.color = "red";
-		};
-		function yeFunctiona16() {
-		  document.querySelector('.yequ16').style.color = "#828282";
-		};
-		
-		function yeFunction17() {
-		  document.querySelector('.yequ17').style.color = "red";
-		};
-		function yeFunctiona17() {
-		  document.querySelector('.yequ17').style.color = "#828282";
-		};
-		
-		function yeFunction18() {
-		  document.querySelector('.yequ18').style.color = "red";
-		};
-		function yeFunctiona18() {
-		  document.querySelector('.yequ18').style.color = "#828282";
-		};
-		
-		function yeFunction19() {
-		  document.querySelector('.yequ19').style.color = "red";
-		};
-		function yeFunctiona19() {
-		  document.querySelector('.yequ19').style.color = "#828282";
-		};
-		
-		function yeFunction20() {
-		  document.querySelector('.yequ20').style.color = "red";
-		};
-		function yeFunctiona20() {
-		  document.querySelector('.yequ20').style.color = "#828282";
-		};
-		
-		function yeFunction21() {
-		  document.querySelector('.yequ21').style.color = "red";
-		};
-		function yeFunctiona21() {
-		  document.querySelector('.yequ21').style.color = "#828282";
-		};
-		
-		function yeFunction22() {
-		  document.querySelector('.yequ22').style.color = "red";
-		};
-		function yeFunctiona22() {
-		  document.querySelector('.yequ22').style.color = "#828282";
-		};
-		
-		function yeFunction23() {
-		  document.querySelector('.yequ23').style.color = "red";
-		};
-		function yeFunctiona23() {
-		  document.querySelector('.yequ23').style.color = "#828282";
-		};
-		function yeFunction24() {
-		  document.querySelector('.yequ24').style.color = "red";
-		};
-		function yeFunctiona24() {
-		  document.querySelector('.yequ24').style.color = "#828282";
-		};
-		
-		function yeFunction25() {
-		  document.querySelector('.yequ25').style.color = "red";
-		};
-		function yeFunctiona25() {
-		  document.querySelector('.yequ25').style.color = "#828282";
-		};
-		
-		function yeFunction26() {
-		  document.querySelector('.yequ26').style.color = "red";
-		};
-		function yeFunctiona26() {
-		  document.querySelector('.yequ26').style.color = "#828282";
-		};
-		
-		function yeFunction27() {
-		  document.querySelector('.yequ27').style.color = "red";
-		};
-		function yeFunctiona27() {
-		  document.querySelector('.yequ27').style.color = "#828282";
-		};
-		
-		function yeFunction28() {
-		  document.querySelector('.yequ28').style.color = "red";
-		};
-		function yeFunctiona28() {
-		  document.querySelector('.yequ28').style.color = "#828282";
-		};
-		
-		function yeFunction29() {
-		  document.querySelector('.yequ29').style.color = "red";
-		};
-		function yeFunctiona29() {
-		  document.querySelector('.yequ29').style.color = "#828282";
-		};
-		
-		function yeFunction30() {
-		  document.querySelector('.yequ30').style.color = "red";
-		};
-		function yeFunctiona30() {
-		  document.querySelector('.yequ30').style.color = "#828282";
-		};
-		
-		function yeFunction31() {
-		  document.querySelector('.yequ31').style.color = "red";
-		};
-		function yeFunctiona31() {
-		  document.querySelector('.yequ31').style.color = "#828282";
-		};
-		
-		function yeFunction32() {
-		  document.querySelector('.yequ32').style.color = "red";
-		};
-		function yeFunctiona32() {
-		  document.querySelector('.yequ32').style.color = "#828282";
-		};
-		
-		function yeFunction33() {
-		  document.querySelector('.yequ33').style.color = "red";
-		};
-		function yeFunctiona33() {
-		  document.querySelector('.yequ33').style.color = "#828282";
-		};
-		
-		function yeFunction34() {
-		  document.querySelector('.yequ34').style.color = "red";
-		};
-		function yeFunctiona34() {
-		  document.querySelector('.yequ34').style.color = "#828282";
-		};
-		
-		function yeFunction35() {
-		  document.querySelector('.yequ35').style.color = "red";
-		};
-		function yeFunctiona35() {
-		  document.querySelector('.yequ35').style.color = "#828282";
-		};
-		
-		function yeFunction36() {
-		  document.querySelector('.yequ36').style.color = "red";
-		};
-		function yeFunctiona36() {
-		  document.querySelector('.yequ36').style.color = "#828282";
-		};
-		
-		function yeFunction37() {
-		  document.querySelector('.yequ37').style.color = "red";
-		};
-		function yeFunctiona37() {
-		  document.querySelector('.yequ37').style.color = "#828282";
-		};
-		
-		function yeFunction38() {
-		  document.querySelector('.yequ38').style.color = "red";
-		};
-		function yeFunctiona38() {
-		  document.querySelector('.yequ38').style.color = "#828282";
-		};
-		
-		function yeFunction39() {
-		  document.querySelector('.yequ39').style.color = "red";
-		};
-		function yeFunctiona39() {
-		  document.querySelector('.yequ39').style.color = "#828282";
-		};
-		
-		function yeFunction40() {
-		  document.querySelector('.yequ40').style.color = "red";
-		};
-		function yeFunctiona40() {
-		  document.querySelector('.yequ40').style.color = "#828282";
-		};
-		
-		function yeFunction41() {
-		  document.querySelector('.yequ41').style.color = "red";
-		};
-		function yeFunctiona41() {
-		  document.querySelector('.yequ41').style.color = "#828282";
-		};
-		
-		function yeFunction42() {
-		  document.querySelector('.yequ42').style.color = "red";
-		};
-		function yeFunctiona42() {
-		  document.querySelector('.yequ42').style.color = "#828282";
-		};
-		
-		function yeFunction43() {
-		  document.querySelector('.yequ43').style.color = "red";
-		};
-		function yeFunctiona43() {
-		  document.querySelector('.yequ43').style.color = "#828282";
-		};
-		
-		function yeFunction44() {
-		  document.querySelector('.yequ44').style.color = "red";
-		};
-		function yeFunctiona44() {
-		  document.querySelector('.yequ44').style.color = "#828282";
-		};
-		function yeFunction45() {
-		  document.querySelector('.yequ45').style.color = "red";
-		};
-		function yeFunctiona45() {
-		  document.querySelector('.yequ45').style.color = "#828282";
-		};
-		
-		function yeFunction46() {
-		  document.querySelector('.yequ46').style.color = "red";
-		};
-		function yeFunctiona46() {
-		  document.querySelector('.yequ46').style.color = "#828282";
-		};
-		
-		function yeFunction47() {
-		  document.querySelector('.yequ47').style.color = "red";
-		};
-		function yeFunctiona47() {
-		  document.querySelector('.yequ47').style.color = "#828282";
-		};
-		
-		function yeFunction48() {
-		  document.querySelector('.yequ48').style.color = "red";
-		};
-		function yeFunctiona48() {
-		  document.querySelector('.yequ48').style.color = "#828282";
-		};
-		
-		function yeFunction49() {
-		  document.querySelector('.yequ49').style.color = "red";
-		};
-		function yeFunctiona49() {
-		  document.querySelector('.yequ49').style.color = "#828282";
-		};
-		
-		function yeFunction50() {
-		  document.querySelector('.yequ50').style.color = "red";
-		};
-		function yeFunctiona50() {
-		  document.querySelector('.yequ50').style.color = "#828282";
-		};
-		
-		function yeFunction51() {
-		  document.querySelector('.yequ51').style.color = "red";
-		};
-		function yeFunctiona51() {
-		  document.querySelector('.yequ51').style.color = "#828282";
-		};
-		
-		function yeFunction52() {
-		  document.querySelector('.yequ52').style.color = "red";
-		};
-		function yeFunctiona52() {
-		  document.querySelector('.yequ52').style.color = "#828282";
-		};
-		
-		function yeFunction53() {
-		  document.querySelector('.yequ53').style.color = "red";
-		};
-		function yeFunctiona53() {
-		  document.querySelector('.yequ53').style.color = "#828282";
-		};
-		
-		function yeFunction54() {
-		  document.querySelector('.yequ54').style.color = "red";
-		};
-		function yeFunctiona54() {
-		  document.querySelector('.yequ54').style.color = "#828282";
-		};
-		
-		function yeFunction55() {
-		  document.querySelector('.yequ55').style.color = "red";
-		};
-		function yeFunctiona55() {
-		  document.querySelector('.yequ55').style.color = "#828282";
-		};
-		function yeFunction56() {
-		  document.querySelector('.yequ56').style.color = "red";
-		};
-		function yeFunctiona56() {
-		  document.querySelector('.yequ56').style.color = "#828282";
-		};
-		
-		function yeFunction57() {
-		  document.querySelector('.yequ57').style.color = "red";
-		};
-		function yeFunctiona57() {
-		  document.querySelector('.yequ57').style.color = "#828282";
-		};
-		
-		function yeFunction58() {
-		  document.querySelector('.yequ58').style.color = "red";
-		};
-		function yeFunctiona58() {
-		  document.querySelector('.yequ58').style.color = "#828282";
-		};
-		
-		function yeFunction59() {
-		  document.querySelector('.yequ59').style.color = "red";
-		};
-		function yeFunctiona59() {
-		  document.querySelector('.yequ59').style.color = "#828282";
-		};
-		
-		function yeFunction60() {
-		  document.querySelector('.yequ60').style.color = "red";
-		};
-		function yeFunctiona60() {
-		  document.querySelector('.yequ60').style.color = "#828282";
-		};
-		
-		function yeFunction61() {
-		  document.querySelector('.yequ61').style.color = "red";
-		};
-		function yeFunctiona61() {
-		  document.querySelector('.yequ61').style.color = "#828282";
-		};
-		
-		function yeFunction62() {
-		  document.querySelector('.yequ62').style.color = "red";
-		};
-		function yeFunctiona62() {
-		  document.querySelector('.yequ62').style.color = "#828282";
-		};
-		
-		function yeFunction63() {
-		  document.querySelector('.yequ63').style.color = "red";
-		};
-		function yeFunctiona63() {
-		  document.querySelector('.yequ63').style.color = "#828282";
-		};
-		
-		function yeFunction64() {
-		  document.querySelector('.yequ64').style.color = "red";
-		};
-		function yeFunctiona64() {
-		  document.querySelector('.yequ64').style.color = "#828282";
-		};
-		
-		function yeFunction65() {
-		  document.querySelector('.yequ65').style.color = "red";
-		};
-		function yeFunctiona65() {
-		  document.querySelector('.yequ65').style.color = "#828282";
-		};
-		
-		function yeFunction66() {
-		  document.querySelector('.yequ66').style.color = "red";
-		};
-		function yeFunctiona66() {
-		  document.querySelector('.yequ66').style.color = "#828282";
-		};
-		
-		
-		
-		
-	function yequ1Function() {
-	  setTimeout(yeFunction1, 24500);
-	  setTimeout(yeFunctiona1, 27500);
-	
-	  setTimeout(yeFunction2, 27500);
-	  setTimeout(yeFunctiona2, 30500);
-	  
-	  setTimeout(yeFunction3, 30500);
-	  setTimeout(yeFunctiona3, 32500);
-	  
-	  setTimeout(yeFunction4, 32500);
-	  setTimeout(yeFunctiona4, 35500);
-	  
-	  setTimeout(yeFunction5, 35500);
-	  setTimeout(yeFunctiona5, 37500);
-	  
-	  setTimeout(yeFunction6, 37500);
-	  setTimeout(yeFunctiona6, 39500);
-	  
-	  setTimeout(yeFunction7, 39500);
-	  setTimeout(yeFunctiona7, 41500);
-	  
-	  setTimeout(yeFunction8, 41500);
-	  setTimeout(yeFunctiona8, 42500);
-	  
-	  setTimeout(yeFunction9, 42500);
-	  setTimeout(yeFunctiona9, 45000);
-	  
-	  setTimeout(yeFunction10, 46500);
-	  setTimeout(yeFunctiona10, 49500);
-	  
-	  setTimeout(yeFunction11, 49500);
-	  setTimeout(yeFunctiona11, 51500);
-	  
-	  setTimeout(yeFunction12, 51500);
-	  setTimeout(yeFunctiona12, 53500);
-	  
-	  setTimeout(yeFunction13, 53500);
-	  setTimeout(yeFunctiona13, 55000);
-	  
-	  setTimeout(yeFunction14, 55000);
-	  setTimeout(yeFunctiona14, 57000);
-	  
-	  setTimeout(yeFunction15, 57000);
-	  setTimeout(yeFunctiona15, 59500);
-	  
-	  setTimeout(yeFunction16, 59500);
-	  setTimeout(yeFunctiona16, 61500);
-	  
-	  setTimeout(yeFunction17, 61500);
-	  setTimeout(yeFunctiona17, 63500);
-	  
-	  setTimeout(yeFunction18, 63500);
-	  setTimeout(yeFunctiona18, 65000);
-	  
-	  setTimeout(yeFunction19, 65000);
-	  setTimeout(yeFunctiona19, 66000);
-	  
-	  setTimeout(yeFunction20, 66000);
-	  setTimeout(yeFunctiona20, 68000);
-	  
-	  setTimeout(yeFunction21, 68000);
-	  setTimeout(yeFunctiona21, 71500);
-	  
-	  setTimeout(yeFunction22, 71500);
-	  setTimeout(yeFunctiona22, 74500);
-	  
-	  setTimeout(yeFunction23, 74500);
-	  setTimeout(yeFunctiona23, 77500);
-	  
-	  setTimeout(yeFunction24, 77500);
-	  setTimeout(yeFunctiona24, 80000);
-	  
-	  setTimeout(yeFunction25, 80000);
-	  setTimeout(yeFunctiona25, 83500);
-	  
-	  setTimeout(yeFunction26, 83500);
-	  setTimeout(yeFunctiona26, 84500);
-	  
-	  setTimeout(yeFunction27, 84500);
-	  setTimeout(yeFunctiona27, 89500);
-	  
-	  setTimeout(yeFunction28, 89500);
-	  setTimeout(yeFunctiona28, 93500);
-	  
-	  setTimeout(yeFunction29, 93500);
-	  setTimeout(yeFunctiona29, 95500);
-	  
-	  setTimeout(yeFunction30, 95500);
-	  setTimeout(yeFunctiona30, 99500);
-	  
-	  setTimeout(yeFunction31, 99500);
-	  setTimeout(yeFunctiona31, 102000);
-	  
-	  setTimeout(yeFunction32, 102000);
-	  setTimeout(yeFunctiona32, 104500);
-	  
-	  setTimeout(yeFunction33, 104500);
-	  setTimeout(yeFunctiona33, 107500);
-	  
-	  setTimeout(yeFunction34, 107500);
-	  setTimeout(yeFunctiona34, 113000);
-	  
-	  setTimeout(yeFunction35, 134500);
-	  setTimeout(yeFunctiona35, 138000);
-	  
-	  setTimeout(yeFunction36, 138000);
-	  setTimeout(yeFunctiona36, 140500);
-	  
-	  setTimeout(yeFunction37, 140500);
-	  setTimeout(yeFunctiona37, 143500);
-	  
-	  setTimeout(yeFunction38, 143500);
-	  setTimeout(yeFunctiona38, 145500);
-	  
-	  setTimeout(yeFunction39, 145500);
-	  setTimeout(yeFunctiona39, 147500);
-	  
-	  setTimeout(yeFunction40, 147500);
-	  setTimeout(yeFunctiona40, 150000);
-	  
-	  setTimeout(yeFunction41, 150000);
-	  setTimeout(yeFunctiona41, 151500);
-	  
-	  setTimeout(yeFunction42, 151500);
-	  setTimeout(yeFunctiona42, 152500);
-	  
-	  setTimeout(yeFunction43, 152500);
-	  setTimeout(yeFunctiona43, 156000);
-	  
-	  setTimeout(yeFunction44, 156000);
-	  setTimeout(yeFunctiona44, 160000);
-	  
-	  setTimeout(yeFunction45, 160000);
-	  setTimeout(yeFunctiona45, 163000);
-	  
-	  setTimeout(yeFunction46, 163000);
-	  setTimeout(yeFunctiona46, 165000);
-	  
-	  setTimeout(yeFunction47, 165000);
-	  setTimeout(yeFunctiona47, 168000);
-	  
-	  setTimeout(yeFunction48, 168000);
-	  setTimeout(yeFunctiona48, 171500);
-	  
-	  setTimeout(yeFunction49, 171500);
-	  setTimeout(yeFunctiona49, 174000);
-	  
-	  setTimeout(yeFunction50, 174000);
-	  setTimeout(yeFunctiona50, 178000);
-	  
-	  setTimeout(yeFunction51, 178000);
-	  setTimeout(yeFunctiona51, 182000);
-	  
-	  setTimeout(yeFunction52, 182000);
-	  setTimeout(yeFunctiona52, 184500);
-	  
-	  setTimeout(yeFunction53, 184500);
-	  setTimeout(yeFunctiona53, 187500);
-	  
-	  setTimeout(yeFunction54, 187500);
-	  setTimeout(yeFunctiona54, 189500);
-	  
-	  setTimeout(yeFunction55, 189500);
-	  setTimeout(yeFunctiona55, 193000);
-	  
-	  setTimeout(yeFunction56, 193000);
-	  setTimeout(yeFunctiona56, 196000);
-	  
-	  setTimeout(yeFunction57, 196000);
-	  setTimeout(yeFunctiona57, 201000);
-	  
-	  setTimeout(yeFunction58, 201000);
-	  setTimeout(yeFunctiona58, 204500);
-	  
-	  setTimeout(yeFunction59, 204500);
-	  setTimeout(yeFunctiona59, 207000);
-	  
-	  setTimeout(yeFunction60, 207000);
-	  setTimeout(yeFunctiona60, 209500);
-	  
-	  setTimeout(yeFunction61, 209500);
-	  setTimeout(yeFunctiona61, 213000);
-	  
-	  setTimeout(yeFunction62, 213000);
-	  setTimeout(yeFunctiona62, 214500);
-	  
-	  setTimeout(yeFunction63, 214500);
-	  setTimeout(yeFunctiona63, 216000);
-	  
-	  setTimeout(yeFunction64, 216000);
-	  setTimeout(yeFunctiona64, 217500);
-	  
-	  setTimeout(yeFunction65, 217500);
-	  setTimeout(yeFunctiona65, 219000);
-	  
-	  setTimeout(yeFunction66, 219000);
-	  setTimeout(yeFunctiona66, 222000);
-	  
-	}
-	
-	
-	
-	</script>
-</body>
-</blog>
+    let currentSongIndex = 0;
+    const audioPlayer = document.getElementById('audioPlayer');
+let isLoopEnabled = false;
+    // Load and play a song from the playlist
+    function loadSong(index) {
+      if (index >= 0 && index < playlist.length) {
+        console.log(`Loading song: ${playlist[index]}`);
+        audioPlayer.src = playlist[index];
+        audioPlayer.load(); // Explicitly load the file
+        audioPlayer.play().then(() => {
+          console.log(`Playing song: ${playlist[index]}`);
+        }).catch(error => {
+          console.error("Error playing the song:", error);
+        });      } else {
+        console.error("Invalid song index");
+      }
+    }
+
+    // Event listener for when the song ends
+    audioPlayer.addEventListener('ended', () => {
+     if (isLoopEnabled) {
+        // Loop the current song if enabled
+        loadSong(currentSongIndex);
+      } else {
+        // Move to the next song
+        nextSong();
+      }    });
+
+    // Function to start the playlist (triggered by button click)
+    function startPlaylist() {
+      loadSong(currentSongIndex);
+      document.getElementById('playBtn').style.display = 'none'; // Hide the button after starting
+    }
+
+    // Function to enable/disable loop
+    function toggleLoop() {
+      isLoopEnabled = !isLoopEnabled;
+      document.getElementById('loopBtn').textContent = isLoopEnabled ? 'Disable Loop' : 'Enable Loop';
+      console.log(isLoopEnabled ? "Loop enabled" : "Loop disabled");
+    }
+
+    // Load the next song in the playlist
+    function nextSong() {
+      currentSongIndex++;
+      if (currentSongIndex < playlist.length) {
+        loadSong(currentSongIndex);
+      } else {
+        currentSongIndex = 0; // Reset to first song
+        loadSong(currentSongIndex);
+      }
+    }
+
+    // Load the previous song in the playlist
+    function previousSong() {
+      currentSongIndex--;
+      if (currentSongIndex < 0) {
+        currentSongIndex = playlist.length - 1; // Wrap around to the last song
+      }
+      loadSong(currentSongIndex);
+    }  </script>
+</body></blog>
 </html>
