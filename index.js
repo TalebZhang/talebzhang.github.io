@@ -30,6 +30,7 @@ function divHide1() {
 	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
+	document.querySelector(".japaneselearning").style.display = "block";
 	
 	
 }
