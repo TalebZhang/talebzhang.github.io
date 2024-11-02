@@ -24,10 +24,13 @@ function divHide() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "none";
 }
 
 function divHide1() {
@@ -43,12 +46,13 @@ function divHide1() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "block";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "none";
-	
-	
 }
 
 function divHide2() {
@@ -64,10 +68,13 @@ function divHide2() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "none";
 	
 }
 
@@ -84,11 +91,13 @@ function divHide3() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "block";
-	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "none";
-	
+	document.querySelector(".healthadvice").style.display = "none";	
 }
 
 function divHide4() {
@@ -104,11 +113,13 @@ function divHide4() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
-	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "none";
-	
+	document.querySelector(".healthadvice").style.display = "none";	
 }
 
 function divHide5() {
@@ -124,12 +135,13 @@ function divHide5() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
-	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "none";
-
-	
+	document.querySelector(".healthadvice").style.display = "none";	
 }
 
 function divHide6() {
@@ -145,11 +157,13 @@ function divHide6() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "none";
-	
 }
 
 function divHide7() {
@@ -165,11 +179,13 @@ function divHide7() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
-	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "none";
-	
+	document.querySelector(".healthadvice").style.display = "none";	
 }
 
 function divHide8() {
@@ -185,11 +201,13 @@ function divHide8() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "none";
-	
 }
 
 function divHide9() {
@@ -205,11 +223,13 @@ function divHide9() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "block";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "none";
-
 }
 
 function divHide11() {
@@ -225,10 +245,13 @@ function divHide11() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "block";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".beautifulsongs").style.display = "block";
 
 }
 
@@ -245,10 +268,13 @@ function divHide10() {
 	for (let i = 0; i < nodeList2.length; i++) {
 	nodeList2[i].style.display = "none";
 	}
+	const nodeList3 = document.querySelectorAll(".beautifulsongs");
+	for (let i = 0; i < nodeList3.length; i++) {
+	nodeList3[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "block";
 	document.querySelector(".healthadvice").style.display = "block";
-	document.querySelector(".beautifulsongs").style.display = "none";
 }
 
 function myFunction() {
