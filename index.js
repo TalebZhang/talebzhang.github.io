@@ -15,8 +15,11 @@ function divHide() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "block";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
-	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 	document.querySelector(".jpread").style.display = "none";
@@ -27,8 +30,11 @@ function divHide1() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "none";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
-	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 	document.querySelector(".jpread").style.display = "block";
@@ -41,8 +47,11 @@ function divHide2() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "none";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
-	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 	document.querySelector(".jpread").style.display = "none";
@@ -54,8 +63,11 @@ function divHide3() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "none";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
-	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "block";
 	document.querySelector(".healthadvice").style.display = "none";
 	document.querySelector(".jpread").style.display = "none";
@@ -67,8 +79,11 @@ function divHide4() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "none";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "block";
+	}
 	document.querySelector(".englishreading").style.display = "none";
-	document.querySelector(".myreading").style.display = "block";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 	document.querySelector(".jpread").style.display = "none";
@@ -80,8 +95,11 @@ function divHide5() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "none";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
-	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 	document.querySelector(".jpread").style.display = "none";
@@ -94,8 +112,11 @@ function divHide6() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "none";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
-	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 	document.querySelector(".jpread").style.display = "none";
@@ -107,8 +128,11 @@ function divHide7() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "none";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
-	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 	document.querySelector(".jpread").style.display = "none";
@@ -120,8 +144,11 @@ function divHide8() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "none";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
-	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 	document.querySelector(".jpread").style.display = "none";
@@ -133,8 +160,11 @@ function divHide9() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "none";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "block";
-	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 	document.querySelector(".jpread").style.display = "none";
@@ -146,8 +176,11 @@ function divHide10() {
 	for (let i = 0; i < nodeList.length; i++) {
 	nodeList[i].style.display = "block";
 	}
+	const nodeList1 = document.querySelectorAll(".myreading");
+	for (let i = 0; i < nodeList1.length; i++) {
+	nodeList1[i].style.display = "block";
+	}
 	document.querySelector(".englishreading").style.display = "none";
-	document.querySelector(".myreading").style.display = "block";
 	document.querySelector(".myexperience").style.display = "block";
 	document.querySelector(".healthadvice").style.display = "block";
 	document.querySelector(".jpread").style.display = "none";
