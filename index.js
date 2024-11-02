@@ -19,6 +19,7 @@ function divHide() {
 	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
+	document.querySelector(".japaneselearning").style.display = "none";
 }
 
 function divHide1() {
@@ -44,6 +45,7 @@ function divHide2() {
 	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
+	document.querySelector(".japaneselearning").style.display = "none";
 	
 }
 
@@ -56,6 +58,7 @@ function divHide3() {
 	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "block";
 	document.querySelector(".healthadvice").style.display = "none";
+	document.querySelector(".japaneselearning").style.display = "none";
 	
 }
 
@@ -68,6 +71,7 @@ function divHide4() {
 	document.querySelector(".myreading").style.display = "block";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
+	document.querySelector(".japaneselearning").style.display = "none";
 	
 }
 
@@ -80,6 +84,7 @@ function divHide5() {
 	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
+	document.querySelector(".japaneselearning").style.display = "none";
 
 	
 }
@@ -93,6 +98,7 @@ function divHide6() {
 	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
+	document.querySelector(".japaneselearning").style.display = "none";
 	
 }
 
@@ -105,6 +111,7 @@ function divHide7() {
 	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
+	document.querySelector(".japaneselearning").style.display = "none";
 	
 }
 
@@ -117,6 +124,7 @@ function divHide8() {
 	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
+	document.querySelector(".japaneselearning").style.display = "none";
 	
 }
 
@@ -129,6 +137,7 @@ function divHide9() {
 	document.querySelector(".myreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
+	document.querySelector(".japaneselearning").style.display = "none";
 
 }
 
@@ -141,6 +150,7 @@ function divHide10() {
 	document.querySelector(".myreading").style.display = "block";
 	document.querySelector(".myexperience").style.display = "block";
 	document.querySelector(".healthadvice").style.display = "block";
+	document.querySelector(".japaneselearning").style.display = "none";
 }
 
 function myFunction() {
