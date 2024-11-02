@@ -20,10 +20,13 @@ function divHide() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "none";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "none";
 }
 
@@ -36,10 +39,13 @@ function divHide1() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "none";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "block";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "block";
 	document.querySelector(".beautifulsongs").style.display = "none";
 	
 	
@@ -54,10 +60,13 @@ function divHide2() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "none";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "none";
 	
 }
@@ -71,10 +80,13 @@ function divHide3() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "none";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "block";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "none";
 	
 }
@@ -88,10 +100,13 @@ function divHide4() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "block";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "none";
 	
 }
@@ -105,10 +120,13 @@ function divHide5() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "none";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "none";
 
 	
@@ -123,10 +141,13 @@ function divHide6() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "none";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "none";
 	
 }
@@ -140,10 +161,13 @@ function divHide7() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "none";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "none";
 	
 }
@@ -157,10 +181,13 @@ function divHide8() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "none";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "none";
 	
 }
@@ -174,10 +201,13 @@ function divHide9() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "none";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "block";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "none";
 
 }
@@ -191,10 +221,13 @@ function divHide11() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "none";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "block";
 
 }
@@ -208,10 +241,13 @@ function divHide10() {
 	for (let i = 0; i < nodeList1.length; i++) {
 	nodeList1[i].style.display = "block";
 	}
+	const nodeList2 = document.querySelectorAll(".jpread");
+	for (let i = 0; i < nodeList2.length; i++) {
+	nodeList2[i].style.display = "none";
+	}
 	document.querySelector(".englishreading").style.display = "none";
 	document.querySelector(".myexperience").style.display = "block";
 	document.querySelector(".healthadvice").style.display = "block";
-	document.querySelector(".jpread").style.display = "none";
 	document.querySelector(".beautifulsongs").style.display = "none";
 }
 
