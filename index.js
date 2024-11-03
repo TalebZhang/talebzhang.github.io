@@ -28,7 +28,10 @@ function divHide() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 }
@@ -50,7 +53,10 @@ function divHide1() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 }
@@ -72,7 +78,10 @@ function divHide2() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 	
@@ -95,7 +104,10 @@ function divHide3() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "block";
 	document.querySelector(".healthadvice").style.display = "none";	
 }
@@ -117,7 +129,10 @@ function divHide4() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";	
 }
@@ -139,7 +154,10 @@ function divHide5() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";	
 }
@@ -161,7 +179,10 @@ function divHide6() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 }
@@ -183,7 +204,10 @@ function divHide7() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";	
 }
@@ -205,7 +229,10 @@ function divHide8() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 }
@@ -227,7 +254,10 @@ function divHide9() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "block";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "block";
+	}
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 }
@@ -249,7 +279,10 @@ function divHide11() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "block";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "none";
 	document.querySelector(".healthadvice").style.display = "none";
 
@@ -272,7 +305,10 @@ function divHide10() {
 	for (let i = 0; i < nodeList3.length; i++) {
 	nodeList3[i].style.display = "none";
 	}
-	document.querySelector(".englishreading").style.display = "none";
+	const nodeList4 = document.querySelectorAll(".englishreading");
+	for (let i = 0; i < nodeList4.length; i++) {
+	nodeList4[i].style.display = "none";
+	}
 	document.querySelector(".myexperience").style.display = "block";
 	document.querySelector(".healthadvice").style.display = "block";
 }
