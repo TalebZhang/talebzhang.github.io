@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>girl</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style>
+		.contentxtu {
+		  width:100%;
+		  margin:auto;
+		}
+		#example1 {
+			background-color:black;
+			background-position: right bottom, left top;
+			background-repeat: no-repeat, repeat;
+			height: 80px;
+            width:100%;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+		}
+        .example2 {
+            background-color: #232f3e;
+            height: 50px;
+            width: 100%;
+        }
+        .example3 {
+            background-color: #ffffff;
+            height: 40px;
+            width: 100%;
+        }
+        .menu {
+        width: 28%;
+        float: left;
+        padding: 15px;
+        background-color:white;
+        }
+
+        .main {
+        width: 72%;
+        float: left;
+        padding: 15px;
+        background-color:white;
+        }
+		.icon {
+			float: right;
+
+		}
+
+		.icon-custom {
+			font-size: 44px; /* Adjust icon size */
+			font-weight: 50; /* Adjust icon weight */
+			color: #020609; /* Customize icon color */
+			padding-left: 20px;
+			margin-right: 10px;
+		}
+        .col-1 {width: 8.33%;}
+        .col-2 {width: 16.66%;}
+        .col-3 {width: 25%;}
+        .col-4 {width: 33.33%;}
+        .col-5 {width: 41.66%;}
+        .col-6 {width: 50%;}
+        .col-7 {width: 58.33%;}
+        .col-8 {width: 66.66%;}
+        .col-9 {width: 75%;}
+        .col-10 {width: 83.33%;}
+        .col-11 {width: 91.66%;}
+        .col-12 {width: 100%;}
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+            }
+
+            [class*="col-"] {
+            float: left;
+            padding: 5px;
+            }
+            .card {
+  box-shadow: 0 4px 0px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: 0;
+  text-align: left;
+  font-family: arial;
+  line-height: normal;
+}
+
+.title {
+  color: grey;
+  font-size: 15px;
+  font-weight: 200;
+}
+
+.rating {
+    color: #ffa41c; /* Amazon-style yellow for stars */
+    font-size: 18px;
+  }
+
+a {
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+}
+
+a:hover{
+  color:#de7921
+}
+
+li {
+    display: block; /* Ensures each <li> is on a new line */
+    margin-top:6px;
+    
+  }
+ 
+ ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove default padding */
+  margin: 0px 10px 0px 10px; /* Remove default margin */
+}
+
+ /* Footer styles */
+ .footer {
+    background-color: #232f3e;
+    color: white;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  .footer a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .footer a:hover {
+    color: white;
+    text-decoration: underline;
+  }
+
+  .footer-columns {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .footer-column {
+    flex: 1;
+    min-width: 150px;
+    margin: 10px;
+  }
+
+  .footer-column h3 {
+    color: #ddd;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+  }
+
+  .back-to-top {
+    background-color: #232f3e;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .back-to-top a {
+    color: #ddd;
+    text-decoration: none;
+    font-weight: normal;
+  }
+
+  .back-to-top a:hover {
+    color: white;
+  }
+
+  .sidebar {
+    
+    background-color: #f3f3f3;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border-right: 1px solid #ddd;
+  }
+
+  .sidebar h3 {
+    font-size: 16px;
+    color: #111;
+    margin-bottom: 15px;
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar li {
+    padding: 8px 0;
+  }
+
+  .sidebar a {
+    color: #2a2a2b;
+    text-decoration: none;
+  }
+
+  .sidebar a:hover {
+    text-decoration: underline;
+    color:#de7921
+  }
+
+  .category {
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .subcategory {
+    display: none;
+    margin-left: 15px;
+  }
+
+  /* Expandable list */
+  .category.open + .subcategory {
+    display: block;
+  }
+	</style>
+</head>
+
+<body class=".txtbody">
+	<header>
+	
+	  <div id="example1"><a href="index.html" class="authorpage">
+        <img src="pic/amzon.jpg" alt="Girl in a jacket"  
+        style="width:180px;height:auto;float: left;border-top-left-radius: 10px;border-top-right-radius: 10px;padding-top: 5px;">
+    </a>
+    <il class="icon">
+    <i class="fa fa-search  icon-custom" aria-hidden="true" ></i>
+    <i class="fa fa-bars icon-custom" aria-hidden="true"></i></il>
+    </div>
+    <div class="example2"></div>
+    <div class="example3"></div><hr>
+	</header>
+    <div class="menu">
+        <div class="sidebar">
+            <h3>カテゴリー</h3>
+            <ul>
+              <li>
+                <span class="category" onclick="toggleCategory(this)">自転車</span>
+                <ul class="subcategory">
+                  <li><a href="#">マウンテンバイク</a></li>
+                  <li><a href="#">ロードバイク</a></li>
+                  <li><a href="#">折りたたみ自転車</a></li>
+                  <li><a href="#">電動自転車</a></li>
+                </ul>
+              </li>
+              <li>
+                <span class="category" onclick="toggleCategory(this)">自転車アクセサリー</span>
+                <ul class="subcategory">
+                  <li><a href="#">ヘルメット</a></li>
+                  <li><a href="#">ライト</a></li>
+                  <li><a href="#">ロック</a></li>
+                  <li><a href="#">グローブ</a></li>
+                  <li><a href="#">サドル</a></li>
+                </ul>
+              </li>
+              <li>
+                <span class="category" onclick="toggleCategory(this)">メンテナンス用品</span>
+                <ul class="subcategory">
+                  <li><a href="#">オイル・潤滑剤</a></li>
+                  <li><a href="#">修理キット</a></li>
+                  <li><a href="#">ポンプ</a></li>
+                  <li><a href="#">タイヤ</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+      </div>
+      
+      <div class="main">
+        <h2>The City</h2>
+        <img src="pic/cycle.jpg" alt="ad"  
+        style="width:99%;height:auto;">
+      
+        <h2>结果</h2>
+        <div class="row">
+
+            <div class="col-4 card">
+                <img src="pic/bikec.jpg" alt="bikec"  
+                style="width:100%;height:auto;">
+                <ul style="padding-bottom:65px;">
+                    <li style="font-weight:300"><a>JIEBEIER 自転車 折りたたみ自転車 20インチ 軽量 小径車 防滑タイヤ 高炭素鋼フレーム リアキャリア付き キャリパ</a></li>
+                    <li class="rating">
+                        <!-- Display star rating (4 out of 5 in this example) -->
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>4.0</span>
+                      </li>
+                    <li class="title" style="margin-bottom:20px;">過去1か月で100点以上購入されました</li>
+                    <li style="color:#b1275d;font-size:28px;margin-top:10px;">￥11,280</li>
+                     <li style="color:#b1275d;">170ポイント(1%)</li>
+                      <li><span style="background-color:#7fda69;">￥1,500 OFF </span>クーポンあり いくつかのサイズ / カラーが対象</li>
+                   <li><span style="font-weight: bold;">明日中11月5日</span>までにお届け<br>
+                  通常配送料無料</li>
+                </ul>     
+            </div>
+            
+            <div class="col-4 card">
+                <img src="pic/bikec.jpg" alt="bikec"  
+                style="width:100%;height:auto;">
+                <ul style="padding-bottom:65px;">
+                    <li style="font-weight:300"><a>JIEBEIER 自転車 折りたたみ自転車 20インチ 軽量 小径車 防滑タイヤ 高炭素鋼フレーム リアキャリア付き キャリパ</a></li>
+                    <li class="rating">
+                        <!-- Display star rating (4 out of 5 in this example) -->
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>4.0</span>
+                      </li>
+                    <li class="title" style="margin-bottom:20px;">過去1か月で100点以上購入されました</li>
+                    <li style="color:#b1275d;font-size:28px;margin-top:10px;">￥11,280</li>
+                     <li style="color:#b1275d;">170ポイント(1%)</li>
+                      <li><span style="background-color:#7fda69;">￥1,500 OFF </span>クーポンあり いくつかのサイズ / カラーが対象</li>
+                   <li><span style="font-weight: bold;">明日中11月5日</span>までにお届け<br>
+                  通常配送料無料</li>
+                </ul>     
+            </div>
+
+            <div class="col-4 card">
+                <img src="pic/bikec.jpg" alt="bikec"  
+                style="width:100%;height:auto;">
+                <ul style="padding-bottom:65px;">
+                    <li style="font-weight:300"><a>JIEBEIER 自転車 折りたたみ自転車 20インチ 軽量 小径車 防滑タイヤ 高炭素鋼フレーム リアキャリア付き キャリパ</a></li>
+                    <li class="rating">
+                        <!-- Display star rating (4 out of 5 in this example) -->
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>4.0</span>
+                      </li>
+                    <li class="title" style="margin-bottom:20px;">過去1か月で100点以上購入されました</li>
+                    <li style="color:#b1275d;font-size:28px;margin-top:10px;">￥11,280</li>
+                     <li style="color:#b1275d;">170ポイント(1%)</li>
+                      <li><span style="background-color:#7fda69;">￥1,500 OFF </span>クーポンあり いくつかのサイズ / カラーが対象</li>
+                   <li><span style="font-weight: bold;">明日中11月5日</span>までにお届け<br>
+                  通常配送料無料</li>
+                </ul>          
+            </div>
+
+        </div>
+       
+      </div>
+      
+	
+	<hr>
+    
+	
+    <div class="back-to-top">
+        <a href="#top">トップに戻る</a>
+      </div>
+      
+      <footer class="footer">
+        <div class="footer-columns">
+          <div class="footer-column">
+            <h3>Amazonについて</h3>
+            <a href="#">Amazonについて</a><br>
+            <a href="#">採用情報</a><br>
+            <a href="#">プレスリリース</a><br>
+            <a href="#">Amazon Science</a>
+          </div>
+      
+          <div class="footer-column">
+            <h3>収益活動</h3>
+            <a href="#">Amazonで販売する</a><br>
+            <a href="#">Amazonアソシエイト</a><br>
+            <a href="#">法人向けに販売する</a><br>
+            <a href="#">広告掲載について</a>
+          </div>
+      
+          <div class="footer-column">
+            <h3>Amazonの支払い方法</h3>
+            <a href="#">Amazon Rewards Visaカード</a><br>
+            <a href="#">Amazonストアカード</a><br>
+            <a href="#">Amazonセキュアカード</a><br>
+            <a href="#">Amazonビジネスカード</a>
+          </div>
+      
+          <div class="footer-column">
+            <h3>サポート</h3>
+            <a href="#">AmazonとCOVID-19</a><br>
+            <a href="#">アカウント</a><br>
+            <a href="#">注文履歴</a><br>
+            <a href="#">配送ポリシー</a>
+          </div>
+        </div>
+      
+        <div class="footer-bottom">
+          <p>&copy; 2024, YourAmazonClone.com, Inc. またはその関連会社</p>
+        </div>
+      </footer>
+    <div class="contentxt">
+	   <a href="about.html" class="tention">About</a>
+	   <a class="tention">Privacy</a>
+	   <a href="index.html" class="tention">Home</a><br>
+	</div>
+    <script>
+        function toggleCategory(element) {
+          element.classList.toggle("open");
+        }
+      </script>
+</body>
+</blog>
+</html>
