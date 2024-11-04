@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>girl</title>
+	<title>YOZi</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="icon" href="pic/YOZi.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<style>
 		.contentxtu {
 		  width:100%;
@@ -16,6 +17,7 @@
 			background-color:black;
 			background-position: right bottom, left top;
 			background-repeat: no-repeat, repeat;
+      
 			height: 80px;
             width:100%;
             border-top-left-radius: 10px;
@@ -76,15 +78,16 @@
 
             [class*="col-"] {
             float: left;
-            padding: 5px;
+            padding: 0px;
             }
             .card {
-  box-shadow: 0 4px 0px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: 0;
+  box-shadow: 0 4px 0px 0 rgba(255, 255, 255, 0.99);
+  width: 30%;
+  margin: 5px;
   text-align: left;
   font-family: arial;
   line-height: normal;
+  border:#faf8f8 solid 1px;
 }
 
 .title {
@@ -231,19 +234,80 @@ li {
   .category.open + .subcategory {
     display: block;
   }
+
+  .search-bar-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #121921;
+    padding: 0px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin: 0px;
+}
+
+.icon-link {
+    margin-right: 10px;
+    font-size: 24px;
+    color: #333;
+    text-decoration: none;
+}
+
+.search-input {
+    width:300px;
+    height: 46px;
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-button {
+  height: 46px;
+    padding: 10px 15px;
+    background-color: #f0c14b;
+    border: 1px solid #a88734;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.language-switcher {
+  height: 45px;
+  width: 50px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
 	</style>
 </head>
 
 <body class=".txtbody">
 	<header>
 	
-	  <div id="example1"><a href="index.html" class="authorpage">
-        <img src="pic/amzon.jpg" alt="Girl in a jacket"  
-        style="width:180px;height:auto;float: left;border-top-left-radius: 10px;border-top-right-radius: 10px;padding-top: 5px;">
-    </a>
-    <il class="icon">
-    <i class="fa fa-search  icon-custom" aria-hidden="true" ></i>
-    <i class="fa fa-bars icon-custom" aria-hidden="true"></i></il>
+	  <div id="example1">
+      
+      <div class="search-bar-container">
+        <a href="index.html" class="authorpage">
+          <img src="pic/amzon.jpg" alt="Girl in a jacket"  
+          style="width:180px;height:auto;float: left;border-top-left-radius: 10px;border-top-right-radius: 10px;padding-top: 5px;">
+        </a>
+        <div style="vertical-align: middle;padding-top: 20px;">
+        <input type="text" class="search-input" placeholder="Search for products...">
+        <button class="search-button">Search</button>
+        <select class="language-switcher">
+            <option value="en">EN</option>
+            <option value="ja">JP</option>
+            <option value="zh">CN</option>
+        </select></div>
+        <a href="https://line.me/ti/p/zzyiji" target="_blank" style="padding-top: 22px;">
+          <img src="pic/line.jpg" alt="Line Icon" style="border-radius:50%;width: 34px; height: 34px; vertical-align: middle;">
+          <span style="margin-left: 5px; color: #00c300; font-size: 18px;"></span>
+        </a>
+      </div>
+
     </div>
     <div class="example2"></div>
     <div class="example3"></div><hr>
@@ -286,40 +350,48 @@ li {
       
       <div class="main">
         <h2>The City</h2>
-        <img src="pic/cycle.jpg" alt="ad"  
-        style="width:99%;height:auto;">
-      
+        <img src="pic/cycle.jpg" alt="ad" style="width:99%;height:auto;">
         <h2>结果</h2>
         <div class="row">
 
             <div class="col-4 card">
-                <img src="pic/bikec.jpg" alt="bikec"  
-                style="width:100%;height:auto;">
+                <img src="pic/umber.jpg" alt="bikec" style="width:100%;height:auto;">
                 <ul style="padding-bottom:65px;">
-                    <li style="font-weight:300"><a>JIEBEIER 自転車 折りたたみ自転車 20インチ 軽量 小径車 防滑タイヤ 高炭素鋼フレーム リアキャリア付き キャリパ</a></li>
+                    <li style="font-weight:300">
+                      <a href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
+                        折りたたみ傘 メンズ 24本骨 順折り式 折り畳み傘 96cm ワンタッチ 自動開閉 日伞 台風対応 梅雨対策 耐風 撥水 晴雨兼用 男女日傘 UVカット 紫外線遮蔽  メンズ レディース
+                      </a>
+                    </li>
                     <li class="rating">
                         <!-- Display star rating (4 out of 5 in this example) -->
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <span>4.0</span>
-                      </li>
+                        <i class="fas fa-star"></i>
+                        <span>5.0</span>
+                    </li>
                     <li class="title" style="margin-bottom:20px;">過去1か月で100点以上購入されました</li>
-                    <li style="color:#b1275d;font-size:28px;margin-top:10px;">￥11,280</li>
-                     <li style="color:#b1275d;">170ポイント(1%)</li>
-                      <li><span style="background-color:#7fda69;">￥1,500 OFF </span>クーポンあり いくつかのサイズ / カラーが対象</li>
-                   <li><span style="font-weight: bold;">明日中11月5日</span>までにお届け<br>
-                  通常配送料無料</li>
+                    <li style="margin-top:10px;">
+                      <a style="color:#b1275d;font-size:28px;" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
+                      ￥980
+                      </a>
+                    </li>
+                    <li style="color:#b1275d;">10ポイント(1%)</li>
+                    <li><span style="background-color:#7fda69;">￥15 OFF </span>クーポンあり いくつかのサイズ / カラーが対象</li>
+                    <li><span style="font-weight: bold;">
+                      明日中11月5日</span>までにお届け<br>
+                      通常配送料無料
+                    </li>
                 </ul>     
             </div>
             
             <div class="col-4 card">
-                <img src="pic/bikec.jpg" alt="bikec"  
+                <img src="pic/chozi.jpg" alt="bikec"  
                 style="width:100%;height:auto;">
                 <ul style="padding-bottom:65px;">
-                    <li style="font-weight:300"><a>JIEBEIER 自転車 折りたたみ自転車 20インチ 軽量 小径車 防滑タイヤ 高炭素鋼フレーム リアキャリア付き キャリパ</a></li>
+                    <li style="font-weight:300"><a href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
+                      自転車 虫ゴム 不要 スーパーバルブ 德式 (ブラック4個) むしゴム不要 バルブ</a></li>
                     <li class="rating">
                         <!-- Display star rating (4 out of 5 in this example) -->
                         <i class="fas fa-star"></i>
@@ -329,20 +401,25 @@ li {
                         <i class="far fa-star"></i>
                         <span>4.0</span>
                       </li>
-                    <li class="title" style="margin-bottom:20px;">過去1か月で100点以上購入されました</li>
-                    <li style="color:#b1275d;font-size:28px;margin-top:10px;">￥11,280</li>
-                     <li style="color:#b1275d;">170ポイント(1%)</li>
-                      <li><span style="background-color:#7fda69;">￥1,500 OFF </span>クーポンあり いくつかのサイズ / カラーが対象</li>
+                    <li class="title" style="margin-bottom:20px;">過去1か月で400点以上購入されました</li>
+                    <li style="margin-top:10px;"><a style="color:#b1275d;font-size:28px;" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">￥330</a></li>
+                     <li style="color:#b1275d;">3ポイント(1%)</li>
+                      <li><span style="background-color:#7fda69;">￥3 OFF </span>クーポンあり いくつかのサイズ / カラーが対象</li>
                    <li><span style="font-weight: bold;">明日中11月5日</span>までにお届け<br>
                   通常配送料無料</li>
                 </ul>     
             </div>
 
             <div class="col-4 card">
-                <img src="pic/bikec.jpg" alt="bikec"  
+                
+                <img src="pic/star.jpg" alt="bikec"  
                 style="width:100%;height:auto;">
                 <ul style="padding-bottom:65px;">
-                    <li style="font-weight:300"><a>JIEBEIER 自転車 折りたたみ自転車 20インチ 軽量 小径車 防滑タイヤ 高炭素鋼フレーム リアキャリア付き キャリパ</a></li>
+                    <li style="font-weight:300">
+                      <a href="https://jp.mercari.com/item/m68434898109?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
+                      多色 星型・球型 LED ガーランドライト クリスマスライト 長さ3m 20灯
+                      </a>
+                    </li>
                     <li class="rating">
                         <!-- Display star rating (4 out of 5 in this example) -->
                         <i class="fas fa-star"></i>
@@ -353,13 +430,18 @@ li {
                         <span>4.0</span>
                       </li>
                     <li class="title" style="margin-bottom:20px;">過去1か月で100点以上購入されました</li>
-                    <li style="color:#b1275d;font-size:28px;margin-top:10px;">￥11,280</li>
-                     <li style="color:#b1275d;">170ポイント(1%)</li>
+                    <li style="color:#b1275d;font-size:28px;margin-top:10px;">
+                      <a style="color:#b1275d;font-size:28px;" href="https://jp.mercari.com/item/m68434898109?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">￥560</a>
+                    </li>
+                     <li style="color:#b1275d;">6ポイント(1%)</li>
                       <li><span style="background-color:#7fda69;">￥1,500 OFF </span>クーポンあり いくつかのサイズ / カラーが対象</li>
                    <li><span style="font-weight: bold;">明日中11月5日</span>までにお届け<br>
                   通常配送料無料</li>
                 </ul>          
             </div>
+            
+            
+        
 
         </div>
        
@@ -422,6 +504,7 @@ li {
           element.classList.toggle("open");
         }
       </script>
+      <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </blog>
 </html>
