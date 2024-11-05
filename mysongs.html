@@ -1,159 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Taleb Zhang</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="./styles.css">
-<style>
-    /* Example CSS styling */
-    .contentxt { text-align: center; margin: 20px; }
-    .authorpage { text-decoration: none; color: black; }
-    .txtbody { font-family: Arial, sans-serif; }
-    .headname { font-size: 2em; }
-    .txtsong { margin-top: 20px; }
-    .topic { margin-right: 10px; }
-    .fa { margin-top: 20px; cursor: pointer; }
-  </style></head>
+    <title>Taleb Zhang - Music Player</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        /* General styles */
+        body {
+            background-color: #181818; /* Dark background */
+            color: #ffffff; /* Light text */
+            font-family: Arial, sans-serif;
+        }
+        .contentxt { text-align: center; margin: auto; }
+        .authorpage { text-decoration: none; color: #1DB954; }
+        .headname { font-size: 2em; margin: 20px 0; }
+        .button { background-color: #1DB954; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 20px; }
+        .button:hover { background-color: #1AAE4D; }
+        .playlist { 
+            display: none; 
+            position: absolute; 
+            background-color: #282828; 
+            border-radius: 5px; 
+            padding: 10px; 
+            width: 200px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            z-index: 1000; 
+            max-height: 200px; 
+            overflow-y: auto; 
+        }
+        .playlist li { 
+            list-style: none; 
+            padding: 8px; 
+            cursor: pointer; 
+        }
+        .playlist li:hover { background-color: #3A3A3A; }
+        .current-song { font-weight: bold; }
+        .fa-playlist { cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
 
-<body class="txtbody">
-  <header>
-    <h1 class="headname"><a href="index.html" class="authorpage">Taleb Zhang</a></h1>
-    <hr>
-  </header>
-  <br><br><br><br>
+<body >
 
-  <section class="contentxt">
+<br><br><br><br>
+
+<section class="contentxt">
     <h3 class="songtitle">音乐地带</h3>
-   <button id="loopBtn" onclick="toggleLoop()" type="button">单曲循环</button>
-    <button onclick="previousSong()" type="button">上一曲</button>
-    <button onclick="nextSong()" type="button">下一曲</button>    <br> 
+    <button class="button" id="loopBtn" onclick="toggleLoop()">单曲循环</button>
+    <button class="button" onclick="previousSong()">上一曲</button>
+    <button class="button" onclick="nextSong()">下一曲</button>
+    <i class="fa fa-list fa-playlist" onclick="togglePlaylist()" style="font-size: 34px; color: #1DB954;"></i>
+    <ul class="playlist" id="playlist">
+        <!-- Playlist items will be dynamically inserted here -->
+    </ul>
+    <p id="currentSongInfo"></p>
     <audio id="audioPlayer" controls></audio>
-    <br>
-    <!-- Play button to start playlist -->
-    <button id="playBtn" onclick="startPlaylist()">开始播放</button>
     
-    <div class="author">
-      <ul>
-        <li><a href="index.html" class="authorpage">Taleb Zhang</a></li>
-      </ul>
-    </div>
+    <br>
+    <button class="button" id="playBtn" onclick="startPlaylist()">开始播放</button>
+    
+   
     <br>
     <div id="yequmar" class="txtsong">
-      <span class="yequ1"></span><br><br>
+        <span class="yequ1"></span><br><br>
     </div>
     <br>
-    <div>
-      <a class="topic">Beautiful Music</a>
-      <a class="topic"></a>
-      <a class="topic">乐行音乐</a><br>
-    </div><br>
     
-    <i class="fa fa-share-square-o" style="font-size:20px;color:#242424;float:right;"></i><br>
-  </section>
-  <hr>
-  <div class="contentxt">
-    <a href="about.html" class="tention">About</a>
-    <a class="tention">Privacy</a>
-    <a href="index.html" class="tention">Home</a><br>
-  </div>
-  
-  <script>
-    // List of songs (ensure file paths are correct)
+    
+    
+    
+</section>
+
+
+<script>
     const playlist = [
-      'music/cxkn.mp3',
-      'music/frj.mp3',
-      'music/nhbkq.mp3',
-      'music/psbwnq.mp3',
-      'music/qyqh.mp3',
-      'music/rsmw.mp3',
-      'music/wlz.mp3',
-      'music/yequ.mp3',
-      'music/zlwjd.mp3',
-      'music/zzdnsqn.mp3',
-      'music/bzji.mp3',
-      'music/dqcx.mp3',
-      'music/dydy.mp3',
-      'music/jolo.mp3',
-      'music/ndwsqs.mp3',
-      'music/wdtbz.mp3',
-      'music/wfxlc.mp3',
-      'music/whys.mp3',
-      'music/yqxs.mp3',
-      'music/yxjh.mp3',
-      'music/zszy.mp3',
-      'music/dtdmm.mp3',
-      'music/gbsdc.mp3',
-      'music/hhun.mp3',
-      'music/jmszr.mp3',
-      'music/jsbe.mp3',
-      'music/lstrq.mp3',
-      'music/nrhy.mp3',
-      'music/qhua.mp3',
-      'music/wdxtr.mp3',
-      'music/wng.mp3'
+        { title: '可能', artist: '程响', src: 'music/cxkn.mp3' },
+        { title: '凡人诀', artist: '王梓赫Ray', src: 'music/frj.mp3' },
+        { title: '姑娘别哭泣', artist: '柯柯柯啊', src: 'music/nhbkq.mp3' },
+        { title: '平生不晚', artist: '难却', src: 'music/psbwnq.mp3' },
+        { title: '青花', artist: '周传雄', src: 'music/qyqh.mp3' },
+        { title: '落', artist: '唐伯虎Annie', src: 'music/rsmw.mp3' },
+        { title: '重生之我在异乡为异客', artist: '王睿卓', src: 'music/wlz.mp3' },
+        { title: '我记得', artist: '赵雷', src: 'music/zlwjd.mp3' },
+        { title: '站着等你三千年', artist: '海来阿木', src: 'music/zzdnsqn.mp3' },
+        { title: '别知己', artist: '海来阿木', src: 'music/bzji.mp3' },
+        { title: '断桥残雪', artist: '许嵩', src: 'music/dqcx.mp3' },
+        { title: '电音', artist: '', src: 'music/dydy.mp3' },
+        { title: 'Jar of Love', artist: '曲婉婷', src: 'music/jolo.mp3' },
+        { title: '你的万水千山', artist: '海来阿木', src: 'music/ndwsqs.mp3' },
+        { title: '问得太逼真', artist: '张敬轩', src: 'music/wdtbz.mp3' },
+        { title: '粤语歌曲', artist: '女声', src: 'music/wfxlc.mp3' },
+        { title: '往后余生', artist: '王贰浪', src: 'music/whys.mp3' },
+        { title: '一曲相思', artist: '阿悠悠', src: 'music/yqxs.mp3' },
+        { title: '一笑江湖', artist: '科目三', src: 'music/yxjh.mp3' },
+        { title: '左手指月', artist: '萨顶顶', src: 'music/zszy.mp3' },
+        { title: '记事本', artist: '周传雄', src: 'music/jsbe.mp3' },
+        { title: '蓝色土耳其', artist: '周传雄', src: 'music/lstrq.mp3' },
+        { title: '男人海洋', artist: '周传雄', src: 'music/nrhy.mp3' },
+        { title: '我的心太乱', artist: '周传雄', src: 'music/wdxtr.mp3' },
+        { title: '冬天的秘密', artist: '周传雄', src: 'music/dtdmm.mp3' },
+        { title: '青花', artist: '周传雄', src: 'music/qhua.mp3' },
+        { title: '我难过', artist: '周传雄', src: 'music/wng.mp3' },
+        { title: '关不上的窗', artist: '周传雄', src: 'music/gbsdc.mp3' },
+        { title: '寂寞沙洲冷', artist: '周传雄', src: 'music/jmszr.mp3' },
+        { title: '黄昏', artist: '周传雄', src: 'music/hhun.mp3' },
+        // Add more songs here
     ];
 
     let currentSongIndex = 0;
     const audioPlayer = document.getElementById('audioPlayer');
-let isLoopEnabled = false;
-    // Load and play a song from the playlist
+    let isLoopEnabled = false;
+
     function loadSong(index) {
-      if (index >= 0 && index < playlist.length) {
-        console.log(`Loading song: ${playlist[index]}`);
-        audioPlayer.src = playlist[index];
-        audioPlayer.load(); // Explicitly load the file
-        audioPlayer.play().then(() => {
-          console.log(`Playing song: ${playlist[index]}`);
-        }).catch(error => {
-          console.error("Error playing the song:", error);
-        });      } else {
-        console.error("Invalid song index");
-      }
+        if (index >= 0 && index < playlist.length) {
+            console.log(`Loading song: ${playlist[index].title}`);
+            audioPlayer.src = playlist[index].src;
+            audioPlayer.load();
+            audioPlayer.play().then(() => {
+                console.log(`Playing song: ${playlist[index].title}`);
+                updateCurrentSongInfo(index);
+            }).catch(error => {
+                console.error("Error playing the song:", error);
+            });
+        }
     }
 
-    // Event listener for when the song ends
     audioPlayer.addEventListener('ended', () => {
-     if (isLoopEnabled) {
-        // Loop the current song if enabled
-        loadSong(currentSongIndex);
-      } else {
-        // Move to the next song
-        nextSong();
-      }    });
+        if (isLoopEnabled) {
+            loadSong(currentSongIndex);
+        } else {
+            nextSong();
+        }
+    });
 
-    // Function to start the playlist (triggered by button click)
     function startPlaylist() {
-      loadSong(currentSongIndex);
-      document.getElementById('playBtn').style.display = 'none'; // Hide the button after starting
+        loadSong(currentSongIndex);
+        document.getElementById('playBtn').style.display = 'none';
     }
 
-    // Function to enable/disable loop
     function toggleLoop() {
-      isLoopEnabled = !isLoopEnabled;
-      document.getElementById('loopBtn').textContent = isLoopEnabled ? 'Disable Loop' : 'Enable Loop';
-      console.log(isLoopEnabled ? "Loop enabled" : "Loop disabled");
+        isLoopEnabled = !isLoopEnabled;
+        document.getElementById('loopBtn').textContent = isLoopEnabled ? 'Disable Loop' : 'Enable Loop';
     }
 
-    // Load the next song in the playlist
     function nextSong() {
-      currentSongIndex++;
-      if (currentSongIndex < playlist.length) {
-        loadSong(currentSongIndex);
-      } else {
-        currentSongIndex = 0; // Reset to first song
-        loadSong(currentSongIndex);
-      }
+        currentSongIndex++;
+        if (currentSongIndex < playlist.length) {
+            loadSong(currentSongIndex);
+        } else {
+            currentSongIndex = 0;
+            loadSong(currentSongIndex);
+        }
     }
 
-    // Load the previous song in the playlist
     function previousSong() {
-      currentSongIndex--;
-      if (currentSongIndex < 0) {
-        currentSongIndex = playlist.length - 1; // Wrap around to the last song
-      }
-      loadSong(currentSongIndex);
-    }  </script>
-</body></blog>
+        currentSongIndex--;
+        if (currentSongIndex < 0) {
+            currentSongIndex = playlist.length - 1;
+        }
+        loadSong(currentSongIndex);
+    }
+
+    function updateCurrentSongInfo(index) {
+        const currentSongInfo = document.getElementById('currentSongInfo');
+        currentSongInfo.innerText = `${playlist[index].title} - ${playlist[index].artist}`;
+        highlightCurrentSong(index);
+    }
+
+    function highlightCurrentSong(index) {
+        const playlistItems = document.querySelectorAll('.playlist li');
+        playlistItems.forEach((item, idx) => {
+            if (idx === index) {
+                item.classList.add('current-song');
+            } else {
+                item.classList.remove('current-song');
+            }
+        });
+    }
+
+    function populatePlaylist() {
+        const playlistElement = document.getElementById('playlist');
+        playlist.forEach((song, index) => {
+            const li = document.createElement('li');
+            li.innerText = `${song.title} - ${song.artist}`;
+            li.onclick = () => {
+                currentSongIndex = index;
+                loadSong(currentSongIndex);
+            };
+            playlistElement.appendChild(li);
+        });
+    }
+
+    // Show/hide the playlist
+    function togglePlaylist() {
+        const playlistElement = document.getElementById('playlist');
+        playlistElement.style.display = playlistElement.style.display === 'none' || playlistElement.style.display === '' ? 'block' : 'none';
+    }
+
+    populatePlaylist();
+</script>
+</body>
 </html>
