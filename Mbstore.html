@@ -6,45 +6,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="./styles.css">
-  <link rel="icon" href="pic/YOZi.jpg" type="image/jpeg">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="pic/YOZi.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<style>
-		.contentxtu {
-		  width:100%;
-		  margin:auto;
-		}
-		#example1 {
-			background-color:black;
-			background-position: right bottom, left top;
-			background-repeat: no-repeat, repeat;
-      
-			height: 80px;
-            width:100%;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-		}
-        .example2 {
-            background-color: #232f3e;
-            height: 50px;
-            width: 100%;
-        }
-        .example3 {
-            background-color: #ffffff;
-            height: 30px;
-            width: 100%;
-        }
-        
-
         .main {
-        width: 100%;
-        float: left;
-        padding: 15px;
-        background-color:white;
-        }
+            width: 100%;
+            float: left;
+            padding: 10px;
+            background-color:white;
+            }
+
 		.icon {
 			float: right;
-
-		}
+		    }
 
 		.icon-custom {
 			font-size: 44px; /* Adjust icon size */
@@ -52,7 +26,8 @@
 			color: #020609; /* Customize icon color */
 			padding-left: 20px;
 			margin-right: 10px;
-		}
+		    }
+
         .col-1 {width: 8.33%;}
         .col-2 {width: 16.66%;}
         .col-3 {width: 25%;}
@@ -75,411 +50,286 @@
             float: left;
             padding: 0px;
             }
-            .card {
-  box-shadow: 0 4px 0px 0 rgba(255, 255, 255, 0.99);
-  width: 47%;
-  margin: 2px;
-  text-align: left;
-  font-family: arial;
-  line-height: normal;
-  border:#faf8f8 solid 1px;
-}
+        .card {
+            box-shadow: 0 4px 0px 0 rgba(255, 255, 255, 0.99);
+            width: 47%;
+            margin: 2px;
+            text-align: left;
+            font-family: arial;
+            line-height: normal;
+            border:#faf8f8 solid 1px;
+            }
 
-.title {
-  color: grey;
-  font-size: 15px;
-  font-weight: 200;
-}
-
-
-
-a {
-  text-decoration: none;
-  font-size: 18px;
-  color: black;
-}
-
-a:hover{
-  color:#de7921
-}
-
-li {
-    display: block; /* Ensures each <li> is on a new line */
-    margin-top:6px;
-    
-  }
- 
- ul {
-  list-style-type: none; /* Remove bullets */
-  padding: 0; /* Remove default padding */
-  margin: 0px 10px 0px 10px; /* Remove default margin */
-}
-
-
-
-  .back-to-top {
-    background-color: white;
-    text-align: center;
-    padding: 10px;
-  }
-
-  .back-to-top a {
-    color: #252525;
-    text-decoration: none;
-    font-weight: normal;
-    font-size: 10px;
-  }
-
-  .back-to-top a:hover {
-    color: black;
-  }
-
-  .sidebar {
-    
-    background-color: #f3f3f3;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    border-right: 1px solid #ddd;
-  }
-
-  .sidebar h3 {
-    font-size: 16px;
-    color: #111;
-    margin-bottom: 15px;
-  }
-
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .sidebar li {
-    padding: 8px 0;
-  }
-
-  .sidebar a {
-    color: #2a2a2b;
-    text-decoration: none;
-  }
-
-  .sidebar a:hover {
-    text-decoration: underline;
-    color:#de7921
-  }
-
-  .category {
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
-  }
-
-  .subcategory {
-    display: none;
-    margin-left: 15px;
-  }
-
-  /* Expandable list */
-  .category.open + .subcategory {
-    display: block;
-  }
-
-  .search-bar-container {
-    display: flex;
-    justify-content: space-between;
-    background-color: #121921;
-    padding: 0px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    margin: 0px;
-}
-
-.icon-link {
-    margin-right: 10px;
-    font-size: 24px;
-    color: #333;
-    text-decoration: none;
-}
-
-.search-input {
-    width:300px;
-    height: 46px;
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
-.search-button {
-  height: 46px;
-    padding: 10px 15px;
-    background-color: #f0c14b;
-    border: 1px solid #a88734;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.language-switcher {
-  height: 45px;
-  width: 53px;
-    margin-left: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: white;
-}
-    .rating {
-        color: #0a0a0a; /* Amazon-style yellow for stars */
-        font-size: 10px;
-        margin-bottom: -6px; 
-    }
-    .primg{
-        width:100%;
-        height:auto;
-        border-radius: 5px;
-        margin-bottom: -16px;
+        a {
+            text-decoration: none;
+            color: black;
         }
-    .listul{ margin: 0;
-        padding: 0;
-        list-style-type: none;
-        
-    }
-    .ltitle{
-            font-weight:200;font-size: 8px;
+
+        a:hover{
+            color:#de7921
+        }
+        li {
+            display: block; /* Ensures each <li> is on a new line */
+            margin-top:6px;
+        }
+ 
+        ul {
+            list-style-type: none; /* Remove bullets */
+            padding: 0; /* Remove default padding */
+            margin: 0px 10px 0px 10px; /* Remove default margin */
+        }
+
+        .back-to-top {
+            background-color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .back-to-top a {
+            color: #6d6d6d;
+            text-decoration: none;
+            font-weight: normal;
+            font-size: 10px;
+        }
+
+        .back-to-top a:hover {
+            color: black;
+        }
+
+
+        .search-bar-container {
+            display: flex;
+            justify-content: space-between;
+            background-color: #121921;
+            padding: 0px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 0px;
+        }
+
+        .language-switcher {
+            height: 45px;
+            width: 53px;
+            margin-left: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+        .rating {
+            color: #0a0a0a; /* Amazon-style yellow for stars */
+            font-size: 10px;
+            margin-bottom: -6px; 
+        }
+        .primg{
+            width:100%;
+            height:auto;
+            border-radius: 5px;
+            margin-bottom: -16px;
+            }
+        .listul{ margin: 0;
+            padding: 0;
+            list-style-type: none;
             
-            }
-    .prize {
+        }
+        .ltitle{
+            font-weight:200;font-size: 8px;
+        }
+        .prize {
             color:#b1275d;font-size:12px;font-weight: bold;
-            }
-    .selln {
+        }
+        .selln {
             font-size: 8px;
         }
-    .litit{
-        margin-bottom: -6px;
-    }
-    .ensize{
-        color:#b1275d;
-        font-size: 9px;  
-    }
+        .litit{
+            margin-bottom: -6px;
+        }
+        .ensize{
+            color:#b1275d;
+            font-size: 9px;  
+        }
 
+        .category-container {
+            text-align: center;
+            margin: 5px;
+            padding-bottom: 0px;
+        }
+        .category-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .icons-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+    
+        .icon-item {
+            width: 60px;
+            margin: 0 10px;
+            text-align: center;
+        }
+        .icon-item i {
+            font-size: 36px;
+            color: #555;
+        }
+        .icon-label {
+            margin-top: 5px;
+            font-size: 14px;
+        }
 
-    .category-container {
-      text-align: center;
-      margin: 20px;
-    }
-    .category-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-    .icons-row {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
-    .icon-item {
-      width: 60px;
-      margin: 0 10px;
-      text-align: center;
-    }
-    .icon-item i {
-      font-size: 36px;
-      color: #555;
-    }
-    .icon-label {
-      margin-top: 5px;
-      font-size: 14px;
-    }
+        .gallery-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%; /* adjust based on the number of images */
+        }
+        .gallery-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .gallery-slide img {
+            width: 100%;
+            display: block;
+        }
 
-    .gallery-container {
-      width: 100%;
-      max-width: 600px;
-      margin: 20px auto;
-      position: relative;
-      overflow: hidden;
-    }
-    .gallery-slides {
-      display: flex;
-      transition: transform 0.5s ease;
-      width: 100%; /* adjust based on the number of images */
-    }
-    .gallery-slide {
-      min-width: 100%;
-      box-sizing: border-box;
-    }
-    .gallery-slide img {
-      width: 100%;
-      display: block;
-    }
+        /* Header Styles */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Ensures the header stays on top of other elements */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+        }
 
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
+        }
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .shadow-hr {
+            position: relative;
+            height: 1px;
+            background-color: #fdfcfc;
+            margin: 20px 0;
+        }
 
-    /* Header Styles */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 20px;
-      background-color: #f8f9fa;
-      border-bottom: 1px solid #ddd;
-    }
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #333;
-    }
-    .search-bar {
-      flex: 1;
-      max-width: 400px;
-      margin: 0 20px;
-    }
-    .search-bar input[type="text"] {
-      width: 100%;
-      padding: 8px;
-      font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
+        .shadow-hr::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -4px; /* Adjust to control shadow's distance */
+            height: 2px;  /* Shadow height */
+            background: rgba(216, 216, 216, 0.3); /* Shadow color */
+            border-radius: 100%; /* Optional, adds a softer shadow */
+        }
+
+        .padbod{
+            padding-top: 50px;
+        }
 	</style>
 </head>
 
-<body class=".txtbody">
-	<!-- <header>
+<body class=".txtbody padbod">
 	
-	  <div id="example1">
-      
-      <div class="search-bar-container">
-        <a href="index.html" class="authorpage">
-          <img src="pic/amzon.jpg" alt="Girl in a jacket"  
-          style="width:180px;height:auto;float: left;border-top-left-radius: 10px;border-top-right-radius: 10px;padding-top: 5px;">
-        </a>
-        <div style="vertical-align: middle;padding-top: 20px;">
-        <input type="text" class="search-input" placeholder="Search for products...">
-        <button class="search-button">Search</button>
-        <select class="language-switcher">
-            <option value="en">EN</option>
-            <option value="ja">JP</option>
-            <option value="zh">CN</option>
-        </select></div>
-        <a href="https://line.me/ti/p/zzyiji" target="_blank" style="padding-top: 22px;margin-right: 5px;">
-          <img src="pic/line.jpg" alt="Line Icon" style="border-radius:50%;width: 34px; height: 34px; vertical-align: middle;">
-          <span style="margin-left: 5px; color: #00c300; font-size: 18px;"></span>
-        </a>
-      </div>
-
+    <div class="header">
+        <div class="logo">YOZi</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+        <i class="fa-solid fa-magnifying-glass"></i>
     </div>
-    <div class="example2"></div>
-    <div class="example3"></div><hr><br><br><br>
-	</header> -->
-    <!-- <div class="menu">
-        <div class="sidebar">
-            <h3>カテゴリー</h3>
-            <ul>
-              <li>
-                <span class="category" onclick="toggleCategory(this)">自転車</span>
-                <ul class="subcategory">
-                  <li><a href="#">マウンテンバイク</a></li>
-                  <li><a href="#">ロードバイク</a></li>
-                  <li><a href="#">折りたたみ自転車</a></li>
-                  <li><a href="#">電動自転車</a></li>
-                </ul>
-              </li>
-              <li>
-                <span class="category" onclick="toggleCategory(this)">自転車アクセサリー</span>
-                <ul class="subcategory">
-                  <li><a href="#">ヘルメット</a></li>
-                  <li><a href="#">ライト</a></li>
-                  <li><a href="#">ロック</a></li>
-                  <li><a href="#">グローブ</a></li>
-                  <li><a href="#">サドル</a></li>
-                </ul>
-              </li>
-              <li>
-                <span class="category" onclick="toggleCategory(this)">メンテナンス用品</span>
-                <ul class="subcategory">
-                  <li><a href="#">オイル・潤滑剤</a></li>
-                  <li><a href="#">修理キット</a></li>
-                  <li><a href="#">ポンプ</a></li>
-                  <li><a href="#">タイヤ</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-      </div> -->
-      <!-- Header with Logo and Search -->
-<div class="header">
-    <div class="logo">YOZi</div>
-    <div class="search-bar">
-      <input type="text" placeholder="Search...">
-    </div>
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </div>
 
       <!-- Image Gallery -->
-<div class="gallery-container">
-    <div class="gallery-slides" id="slides">
-      <div class="gallery-slide"><img src="pic/slide1.jpg" alt="Image 1"></div>
-      <div class="gallery-slide"><img src="pic/slide2.jpg" alt="Image 2"></div>
-      <div class="gallery-slide"><img src="pic/slide3.jpg" alt="Image 3"></div>
-      <!-- Add more images as needed -->
+    <div class="gallery-container">
+        <div class="gallery-slides" id="slides">
+            <div class="gallery-slide"><img src="pic/slide1.jpg" alt="Image 1"></div>
+            <div class="gallery-slide"><img src="pic/slide2.jpg" alt="Image 2"></div>
+            <div class="gallery-slide"><img src="pic/slide3.jpg" alt="Image 3"></div>
+        <!-- Add more images as needed -->
+        </div>
     </div>
-  </div>
 
-      <div class="category-container">
-        
+
+    <div class="category-container">
         <div class="icons-row">
-            <div class="icon-item">
+            <div class="icon-item" data-category="sale">
                 <i class="fa-solid fa-tags"></i>
                 <div class="icon-label">今日特惠</div>
-              </div>
-              <div class="icon-item">
+            </div>
+            <div class="icon-item"  data-category="helmet">
                 <i class="fa-solid fa-helmet-safety"></i>
                 <div class="icon-label">ヘルメット</div>
-              </div>
-              <div class="icon-item">
+            </div>
+            <div class="icon-item"  data-category="light">
                 <i class="fa-solid fa-lightbulb"></i>
                 <div class="icon-label">ライト</div>
-              </div>
-              <div class="icon-item">
+            </div>
+            <div class="icon-item" data-category="lock">
                 <i class="fa-solid fa-lock"></i>
                 <div class="icon-label">ロック</div>
-              </div>
-              <div class="icon-item">
+            </div>
+            <div class="icon-item" data-category="grove">
                 <i class="fa-solid fa-hand-paper"></i>
                 <div class="icon-label">グローブ</div>
-              </div>
             </div>
-            <div class="icons-row">
-              <div class="icon-item">
+        </div>
+        <div class="icons-row">
+            <div class="icon-item" data-category="saddle">
                 <i class="fa-solid fa-chair"></i>
                 <div class="icon-label">サドル</div>
-              </div>
-              <div class="icon-item">
+            </div>
+            <div class="icon-item" data-category="kit">
                 <i class="fa-solid fa-screwdriver-wrench"></i>
                 <div class="icon-label">修理キット</div>
-              </div>
-              <div class="icon-item">
+            </div>
+            <div class="icon-item" data-category="oil">
                 <i class="fa-solid fa-oil-can"></i>
                 <div class="icon-label">オイル・潤滑剤</div>
-              </div>
-              <div class="icon-item">
+            </div>
+            <div class="icon-item" data-category="pump">
                 <i class="fa-solid fa-pump-soap"></i>
                 <div class="icon-label">ポンプ</div>
-              </div>
-              <div class="icon-item">
+            </div>
+            <div class="icon-item" data-category="tyre">
                 <i class="fa-solid fa-wheelchair"></i>
                 <div class="icon-label">タイヤ</div>
-              </div>
+            </div>
         </div>
-      </div>
-      
-      <div class="main">
-    
-        <div class="row">
+    </div>
 
-            <div class="col-6 card">
+
+    <div class="shadow-hr"></div>
+    <div class="main">
+        <div class="row">
+            <div class="col-6 card" data-category="sale">
                 <img src="pic/umber.jpg" alt="productimg" class="primg">
                 <ul class="listul">
                     <li class="litit">
@@ -487,8 +337,6 @@ li {
                         折りたたみ傘 メンズ 24本骨 順折り式 折り畳み傘 96cm ワンタッチ
                       </a>
                     </li>
-                    
-
                     <li class="rating">
                         <!-- Display star rating (4 out of 5 in this example) -->
                         <i class="fas fa-star"></i>
@@ -497,18 +345,17 @@ li {
                         <i class="fas fa-star"></i>
                         <i class="far fa-star"></i>
                         <span>(63)</span>
-                      </li>
+                    </li>
                     
                     <li >
                       <a class="prize" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
                       ￥980<span class="ensize">円</span>
                       </a><span class="selln">4.1K+sold</span>
                     </li>
-                    
                 </ul>     
             </div>
             
-            <div class="col-6 card">
+            <div class="col-6 card" data-category="tyre">
                 <img src="pic/chozi.jpg" alt="productimg"  
                 class="primg">
                 <ul class="listul">
@@ -526,8 +373,8 @@ li {
                     <li>
                         <a class="prize" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
                             330<span class="ensize">円</span>
-                        </a><span class="selln">4.1K+sold</span></li>
-                    
+                        </a><span class="selln">4.1K+sold</span>
+                    </li>
                 </ul>     
             </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 
@@ -560,30 +407,61 @@ li {
                      
                 </ul>          
             </div> -->
-            
-            
-        
-
         </div>
-       
-      </div>
+    </div>
       
-	
-	<hr>
-    
-	
     <div class="back-to-top">
         <a href="#top">トップに戻る</a>
-      </div>
+    </div>
       
-     
-    
     <script>
+        const slides = document.getElementById('slides');
+        const totalSlides = document.querySelectorAll('.gallery-slide').length;
+        let currentIndex = 0;
+
+        function slideShow() {
+            currentIndex++;
+            if (currentIndex >= totalSlides) {
+                currentIndex = 0; // Reset to first slide
+            }
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`; // Move to the next slide
+        }
+
+        // Change slide every 2 seconds (2000 milliseconds)
+        setInterval(slideShow, 2000);
+
+
+        // Select all icons and product cards
+        const icons = document.querySelectorAll('.icon-item');
+        const products = document.querySelectorAll('.card');
+
+        // Function to show products based on selected category
+        function showProducts(category) {
+            products.forEach(product => {
+                // Show product if its data-category matches the selected category
+                if (product.getAttribute('data-category') === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        // Add click event listeners to each icon
+        icons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                const category = icon.getAttribute('data-category');
+                showProducts(category);
+            });
+        });
+
+
+
         function toggleCategory(element) {
           element.classList.toggle("open");
         }
-      </script>
-      <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </blog>
 </html>
