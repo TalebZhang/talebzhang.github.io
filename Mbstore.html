@@ -211,6 +211,7 @@
             border-bottom: 1px solid #ddd;
             position: fixed;
             top: 0;
+            right:0;
             width: 100%;
             z-index: 1000; /* Ensures the header stays on top of other elements */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
@@ -254,6 +255,39 @@
         .padbod{
             padding-top: 50px;
         }
+
+        .footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .footer-item {
+            text-align: center;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .footer-item i {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .footer-bar a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
 	</style>
 </head>
 
@@ -262,7 +296,7 @@
     <div class="header">
         <div class="logo">YOZi</div>
         <div class="search-bar">
-            <input type="text" placeholder="Search...">
+            <input type="text" id="search-input" placeholder="Search...">
         </div>
         <i class="fa-solid fa-magnifying-glass"></i>
     </div>
@@ -282,7 +316,7 @@
         <div class="icons-row">
             <div class="icon-item" data-category="sale">
                 <i class="fa-solid fa-tags"></i>
-                <div class="icon-label">今日特惠</div>
+                <div class="icon-label">お買い得</div>
             </div>
             <div class="icon-item"  data-category="helmet">
                 <i class="fa-solid fa-helmet-safety"></i>
@@ -333,7 +367,7 @@
                 <img src="pic/umber.jpg" alt="productimg" class="primg">
                 <ul class="listul">
                     <li class="litit">
-                      <a class="ltitle" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
+                      <a class="product-title ltitle" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
                         折りたたみ傘 メンズ 24本骨 順折り式 折り畳み傘 96cm ワンタッチ
                       </a>
                     </li>
@@ -359,7 +393,7 @@
                 <img src="pic/chozi.jpg" alt="productimg"  
                 class="primg">
                 <ul class="listul">
-                    <li class="litit"><a class="ltitle" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
+                    <li class="product-title litit"><a class="ltitle" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
                       自転車 スーパーバルブ 德式 むしゴム不要 バルブ</a></li>
                     <li class="rating">
                         <!-- Display star rating (4 out of 5 in this example) -->
@@ -385,7 +419,7 @@
                 class="primg">
                 <ul class="listul">
                     <li class="litit" >
-                      <a class="ltitle"  href="https://jp.mercari.com/item/m68434898109?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
+                      <a class="product-title ltitle"  href="https://jp.mercari.com/item/m68434898109?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
                       多色 星型・球型 LED ガーランドライト クリスマスライト 長さ3m 20灯
                       </a>
                     </li>
@@ -413,6 +447,23 @@
     <div class="back-to-top">
         <a href="#top">トップに戻る</a>
     </div>
+
+    <div class="footer-bar">
+        <a href="Mbstore.html" class="footer-item">
+            <i class="fa-solid fa-home"></i>
+            <div class="footer-label">ホーム</div>
+        </a>
+        <a href="/cart-page.html" class="footer-item">
+            <i class="fa-solid fa-shopping-cart"></i>
+            <div class="footer-label">カート</div>
+        </a>
+        <a href="/my-page.html" class="footer-item">
+            <i class="fa-solid fa-user"></i>
+            <div class="footer-label">マイページ</div>
+        </a>
+    </div>
+    
+    
       
     <script>
         const slides = document.getElementById('slides');
@@ -455,6 +506,23 @@
             });
         });
 
+        //search related product and display
+        const searchInput = document.getElementById('search-input');
+        const productf = document.querySelectorAll('.card');
+
+        searchInput.addEventListener('input', () => {
+            const searchValue = searchInput.value.toLowerCase();
+            
+            productf.forEach(product => {
+                const title = product.querySelector('.product-title').textContent.toLowerCase();
+                
+                if (title.includes(searchValue)) {
+                    product.style.display = 'block'; // Show the product if the title contains the search word
+                } else {
+                    product.style.display = 'none'; // Hide the product if no match
+                }
+            });
+        });
 
 
         function toggleCategory(element) {
