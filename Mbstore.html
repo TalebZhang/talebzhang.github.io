@@ -12,7 +12,7 @@
         .main {
             width: 100%;
             float: left;
-            padding: 10px;
+            padding-left: 0px 0px 0px 0px;
             background-color:white;
             }
 
@@ -52,11 +52,12 @@
             }
         .card {
             box-shadow: 0 4px 0px 0 rgba(255, 255, 255, 0.99);
-            width: 47%;
-            margin: 2px;
+            width: 50%;
+            margin: 4px 0px 4px 0px;
             text-align: left;
             font-family: arial;
             line-height: normal;
+            padding: 0px 0px 0px 1px;
             border:#faf8f8 solid 1px;
             }
 
@@ -152,16 +153,37 @@
         .ltitle{
             font-weight:200;font-size: 10px;
             display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2; /* Limits to 2 lines */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.2em; /* Adjust line height as needed */
-    max-height: 2.4em; /* Should match line-height * 2 */
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; /* Limits to 2 lines */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2em; /* Adjust line height as needed */
+            max-height: 2.4em; /* Should match line-height * 2 */
+            }
+            .prize {
+                color:#b1275d;font-size:12px;font-weight: bold;
+            }
+
+        .price-cart-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px; /* Optional: add some space from the previous section */
+            padding-right: 2px;
         }
-        .prize {
-            color:#b1275d;font-size:12px;font-weight: bold;
+
+
+
+        .cart-icon {
+            color: #fff; /* Icon color */
+            font-size: 0.8em; /* Adjust icon size as needed */
+            background-color: #f39c12; /* Background color for the cart icon */
+            padding: 4px 8px; /* Horizontal padding to create an ellipse */
+            border-radius: 20px; /* Rounds the background into an ellipse */
+            cursor: pointer;
         }
+
+
         .selln {
             font-size: 8px;
         }
@@ -311,6 +333,46 @@
         }
 
 
+        #floating-cart {
+    position: fixed;
+    top: 50%; /* Center vertically */
+    right: 0; /* Flush with the right side of the screen */
+    transform: translateY(-50%); /* Center vertically */
+    background-color: #f39c12;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Makes the icon circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+#floating-cart i {
+    margin: 0; /* Center icon in the circle */
+}
+
+#cart-count {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 0.6em;
+    padding: 2px 2px;
+    border-radius: 50%;
+    min-width: 18px;
+    text-align: center;
+}
+.cartcolor {
+    color: white;
+}
+
+
+
 	</style>
 </head>
 
@@ -393,6 +455,15 @@
         </div>
     </div>
       
+
+
+<!-- Floating Cart Icon with Counter -->
+<div id="floating-cart">
+    <span id="cart-count">0</span>
+    <a href="cart.html" class="cartcolor"><i class="fas fa-shopping-cart"></i></a>
+</div>
+
+
     <div class="back-to-top">
         <a href="#top">トップに戻る</a>
     </div>
@@ -605,26 +676,28 @@ function generateProdustCards() {
         const saleWord = "セール"; // Common Japanese sale word
 
         produstCard.innerHTML = `
-            <img src="${produst.imageUrl}" alt="produstimg" class="primg">
-            <ul class="listul">
-                <li class="litit">
-                    <span class="black-friday-banner">${saleWord}${produst.discount}</span>
-                    <a class="produst-title ltitle" href="${produst.productLink}">
-                        ${produst.title}
-                    </a>
-                </li>
-                <li class="rating">
-                    ${generateStars(produst.rating)}
-                    <span class="ratenum">(${produst.reviews})</span>
-                </li>
-                <li>
-                    <a class="prize" href="${produst.productLink}">
-                        ${produst.price}<span class="ensize">円</span>
-                    </a><span class="selln">
-                        <i class="fas fa-fire" style="color: orange; margin-right: 5px;"></i>${produst.sold}
-                        </span>
-                </li>
-            </ul>
+           
+    <img src="${produst.imageUrl}" alt="produstimg" class="primg">
+
+<ul class="listul">
+    <li class="litit">
+        <span class="black-friday-banner">${saleWord} ${produst.discount}</span>
+        <a class="produst-title ltitle" href="${produst.productLink}">
+            ${produst.title}
+        </a>
+    </li>
+    <li class="rating">
+        ${generateStars(produst.rating)}
+        <span class="ratenum">(${produst.reviews})</span>
+    </li>
+    <li class="price-cart-row">
+        <a class="prize" href="${produst.productLink}">
+            ${produst.price}<span class="ensize">円</span>
+        </a>
+        <i class="fas fa-shopping-cart cart-icon"></i>
+    </li>
+</ul>
+
         `;
 
         // Append the produst card to the container
@@ -688,6 +761,82 @@ searchInput.addEventListener('input', () => {
     });
 });
 
+
+// Initialize cart count
+let cartCount = 0;
+
+// Function to update the cart count display
+function updateCartCount() {
+    const cartCountElement = document.getElementById('cart-count');
+    cartCountElement.textContent = cartCount;
+}
+
+// Add event listener to each product cart icon
+document.querySelectorAll('.cart-icon').forEach(icon => {
+    icon.addEventListener('click', () => {
+        cartCount++; // Increase cart count
+        updateCartCount(); // Update the cart display
+    });
+});
+
+
+
+ // Redirect to cart page on click
+//  document.getElementById("floating-cart").addEventListener("click", function() {
+//         window.location.href = "./cart.html"; // Update with your actual cart page URL
+//     });
+document.addEventListener('DOMContentLoaded', () => {
+            // Add event listeners to all cart icons
+            document.querySelectorAll('.cart-icon').forEach(icon => {
+                icon.addEventListener('click', (e) => {
+                    const productCard = e.target.closest('.product-card');
+                    const productTitle = productCard.querySelector('.produst-title').textContent;
+                    const productPrice = parseFloat(productCard.querySelector('.price-cart-row .prize').textContent.replace('￥', '').replace('円', ''));
+                    const productImage = productCard.querySelector('.primg').src;
+                    const productLink = productCard.querySelector('.produst-title').getAttribute('href');
+                    const discountPercentage = parseFloat(productCard.querySelector('.black-friday-banner') ? productCard.querySelector('.black-friday-banner').textContent.replace('%', '') : '0');
+                    const originalPrice = productPrice / (1 - discountPercentage / 100); // Calculate the original price
+
+                    // Get the current cart from localStorage or initialize an empty array
+                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                    // Check if the product already exists in the cart
+                    const existingProduct = cart.find(item => item.title === productTitle);
+
+                    if (existingProduct) {
+                        existingProduct.quantity++;
+                    } else {
+                        cart.push({
+                            title: productTitle,
+                            price: productPrice,
+                            quantity: 1,
+                            image: productImage,
+                            productLink: productLink,
+                            originalPrice: originalPrice
+                        });
+                    }
+
+                    // Save the updated cart to localStorage
+                    localStorage.setItem('cart', JSON.stringify(cart));
+
+                    // Update the cart count
+                    updateCartCount();
+                });
+            });
+
+            // Function to update the cart item count in the header or cart icon
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+                const cartCountElement = document.getElementById('cart-count');
+                if (cartCountElement) {
+                    cartCountElement.textContent = cartCount;
+                }
+            }
+
+            // Update the cart count on page load
+            updateCartCount();
+        });
 
 
         function toggleCategory(element) {
