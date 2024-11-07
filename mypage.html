@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイページ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: orange;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .nickname {
+            font-size: 1em;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon-item {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .section-link {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ccc;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .section-left {
+            display: flex;
+            align-items: center;
+            color: #333;
+            font-size: 1em;
+        }
+
+        .section-label {
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .section-arrow {
+            font-weight: normal;
+            color: #888;
+        }
+
+        .separator {
+            height: 10px;
+            background-color: #f7f7f7;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            border:#eae9e9 solid 1px;
+            z-index: 1000;
+        }
+
+        .footer-item {
+            text-align: center;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .footer-item i {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .footer-bar a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Row -->
+    <div class="header-row">
+        <!-- Profile Icon with Nickname Initial -->
+        <div class="profile">
+            <div class="profile-icon">Y</div>
+            <span class="nickname">メジ</span>
+        </div>
+
+        <!-- Customer Service and Settings Icons -->
+        <div class="icons">
+            <a href="#" class="icon-item">
+                <i class="fa-solid fa-headset"></i>
+            </a>
+            <a href="#" class="icon-item">
+                <i class="fa-solid fa-gear"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Section Links -->
+    <div class="section-link">
+        <div class="section-left">
+            <i class="fa-regular fa-envelope"></i>
+            <span class="section-label">メッセージ</span>
+        </div>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="section-link">
+        <div class="section-left">
+            <i class="fa-solid fa-box"></i>
+
+            <span class="section-label">注文</span>
+        </div>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+
+    
+
+    <div class="section-link">
+        <div class="section-left">
+            <i class="fa-regular fa-star"></i>
+            <span class="section-label">レビュー</span>
+        </div>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+
+    <div class="section-link">
+        <div class="section-left">
+            <i class="fa-regular fa-id-card"></i>
+
+            <span class="section-label">クーポン</span>
+        </div>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+
+    <div class="section-link">
+        <div class="section-left">
+            <i class="fa-regular fa-map"></i>
+
+            <span class="section-label">住所</span>
+        </div>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+
+    <div class="footer-bar">
+        <a href="Mbstore.html" class="footer-item">
+            <i class="fa-solid fa-home"></i>
+            <div class="footer-label">ホーム</div>
+        </a>
+        <a href="cart.html" class="footer-item">
+            <i class="fa-solid fa-shopping-cart"></i>
+            <div class="footer-label">カート</div>
+        </a>
+        <a href="mypage.html" class="footer-item">
+            <i class="fa-solid fa-user"></i>
+            <div class="footer-label">マイページ</div>
+        </a>
+    </div>
+
+</body>
+</html>
