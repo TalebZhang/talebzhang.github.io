@@ -83,6 +83,7 @@
             background-color: white;
             text-align: center;
             padding: 10px;
+            margin-bottom: 30px;
         }
 
         .back-to-top a {
@@ -95,6 +96,18 @@
         .back-to-top a:hover {
             color: black;
         }
+
+        .black-friday-banner {
+    background-color: #b1275d;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 1px 2px;
+    margin-top: 5px;
+    border-radius: 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
 
 
         .search-bar-container {
@@ -118,13 +131,16 @@
             background-color: white;
         }
         .rating {
-            color: #0a0a0a; /* Amazon-style yellow for stars */
+            color: #fda103; /* Amazon-style yellow for stars */
             font-size: 10px;
             margin-bottom: -6px; 
         }
+        .ratenum{
+            font-size: 10px;
+        }
         .primg{
             width:100%;
-            height:auto;
+            aspect-ratio: 1; 
             border-radius: 5px;
             margin-bottom: -16px;
             }
@@ -134,7 +150,14 @@
             
         }
         .ltitle{
-            font-weight:200;font-size: 8px;
+            font-weight:200;font-size: 10px;
+            display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Limits to 2 lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2em; /* Adjust line height as needed */
+    max-height: 2.4em; /* Should match line-height * 2 */
         }
         .prize {
             color:#b1275d;font-size:12px;font-weight: bold;
@@ -363,84 +386,10 @@
     <div class="shadow-hr"></div>
     <div class="main">
         <div class="row">
-            <div class="col-6 card" data-category="sale">
-                <img src="pic/umber.jpg" alt="productimg" class="primg">
-                <ul class="listul">
-                    <li class="litit">
-                      <a class="product-title ltitle" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
-                        折りたたみ傘 メンズ 24本骨 順折り式 折り畳み傘 96cm ワンタッチ
-                      </a>
-                    </li>
-                    <li class="rating">
-                        <!-- Display star rating (4 out of 5 in this example) -->
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <span>(63)</span>
-                    </li>
-                    
-                    <li >
-                      <a class="prize" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
-                      ￥980<span class="ensize">円</span>
-                      </a><span class="selln">4.1K+sold</span>
-                    </li>
-                </ul>     
+            <div class="products-container">
+                <!-- Product cards will be dynamically generated here -->
             </div>
-            
-            <div class="col-6 card" data-category="tyre">
-                <img src="pic/chozi.jpg" alt="productimg"  
-                class="primg">
-                <ul class="listul">
-                    <li class="product-title litit"><a class="ltitle" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
-                      自転車 スーパーバルブ 德式 むしゴム不要 バルブ</a></li>
-                    <li class="rating">
-                        <!-- Display star rating (4 out of 5 in this example) -->
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <span>(63)</span>
-                      </li>
-                    <li>
-                        <a class="prize" href="https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
-                            330<span class="ensize">円</span>
-                        </a><span class="selln">4.1K+sold</span>
-                    </li>
-                </ul>     
-            </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-
-
-            <!-- <div class="col-6 card">
-                
-                <img src="pic/star.jpg" alt="productimg"
-                class="primg">
-                <ul class="listul">
-                    <li class="litit" >
-                      <a class="product-title ltitle"  href="https://jp.mercari.com/item/m68434898109?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
-                      多色 星型・球型 LED ガーランドライト クリスマスライト 長さ3m 20灯
-                      </a>
-                    </li>
-                    <li class="rating">
-                       
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <span>(63)</span>
-                      </li>
-                 
-                    <li>
-                      <a class="prize" href="https://jp.mercari.com/item/m68434898109?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share">
-                        ￥560<span class="ensize">円</span>
-                      </a><span class="selln">4.1K+sold</span>
-                    </li>
-                     
-                </ul>          
-            </div> -->
+              
         </div>
     </div>
       
@@ -482,47 +431,263 @@
         setInterval(slideShow, 2000);
 
 
-        // Select all icons and product cards
-        const icons = document.querySelectorAll('.icon-item');
-        const products = document.querySelectorAll('.card');
+        // Array of produst data (used previously as 'produsts')
+const produsts = [
+    {
+        title: "折りたたみ傘 メンズ 24本骨 順折り式 折り畳み傘 96cm ワンタッチ 晴雨両用 日傘 UVカット ブラック",
+        imageUrl: "pic/umber.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥980",
+        sold: "4.1K+ sold",
+        rating: 4, // out of 5 stars
+        reviews: 63,
+        category: "sale",
+        discount: "40%"
+    },
+    {
+        title: "自転車 虫ゴム不要 スーパーバルブ 德式 (4個セット)  むしゴム不要 バルブ",
+        imageUrl: "pic/chozi.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥330",
+        sold: "2.3K+ sold",
+        rating: 5,
+        reviews: 120,
+        category: "tyre",
+        discount: "70%"
+    },
+    {
+        title: "多色 星型・球型 LED ガーランドライト クリスマスライト 長さ3m 20灯",
+        imageUrl: "pic/star.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥560",
+        sold: "4.1K+ sold",
+        rating: 4, // out of 5 stars
+        reviews: 993,
+        category: "sale",
+        discount: "65%"
+    },
+    {
+        title: "秋の ペンケース型 ミニ折りたたみ椅子 アウトドア 旅行 キャンプ釣り用 超軽量",
+        imageUrl: "pic/ptpic/chair.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥1160",
+        sold: "6.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 998,
+        category: "sale",
+        discount: "50%"
+    },
+    {
+        title: "TSA ロック  3桁ダイヤル式ロック ワイヤータイプ 旅行用 安心 防犯グッズ",
+        imageUrl: "pic/ptpic/suitlock.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥750",
+        sold: "9.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 887,
+        category: "lock",
+        discount: "60%"
+    },
+    {
+        title: "片手操作 自転車用 携帯ホルダー モーターバイク用 スマホ固定 360回転減震",
+        imageUrl: "pic/ptpic/phoneholder.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥2080",
+        sold: "12.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 3567,
+        category: "sale",
+        discount: "42%"
+    },
+    {
+        title: "インソール サポーティブリバウンドインソール 中敷き(23.5-24cm)",
+        imageUrl: "pic/ptpic/atinsole.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥500",
+        sold: "7.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 1978,
+        category: "sale",
+        discount: "46%"
+    },
+    {
+        title: "シルク スカーフ ロゴ入り クリーム色・緑色 約70cm x 70cm",
+        imageUrl: "pic/ptpic/silk.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥780",
+        sold: "3.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 234,
+        category: "sale",
+        discount: "49%"
+    },
+    {
+        title: "超長 140cm スニーカーヘッズ専用 シューレース靴ひも100%綿 白",
+        imageUrl: "pic/ptpic/shoelace.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥599",
+        sold: "9.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 667,
+        category: "sale",
+        discount: "79%"
+    },
+    {
+        title: "折りたたみ傘 メンズ 24本骨 順折り式 折り畳み傘 96cm ワンタッチ 晴雨両用 日傘 UVカット ネイビー",
+        imageUrl: "pic/ptpic/umbre.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥980",
+        sold: "8.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 563,
+        category: "sale",
+        discount: "60%"
+    },
+    {
+        title: "シルバー 金属製 右側大音量自転車用 大人用ベル 子供用アクセサリー ホーン付き",
+        imageUrl: "pic/ptpic/bell.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥580",
+        sold: "6.6K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 433,
+        category: "kit",
+        discount: "35%"
+    },
+    {
+        title: "アロマポット 中空香りのよい炉 アロマバーナー 陶器 アロマディフューザー茶香炉",
+        imageUrl: "pic/ptpic/pot.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥1380",
+        sold: "7.6K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 833,
+        category: "sale",
+        discount: "55%"
+    },
+    {
+        title: "iPhone16シリーズソフトシリコンケース 完全保護 MagSafe快速充電",
+        imageUrl: "pic/ptpic/phonecase.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥1680",
+        sold: "9.6K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 2333,
+        category: "sale",
+        discount: "57%"
+    },
+    {
+        title: "自転車カバー雨避け UV加工 盗難防止 210D ロックホール「ロックなし」",
+        imageUrl: "pic/ptpic/cover.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥1880",
+        sold: "1.6K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 333,
+        category: "sale",
+        discount: "38%"
+    },
 
-        // Function to show products based on selected category
-        function showProducts(category) {
-            products.forEach(product => {
-                // Show product if its data-category matches the selected category
-                if (product.getAttribute('data-category') === category) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
+    // Add more produsts as needed
+];
+
+// Function to generate produst cards dynamically
+function generateProdustCards() {
+    const container = document.querySelector('.products-container');
+    
+    produsts.forEach(produst => {
+        // Create produst card element
+        const produstCard = document.createElement('div');
+        produstCard.classList.add('col-6', 'card');
+        produstCard.setAttribute('data-category', produst.category);
+
+        // Create produst content
+        const saleWord = "セール"; // Common Japanese sale word
+
+        produstCard.innerHTML = `
+            <img src="${produst.imageUrl}" alt="produstimg" class="primg">
+            <ul class="listul">
+                <li class="litit">
+                    <span class="black-friday-banner">${saleWord}${produst.discount}</span>
+                    <a class="produst-title ltitle" href="${produst.productLink}">
+                        ${produst.title}
+                    </a>
+                </li>
+                <li class="rating">
+                    ${generateStars(produst.rating)}
+                    <span class="ratenum">(${produst.reviews})</span>
+                </li>
+                <li>
+                    <a class="prize" href="${produst.productLink}">
+                        ${produst.price}<span class="ensize">円</span>
+                    </a><span class="selln">
+                        <i class="fas fa-fire" style="color: orange; margin-right: 5px;"></i>${produst.sold}
+                        </span>
+                </li>
+            </ul>
+        `;
+
+        // Append the produst card to the container
+        container.appendChild(produstCard);
+    });
+}
+
+// Function to generate star rating icons
+function generateStars(rating) {
+    let stars = '';
+    for (let i = 0; i < 5; i++) {
+        if (i < rating) {
+            stars += '<i class="fas fa-star"></i>';
+        } else {
+            stars += '<i class="far fa-star"></i>';
         }
+    }
+    return stars;
+}
 
-        // Add click event listeners to each icon
-        icons.forEach(icon => {
-            icon.addEventListener('click', () => {
-                const category = icon.getAttribute('data-category');
-                showProducts(category);
-            });
-        });
+// Call the function to generate produst cards
+generateProdustCards();
 
-        //search related product and display
-        const searchInput = document.getElementById('search-input');
-        const productf = document.querySelectorAll('.card');
+// Select all icons and product cards
+const icons = document.querySelectorAll('.icon-item');
+const productCards = document.querySelectorAll('.card');
 
-        searchInput.addEventListener('input', () => {
-            const searchValue = searchInput.value.toLowerCase();
-            
-            productf.forEach(product => {
-                const title = product.querySelector('.product-title').textContent.toLowerCase();
-                
-                if (title.includes(searchValue)) {
-                    product.style.display = 'block'; // Show the product if the title contains the search word
-                } else {
-                    product.style.display = 'none'; // Hide the product if no match
-                }
-            });
-        });
+// Function to show products based on selected category
+function showProducts(category) {
+    productCards.forEach(product => {
+        // Show product if its data-category matches the selected category
+        if (product.getAttribute('data-category') === category || category === 'all') {
+            product.style.display = 'block';
+        } else {
+            product.style.display = 'none';
+        }
+    });
+}
+
+// Add click event listeners to each icon for category filtering
+icons.forEach(icon => {
+    icon.addEventListener('click', () => {
+        const category = icon.getAttribute('data-category');
+        showProducts(category);
+    });
+});
+
+// For searching through product titles
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', () => {
+    const searchValue = searchInput.value.toLowerCase();
+
+    productCards.forEach(product => {
+        const title = product.querySelector('.produst-title').textContent.toLowerCase();
+        
+        if (title.includes(searchValue)) {
+            product.style.display = 'block'; // Show the product if the title contains the search word
+        } else {
+            product.style.display = 'none'; // Hide the product if no match
+        }
+    });
+});
+
 
 
         function toggleCategory(element) {
