@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="cart.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="pic/YOZi.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	
+    <style>
+        /* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f9f9f9;
+}
+
+.cart-page {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+/* Header */
+.cart-header {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    position: fixed; /* Make it fixed */
+    top: 0; /* Align to top of the page */
+    left: 0; /* Ensure it stretches across the full width */
+    right: 0; /* Ensure it stretches across the full width */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.cart-header p {
+    font-size: 1.0em;
+    font-weight: 600;
+    margin: 0;
+}
+
+.cart-items-count {
+    font-size: 1.0em;
+    font-weight: bold;
+}
+
+.free-shipping-message{
+    margin: 10px 8px 0px 8px;
+    padding: 5px;
+    position: fixed; /* Make it fixed */
+    top: 40px; /* Align to top of the page */
+    left: 0; /* Ensure it stretches across the full width */
+    right: 0; /* Ensure it stretches across the full width */
+    z-index: 1000; /* Ensure it stays above other content */
+    border:#eae9e9 solid 1px;
+    border-radius: 5px;
+}
+
+/* Cart Items */
+.cart-items {
+    margin: 56px 0 20px 0;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    padding: 10px;
+    
+    justify-content: space-between;
+ 
+    margin-top: 10px;
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-title {
+    font-size: 0.8em;
+    margin: 0;
+}
+
+.original-price {
+    font-size: 0.9em;
+    color: #888;
+    text-decoration: line-through;
+    margin: 5px 0;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.item-price {
+    color: #333;
+    font-weight: bold;
+}
+
+.discount {
+    color: red;
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quantity-control button {
+    width: 20px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    color:black;
+    background-color: #f0f0f0;
+    border:  1px solid #ddd;
+    cursor: pointer;
+}
+
+.quantity-control input {
+    width: 30px;
+    text-align: center;
+    border: 1px solid #ddd;
+    margin: 0px -5px 0px;
+}
+
+.remove-control {
+    display: flex;
+    align-items: left;
+    margin-right: 9px;
+}
+
+.checkbox {
+    position: relative;
+    width: 17px;
+    height: 17px;
+}
+
+.remove-checkbox {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.check-label {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.remove-checkbox:checked + .check-label {
+    background-color: black;
+    border-color: black;
+}
+
+.remove-checkbox:checked + .check-label:before {
+    content: "✔";
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    top: -6px;
+    left: 0px;
+}
+
+
+/* Summary */
+.cart-summary {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cart-summary p {
+    display: flex;
+    font-size: 12px;
+    justify-content: space-between;
+    margin: 10px 0;
+    
+}
+
+.total {
+    font-weight: bold;
+}
+.totalp {
+    font-weight: bold;
+}
+
+.total-discount {
+    color: #ff5722; /* Discount color */
+    font-weight: bold;
+}
+
+
+
+.free-shipping-message {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: green;
+    margin-top: 10px;
+}
+
+.check-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.message-text {
+    color: green;
+}
+
+.footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            border:#eae9e9 solid 1px;
+            z-index: 1000;
+        }
+
+        .footer-item {
+            text-align: center;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .footer-item i {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .footer-bar a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .checkout-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    position: fixed; /* Fix it to the bottom */
+    bottom: 52px; /* Align it to the bottom of the screen */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Ensure it's on top of other content */
+    border-top:#eae9e9 solid 1px;
+   
+}
+
+.select-all {
+    display: flex;
+    align-items: center;
+}
+.select-all-text {
+    color:black;
+}
+
+.checkbox {
+    position: relative;
+    width: 17px;
+    height: 17px;
+}
+
+.select-all-checkbox {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.check-label {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.select-all-checkbox:checked + .check-label {
+    background-color: black;
+    border-color: black;
+}
+
+.select-all-checkbox:checked + .check-label:before {
+    content: "✔";
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    top: -4px;
+    left: 1px;
+}
+
+.select-all-text {
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.checkout-info {
+    display: flex;
+    align-items: center;
+}
+
+.total-amount {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 20px;
+    color: black;
+}
+
+.amount{
+    color:black;
+}
+
+.checkout-btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: -5px;
+}
+
+.checkout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+    padding: 8px 20px;
+    border-radius: 25px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.checkout-btn .check-icon {
+    margin-right: 8px;
+}
+
+.item-number {
+    font-size: 14px;
+    font-weight: bold;
+    color: gray;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="cart-page">
+
+        <header class="cart-header">
+            <p>ショッピングカート</p>
+            <span class="cart-items-count">(3)</span>
+        </header>
+<div class="free-shipping-message">
+    <span class="check-icon">&#10003;</span> <!-- Unicode checkmark -->
+    <span class="message-text">FREE SHIPPING on all items in your cart</span>
+</div>
+
+        <!-- Cart Items Section -->
+        <div class="cart-items">
+            <!-- Individual Product -->
+            <div class="cart-item">
+                <div class="remove-control">
+                    <div class="checkbox">
+                        <input type="checkbox" id="remove-item" class="remove-checkbox">
+                        <label for="remove-item" class="check-label"></label>
+                    </div>
+                </div>
+                
+                <img src="pic/ptpic/atinsole.jpg" alt="Product Image" class="item-image">
+                <div class="item-details">
+                    <p class="item-title">インソール サポーティブリバウンドインソール 中敷き(23.5-24cm)</p>
+                   
+                    
+                    
+                    <div class="quantity-control">
+                        <p class="item-price">980円 <span class="original-price">1200円</span> <!-- Original price before discount --></p>
+                        <div><button class="decrement">-</button>
+                        <input type="text" value="1" class="quantity">
+                        <button class="increment">+</button></div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Repeat for more items -->
+            <!-- Add more <div class="cart-item"> for each product in the cart -->
+        </div>
+
+        <!-- Cart Summary Section -->
+        <div class="cart-summary">
+            <p>小計: <span class="subtotal">￥2940円</span></p>
+            <p>合計割引: <span class="total-discount">-￥600円</span></p> <!-- Total Discount -->
+            <p>送料: <span class="shipping">￥500円</span></p>
+            <p class="totalp">合計: <span class="total">￥3440円</span></p>
+            
+        </div>
+        
+    </div>
+    <div class="checkout-section">
+        <div class="select-all">
+            <div class="checkbox">
+                <input type="checkbox" id="select-all-items" class="select-all-checkbox">
+                <label for="select-all-items" class="check-label"></label>
+            </div>
+            <span class="select-all-text">All</span>
+        </div>
+        <div class="checkout-info">
+           
+            <div class="checkout-btn-wrapper">
+              
+                    <span class="amount">￥3440円</span> <!-- Total amount -->
+              
+                <div class="checkout-btn">
+                    <span class="check-icon">✔</span>
+                    <span class="checkout-text">購入手続きへ</span><span class="item-number">（3）</span> <!-- Number of items -->
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+
+    <div class="footer-bar">
+        <a href="Mbstore.html" class="footer-item">
+            <i class="fa-solid fa-home"></i>
+            <div class="footer-label">ホーム</div>
+        </a>
+        <a href="/cart-page.html" class="footer-item">
+            <i class="fa-solid fa-shopping-cart"></i>
+            <div class="footer-label">カート</div>
+        </a>
+        <a href="/my-page.html" class="footer-item">
+            <i class="fa-solid fa-user"></i>
+            <div class="footer-label">マイページ</div>
+        </a>
+    </div>
+    <script>
+     
+    // Function to update total prices when quantity changes
+function updateTotal() {
+    let subtotal = 0;
+    let totalDiscount = 0;
+    let totalNum = 0;
+
+    // Loop through all cart items to update the subtotal and discount
+    document.querySelectorAll('.cart-item').forEach(item => {
+        const quantity = parseInt(item.querySelector('.quantity').value) || 0; // Safeguard for invalid input
+
+        // Get the original and discounted prices
+        const originalPrice = parseFloat(item.querySelector('.original-price').textContent.replace('￥', '').replace('円', ''));
+        const discountedPrice = parseFloat(item.querySelector('.item-price').textContent.replace('￥', '').replace('円', ''));
+
+        // Update the subtotal and total discount
+        subtotal += discountedPrice * quantity;
+        totalDiscount += (originalPrice - discountedPrice) * quantity;
+        totalNum += quantity;
+    });
+
+    // Update the displayed values
+    document.querySelector('.subtotal').textContent = `￥${subtotal}円`;
+    document.querySelector('.total-discount').textContent = `-￥${totalDiscount}円`;
+    document.querySelector('.total').textContent = `￥${subtotal + 500}円`; // Adding shipping cost
+    document.querySelector('.amount').textContent = `￥${subtotal + 500}円`;
+    document.querySelector('.item-number').textContent = `(${totalNum})`; // Show total items
+}
+
+// Event listener for quantity buttons (increment and decrement)
+document.querySelectorAll('.increment, .decrement').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Find the quantity input in the same item container
+        const input = this.closest('.cart-item').querySelector('.quantity');
+        let quantity = parseInt(input.value) || 0;
+
+        if (this.classList.contains('increment')) {
+            quantity++;
+        } else if (this.classList.contains('decrement') && quantity > 0) {
+            quantity--;
+        }
+
+        input.value = quantity; // Update the quantity input value
+        updateTotal(); // Recalculate totals
+    });
+});
+
+// Event listener for quantity input changes
+document.querySelectorAll('.quantity').forEach(input => {
+    input.addEventListener('change', function() {
+        // Ensure valid number input
+        if (isNaN(parseInt(this.value)) || parseInt(this.value) <= 0) {
+            this.value = 1; // Default to 1 if invalid input
+        }
+        updateTotal(); // Recalculate totals when input value changes
+    });
+});
+
+// Initialize total prices on page load
+document.addEventListener('DOMContentLoaded', () => {
+    updateTotal(); // Initialize totals on page load
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Function to get products from localStorage
+    function getCartItems() {
+        return JSON.parse(localStorage.getItem('cart')) || [];
+    }
+
+    // Function to update the cart view
+    function updateCart() {
+        const cartItems = getCartItems();
+        const cartContainer = document.getElementById('cart-items-container');
+        const subtotalElement = document.querySelector('.subtotal');
+        const totalElement = document.querySelector('.total');
+        const totalDiscountElement = document.querySelector('.total-discount');
+        let subtotal = 0;
+        let totalDiscount = 0;
+        let totalItems = 0;
+
+        // Clear previous cart items
+        cartContainer.innerHTML = '';
+
+        cartItems.forEach(item => {
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+                <div class="cart-item-info">
+                    <img src="${item.image}" alt="${item.title}">
+                    <div>
+                        <h4><a href="${item.productLink}">${item.title}</a></h4>
+                        <p>￥${item.price}円</p>
+                        <input type="number" class="quantity" value="${item.quantity}" min="1">
+                    </div>
+                </div>
+                <div class="cart-item-total">
+                    <span>￥${item.price * item.quantity}円</span>
+                    <button class="remove-item">Remove</button>
+                </div>
+            `;
+
+            // Add event listener to update quantity
+            cartItem.querySelector('.quantity').addEventListener('change', (e) => {
+                item.quantity = parseInt(e.target.value);
+                updateCartStorage(cartItems);
+                updateCart(); // Re-render the cart after change
+            });
+
+            // Add event listener to remove item
+            cartItem.querySelector('.remove-item').addEventListener('click', () => {
+                const index = cartItems.indexOf(item);
+                if (index !== -1) {
+                    cartItems.splice(index, 1);
+                    updateCartStorage(cartItems);
+                    updateCart(); // Re-render the cart after removing the item
+                }
+            });
+
+            // Update the subtotal and total discount
+            subtotal += item.price * item.quantity;
+            totalDiscount += (item.originalPrice - item.price) * item.quantity;
+            totalItems += item.quantity;
+
+            cartContainer.appendChild(cartItem);
+        });
+
+        // Update the total and discount
+        subtotalElement.textContent = `￥${subtotal}円`;
+        totalDiscountElement.textContent = `-￥${totalDiscount}円`;
+        totalElement.textContent = `￥${subtotal + 500}円`; // Add flat shipping fee
+    }
+
+    // Function to update localStorage with the current cart data
+    function updateCartStorage(cartItems) {
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+    }
+
+    // Call updateCart to render cart items when the page is loaded
+    updateCart();
+});
+
+
+    </script>
+</body>
+</html>
