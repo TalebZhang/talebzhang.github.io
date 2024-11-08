@@ -332,9 +332,9 @@
         // Function to show a reminder when new messages are loaded
         function showNewMessageReminder1(newMessageCount) {
             if (Notification.permission === "granted") {
-                const notification = new Notification("新しいメッセージ", {
+                const notification = new Notification("新消息", {
                     body: `${newMessageCount} new message${newMessageCount > 1 ? 's' : ''}`,
-                    icon: 'icon.png', // Optional: Add an icon for your notification
+                    icon: 'pic/icom.png', // Optional: Add an icon for your notification
                     tag: 'new-message-notification', // Used to group multiple notifications
                 });
 
