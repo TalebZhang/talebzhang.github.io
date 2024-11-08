@@ -245,7 +245,11 @@
                 });
         }
 
-        loadMessages(chatId);  // Load messages when the page is loaded
+        // Poll for new messages every 0.1 seconds
+    setInterval(() => {
+        loadMessages(chatId);
+    }, 100);
+
     </script>
 
 </body>
