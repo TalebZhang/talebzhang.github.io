@@ -435,7 +435,9 @@ function notifyNewMessage(message) {
             },
             body: JSON.stringify({
                 subscription: subscription,
-                message: message
+                message: message,
+                icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
+            badge: 'https://yozipic.top/pic/badge.png'  // Update this to the correct URL
             })
         })
         .then(response => response.json())
