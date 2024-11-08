@@ -168,8 +168,9 @@
 
 
         // Retrieve the chatId from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const chatId = urlParams.get('chatId');
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const chatId = urlParams.get('chatId');
+        const chatId = yozi;
 
         if (!chatId) {
             console.error('No chat ID found in URL');
@@ -251,7 +252,10 @@
 
         // Poll for new messages every 0.1 seconds
         
-        loadMessages(chatId);
+     // Set up interval to refresh messages every 100 milliseconds
+        setInterval(() => {
+            loadMessages(chatId);
+        }, 100);
     
 
     </script>
