@@ -47,28 +47,15 @@
             max-width: 100%;
         }
 
-        .chat-message.self p {
-            background-color: #4CAF50;
-            padding: 10px;
-            border-radius: 10px;
-            color: white;
-            word-wrap: break-word;
-            justify-content: flex-end; /* Align content to the right */
-    margin-left: auto; /* Push the element to the right */
-    margin-right: 10px;
-        }
-
         .chat-message.user p {
             background-color:#f1f1f1;
-            
             padding: 10px;
             border-radius: 10px;
             word-wrap: break-word;
-            
-    justify-content: flex-start;
-    margin-left: 10px; /* Push the element to the right */
-    margin-right: auto;
-        }
+            justify-content: flex-start;
+            margin-left: 10px; /* Push the element to the right */
+            margin-right: auto;
+            }
 
         /* Input section fixed at the bottom */
         .chat-input-section {
@@ -130,6 +117,45 @@
         text-decoration: none;
         color: white;
       }
+        .chat-message.self {
+            display: flex;
+            flex-direction: column;    /* Stack timestamp and message vertically */
+            align-items: flex-end;     /* Align both the timestamp and message to the right */
+            margin: 10px 10px 10px auto;
+            max-width: 60%;            /* Optional: Adjusts message width for better readability */
+        }
+        
+        .chat-message.self p {
+            background-color: #4CAF50;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            word-wrap: break-word;
+            margin: 0;
+        }
+        
+        .timestamp {
+            font-size: 12px;           /* Smaller font size for the timestamp */
+            color: #888888;            /* Light gray color */
+            margin-bottom: 0px;        /* Space below the timestamp */
+            text-align: right;         /* Align timestamp to the right */
+            width: 100%;               /* Ensures the timestamp takes full width of the container */
+        }
+        
+        .new-message-reminder {
+            position: fixed;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
@@ -164,8 +190,6 @@
         const chatBox = document.getElementById('chat-box');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
-        let lastLoadedMessageId = 0; 
-
 
         // Retrieve the chatId from the URL
         // const urlParams = new URLSearchParams(window.location.search);
@@ -200,12 +224,44 @@
             const messageElement = document.createElement('div');
             messageElement.classList.add('chat-message');
             messageElement.classList.add(sender); 
+
+            // Create and add timestamp element
+            const timestampElement = document.createElement('small');
+            timestampElement.classList.add('timestamp');
+            timestampElement.textContent = formatTimestamp(timestamp); // Format timestamp for readability
+            messageElement.appendChild(timestampElement);
+
             const messageText = document.createElement('p');
             messageText.textContent = message;
             messageElement.appendChild(messageText);
+            
             chatBox.appendChild(messageElement);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
+
+        // Format the timestamp (e.g., convert to readable format like '12:30 PM')
+        function formatTimestamp(timestamp) {
+            // Check if the timestamp is valid
+                if (!timestamp) return 'Invalid date';
+            
+            const date = new Date(timestamp);
+            
+            
+            // Check if the date conversion succeeded
+            if (isNaN(date.getTime())) {
+                return 'Invalid date'; // Handle invalid date format
+            }
+            
+            // Format the date to include year, month, day, hour, and minute
+            return date.toLocaleString('zh-CN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+            }
 
         // Save message to the database
         function saveMessageToDatabase(chatId, message) {
@@ -226,6 +282,8 @@
             });
         }
 
+        let lastLoadedTimestamp = 0; // Track the last loaded message timestamp
+        
         // Load previous messages
         function loadMessages(chatId) {
            fetch(`https://chatapp-bsrk.onrender.com/messages/${chatId}`)
@@ -233,12 +291,26 @@
                 .then(messages => {
                     console.log(messages);
                     chatBox.innerHTML = '';
+                    let newMessages = [];
+                    
                      if (Array.isArray(messages)) {
-                // Append each message to the chat box without clearing it
-                messages.forEach(msg => {
+
+                         newMessages = messages.filter(msg => new Date(msg.timestamp).getTime() > lastLoadedTimestamp);
+                    // If there are new messages, show a reminder
+                    if (newMessages.length > 0) {
+                        showNewMessageReminder(newMessages.length);
+                        showNewMessageReminder1(newMessages.length);
+                    }
+                        // Append each message to the chat box without clearing it
+                        messages.forEach(msg => {
                     const sender = msg.sender === 'self' ? 'self' : 'user';
                     appendMessage(msg.content, sender, msg.timestamp);
                 });
+
+                 // Update lastLoadedTimestamp to the latest message timestamp
+                if (messages.length > 0) {
+                    lastLoadedTimestamp = new Date(messages[messages.length - 1].timestamp).getTime();
+                }
             } else {
                 console.error('Received data is not an array:', messages);
             }
@@ -248,14 +320,52 @@
                 });
         }
 
+        // Request notification permission
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    console.log("Notification permission granted.");
+                }
+            });
+        }
+
+        // Function to show a reminder when new messages are loaded
+        function showNewMessageReminder1(newMessageCount) {
+            if (Notification.permission === "granted") {
+                const notification = new Notification("新しいメッセージ", {
+                    body: `${newMessageCount} new message${newMessageCount > 1 ? 's' : ''}`,
+                    icon: 'icon.png', // Optional: Add an icon for your notification
+                    tag: 'new-message-notification', // Used to group multiple notifications
+                });
+
+                // Automatically close the notification after a few seconds
+                setTimeout(() => {
+                    notification.close();
+                }, 5000);
+            }
+        }
+
+        // Function to show a reminder when new messages are loaded
+function showNewMessageReminder(newMessageCount) {
+    const reminder = document.createElement('div');
+    reminder.classList.add('new-message-reminder');
+    reminder.textContent = `${newMessageCount} new message${newMessageCount > 1 ? 's' : ''}`;
+    document.body.appendChild(reminder);
+
+    // Remove the reminder after a few seconds
+    setTimeout(() => {
+        reminder.remove();
+    }, 3000);}
+
         // Poll for new messages every 0.1 seconds
         
      // Set up interval to refresh messages every 100 milliseconds
         setInterval(() => {
             loadMessages(chatId);
-        }, 100);
+        }, 1000);
     
-
+    // Load messages on initial page load
+loadMessages(chatId);
     </script>
 
 </body>
