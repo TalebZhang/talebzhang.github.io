@@ -225,17 +225,20 @@
 
         // Load previous messages
         function loadMessages(chatId) {
-            fetch(`https://chatapp-bsrk.onrender.com/messages/${chatId}`)
+           fetch(`https://chatapp-bsrk.onrender.com/messages/${chatId}`)
                 .then(response => response.json())
                 .then(messages => {
                     console.log(messages);
                     chatBox.innerHTML = '';
                     if (Array.isArray(messages)) {
-                messages.forEach(msg => {
-                    // Check if the message sender is 'self' or 'user'
-                const sender = msg.sender === 'self' ? 'self' : 'user';
-                    appendMessage(msg.content, msg.sender);
-                });
+                    const newMessages = messages.filter(msg => msg.id > lastLoadedMessageId);
+                    if (newMessages.length > 0) {
+                        newMessages.forEach(msg => {
+                            const sender = msg.sender === 'self' ? 'self' : 'user';
+                            appendMessage(msg.content, sender);
+                            lastLoadedMessageId = msg.id;  // Update last loaded message ID
+                        });
+                    }
             } else {
                 console.error('Received data is not an array:', messages);
             }
@@ -246,9 +249,9 @@
         }
 
         // Poll for new messages every 0.1 seconds
-    setInterval(() => {
+        setInterval(() => {
         loadMessages(chatId);
-    }, 100);
+    }, 200);
 
     </script>
 
