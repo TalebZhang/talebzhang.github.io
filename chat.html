@@ -336,7 +336,7 @@
             if (Notification.permission === "granted") {
                 const notification = new Notification("新消息", {
                     body: `${newMessageCount} new message${newMessageCount > 1 ? 's' : ''}`,
-                    icon: 'pic/icom.png', // Optional: Add an icon for your notification
+                     icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
                     tag: 'new-message-notification', // Used to group multiple notifications
                 });
 
@@ -370,7 +370,7 @@ function showNewMessageReminder(newMessageCount) {
 loadMessages(chatId);
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
+            navigator.serviceWorker.register('service-worker.js')
                 .then(function (registration) {
                     console.log('Service Worker registered', registration);
                 })
