@@ -170,8 +170,8 @@
 
     <!-- Chat Header -->
     <div class="chat-header">
-        <p class="headname"><a href="chat.html?chatId=123456">Zhang</a></p>
-        <p class="motto">Today is the only day I have</p>
+        <p class="headname"><a href="chat.html?chatId=123456">张</a></p>
+        <p class="motto">专用聊天室</p>
        
     </div>
 
@@ -188,7 +188,7 @@
 
         <!-- Input Box -->
         <div class="input-box">
-            <input type="text" id="message-input" placeholder="メッセージを入力...">
+            <input type="text" id="message-input" placeholder="请输入...">
         </div>
         <i class="fa-solid fa-paper-plane send-button" id="send-button"></i>
     </div>
@@ -282,7 +282,7 @@ document.addEventListener('keydown', (event) => {
 
         // Save message to the database
         function saveMessageToDatabase(chatId, message) {
-            fetch(`http://localhost:3000/send-message/${chatId}`, {
+            fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -303,7 +303,7 @@ document.addEventListener('keydown', (event) => {
         let lastLoadedTimestamp = 0; // Track the last loaded message timestamp
         // Load previous messages
         function loadMessages(chatId) {
-            fetch(`http://localhost:3000/messages/${chatId}`)
+            fetch(`https://chatapp-bsrk.onrender.com/messages/${chatId}`)
                 .then(response => response.json())
                 .then(messages => {
                     chatBox.innerHTML = '';
