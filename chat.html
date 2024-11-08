@@ -337,6 +337,7 @@
                 const notification = new Notification("新消息", {
                     body: `${newMessageCount} new message${newMessageCount > 1 ? 's' : ''}`,
                      icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
+                     badge: 'https://yozipic.top/pic/badge.png', // Use your badge URL
                     tag: 'new-message-notification', // Used to group multiple notifications
                 });
 
@@ -424,35 +425,24 @@ loadMessages(chatId);
             });
         }
 
-        // Example function to notify when a new message comes in
+       // Example function to notify when a new message comes in
 function notifyNewMessage(message) {
-    // Check if the user is subscribed
-    if (subscription) { // Assuming `subscription` holds the active user's subscription
-        fetch('https://chatapp-bsrk.onrender.com/send-notification', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                subscription: subscription,
-                message: message,
-                icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
-            badge: 'https://yozipic.top/pic/badge.png'  // Update this to the correct URL
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Notification sent:', data);
-        })
-        .catch(error => {
-            console.error('Error sending notification:', error);
+    // Check if the user has notification permissions
+    if (Notification.permission === 'granted') {
+        const notification = new Notification("新しいメッセージ", {
+            body: message,
+            icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
+            badge: 'https://yozipic.top/pic/badge.png' // Update this to the correct URL
         });
-        
+
+        // Close the notification after a few seconds
+        setTimeout(() => {
+            notification.close();
+        }, 5000);
     } else {
-        console.warn('User is not subscribed for push notifications');
+        console.warn('User has not granted notification permission');
     }
 }
-
     </script>
 
 </body>
