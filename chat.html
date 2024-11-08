@@ -232,15 +232,12 @@
                 .then(response => response.json())
                 .then(messages => {
                     console.log(messages);
-                    if (Array.isArray(messages)) {
-                    const newMessages = messages.filter(msg => msg.id > lastLoadedMessageId);
-                    if (newMessages.length > 0) {
-                        newMessages.forEach(msg => {
-                            const sender = msg.sender === 'self' ? 'self' : 'user';
-                            appendMessage(msg.content, sender);
-                            lastLoadedMessageId = msg.id;  // Update last loaded message ID
-                        });
-                    }
+                     if (Array.isArray(messages)) {
+                // Append each message to the chat box without clearing it
+                messages.forEach(msg => {
+                    const sender = msg.sender === 'self' ? 'self' : 'user';
+                    appendMessage(msg.content, sender, msg.timestamp);
+                });
             } else {
                 console.error('Received data is not an array:', messages);
             }
