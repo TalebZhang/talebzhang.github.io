@@ -416,7 +416,7 @@ loadMessages(chatId);
 
         // Send subscription to your backend server (e.g., `server.js`)
         function sendSubscriptionToServer(subscription) {
-            fetch('/subscribe', {
+            fetch('https://chatapp-bsrk.onrender.com/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
