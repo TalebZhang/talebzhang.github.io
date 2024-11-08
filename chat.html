@@ -411,7 +411,7 @@ loadMessages(chatId);
 
         // Send subscription to your backend server (e.g., `server.js`)
         function sendSubscriptionToServer(subscription) {
-            fetch('/subscribe', {
+            fetch('https://chatapp-bsrk.onrender.com/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -428,7 +428,7 @@ loadMessages(chatId);
 function notifyNewMessage(message) {
     // Check if the user is subscribed
     if (subscription) { // Assuming `subscription` holds the active user's subscription
-        fetch('/send-notification', {
+        fetch('https://chatapp-bsrk.onrender.com/send-notification', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
