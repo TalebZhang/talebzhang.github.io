@@ -322,14 +322,19 @@
                 });
         }
 
-        // Request notification permission
-        if (Notification.permission !== "granted") {
-            Notification.requestPermission().then(permission => {
-                if (permission === "granted") {
-                    console.log("Notification permission granted.");
-                }
-            });
+        // Check if the user has already granted permission
+if (Notification.permission === 'default') {
+    Notification.requestPermission().then(function(permission) {
+        if (permission === 'granted') {
+            console.log('Notification permission granted.');
+        } else {
+            console.log('Notification permission denied.');
         }
+    }).catch(function(err) {
+        console.error('Permission request failed:', err);
+    });
+}
+
 
         // Function to show a reminder when new messages are loaded
         function showNewMessageReminder1(newMessageCount) {
