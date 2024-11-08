@@ -136,7 +136,7 @@
 
     <!-- Chat Header -->
     <div class="chat-header">
-        <p class="headname"><a href="chat.html?chatId=123456">Zhang</a></p>
+        <p class="headname">Zhang</p>
         <p class="motto">Today is the only day I have</p>
        
     </div>
