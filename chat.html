@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チャットページ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        /* Fixed header */
+        .chat-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 4px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .chat-header p {
+            margin: 0;
+            opacity: 1;
+            text-align: center;
+        }
+
+        /* Chat box */
+        .chat-box {
+            padding: 10px 10px 80px;
+            margin-top: 60px;
+            height: calc(100vh - 140px);
+            overflow-y: scroll;
+            background-color: white;
+        }
+
+        /* Chat messages */
+        .chat-message {
+            margin-bottom: 0px;
+            display: flex;
+            justify-content: flex-start;
+            max-width: 100%;
+        }
+
+        .chat-message.self p {
+            background-color: #4CAF50;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            word-wrap: break-word;
+            justify-content: flex-end; /* Align content to the right */
+    margin-left: auto; /* Push the element to the right */
+    margin-right: 10px;
+        }
+
+        .chat-message.user p {
+            background-color:#f1f1f1;
+            
+            padding: 10px;
+            border-radius: 10px;
+            word-wrap: break-word;
+            
+    justify-content: flex-start;
+    margin-left: 10px; /* Push the element to the right */
+    margin-right: auto;
+        }
+
+        /* Input section fixed at the bottom */
+        .chat-input-section {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            border-top: 1px solid #ccc;
+            padding: 10px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .input-box {
+            width: 54%;
+            padding: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-box input {
+            border: none;
+            outline: none;
+            width: 50%;
+            padding: 5px 0;
+            flex-grow: 1;
+        }
+
+        .input-box i {
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .send-button {
+            display: none;
+            cursor: pointer;
+            margin-left: 0px;
+        }
+
+        .input-box input.expanded {
+            width: 95%;
+        }
+
+        .headname{
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .motto{
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    </style>
+</head>
+<body>
+
+    <!-- Chat Header -->
+    <div class="chat-header">
+        <p class="headname"><a href="chat.html?chatId=123456">Zhang</a></p>
+        <p class="motto">Today is the only day I have</p>
+       
+    </div>
+
+    <!-- Chat Box -->
+    <div class="chat-box" id="chat-box"></div>
+
+    <!-- Input Section -->
+    <div class="chat-input-section">
+        <!-- Icons on the left -->
+        <i class="fa-regular fa-image"></i>
+        <i class="fa-solid fa-volume-high"></i>
+        <i class="fa-solid fa-phone"></i>
+        <i class="fa-solid fa-video"></i>
+
+        <!-- Input Box -->
+        <div class="input-box">
+            <i class="fa-solid fa-expand" id="expand-icon"></i>
+            <input type="text" id="message-input" placeholder="メッセージを入力...">
+        </div>
+        <i class="fa-solid fa-paper-plane send-button" id="send-button"></i>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+
+        // Retrieve the chatId from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const chatId = urlParams.get('chatId');
+
+        if (!chatId) {
+            console.error('No chat ID found in URL');
+        }
+
+        // Expand input when focused
+        messageInput.addEventListener('focus', () => {
+            messageInput.classList.add('expanded');
+            sendButton.style.display = 'inline';
+        });
+
+        // Send a message
+        sendButton.addEventListener('click', () => {
+            const message = messageInput.value.trim();
+            if (message !== '') {
+                appendMessage(message, 'self');
+                messageInput.value = '';
+                sendButton.style.display = 'none';
+
+                // Save the message to the database
+                saveMessageToDatabase(chatId, message);
+            }
+        });
+
+        // Append the message to the chat box
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message');
+            messageElement.classList.add(sender); 
+            const messageText = document.createElement('p');
+            messageText.textContent = message;
+            messageElement.appendChild(messageText);
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Save message to the database
+        function saveMessageToDatabase(chatId, message) {
+            fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ messageContent: message }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Message saved', data);
+                loadMessages(chatId);
+            })
+            .catch(error => {
+                console.error('Error saving message:', error);
+            });
+        }
+
+        // Load previous messages
+        function loadMessages(chatId) {
+            fetch(`https://chatapp-bsrk.onrender.com/messages/${chatId}`)
+                .then(response => response.json())
+                .then(messages => {
+                    console.log(messages);
+                    chatBox.innerHTML = '';
+                    if (Array.isArray(messages)) {
+                messages.forEach(msg => {
+                    // Check if the message sender is 'self' or 'user'
+                const sender = msg.sender === 'self' ? 'self' : 'user';
+                    appendMessage(msg.content, msg.sender);
+                });
+            } else {
+                console.error('Received data is not an array:', messages);
+            }
+                })
+                .catch(error => {
+                    console.error('Error loading messages:', error);
+                });
+        }
+
+        loadMessages(chatId);  // Load messages when the page is loaded
+    </script>
+
+</body>
+</html>
