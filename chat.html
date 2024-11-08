@@ -164,6 +164,8 @@
         const chatBox = document.getElementById('chat-box');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
+        let lastLoadedMessageId = 0; 
+
 
         // Retrieve the chatId from the URL
         const urlParams = new URLSearchParams(window.location.search);
