@@ -197,20 +197,36 @@
             console.error('No chat ID found in URL');
         }
 
-        // Send a message
-        sendButton.addEventListener('click', () => {
-            const message = messageInput.value.trim();
+        // Expand input when focused
+        messageInput.addEventListener('focus', () => {
+            messageInput.classList.add('expanded');
+            sendButton.style.display = 'inline';
+        });
+        
+         const triggerAction = () => {
+  // Your action here
+  const message = messageInput.value.trim();
             if (message !== '') {
                 appendMessage(message, 'self');
                 messageInput.value = '';
                 sendButton.style.display = 'none';
 
                 // Trigger notification for new message
-                notifyNewMessage(message);  // Send the notification to the active user
+                notifyNewMessage(message);  
                 // Save the message to the database
                 saveMessageToDatabase(chatId, message);
             }
-        });
+};
+
+// Event listener for the sendButton click
+sendButton.addEventListener('click', triggerAction);
+
+// Event listener for the Enter key press
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    triggerAction();
+  }
+});
 
         
         // Append the message to the chat box
