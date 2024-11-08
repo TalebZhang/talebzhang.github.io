@@ -231,7 +231,6 @@
                 .then(response => response.json())
                 .then(messages => {
                     console.log(messages);
-                    chatBox.innerHTML = '';
                     if (Array.isArray(messages)) {
                     const newMessages = messages.filter(msg => msg.id > lastLoadedMessageId);
                     if (newMessages.length > 0) {
