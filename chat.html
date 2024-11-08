@@ -214,6 +214,8 @@
                 messageInput.value = '';
                 sendButton.style.display = 'none';
 
+                // Trigger notification for new message
+                notifyNewMessage(message);  // Send the notification to the active user
                 // Save the message to the database
                 saveMessageToDatabase(chatId, message);
             }
@@ -377,15 +379,8 @@ loadMessages(chatId);
                 });
         }
 
-        // Request permission to show notifications
-        if (Notification.permission !== 'granted') {
-            Notification.requestPermission().then(permission => {
-                if (permission === 'granted') {
-                    subscribeUserToPush();
-                }
-            });
-        }
 
+        let subscription = null;
         function subscribeUserToPush() {
             navigator.serviceWorker.ready.then(function (registration) {
                 registration.pushManager.subscribe({
@@ -416,7 +411,7 @@ loadMessages(chatId);
 
         // Send subscription to your backend server (e.g., `server.js`)
         function sendSubscriptionToServer(subscription) {
-            fetch('https://chatapp-bsrk.onrender.com/subscribe', {
+            fetch('/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -428,6 +423,34 @@ loadMessages(chatId);
                 console.error('Failed to send subscription to server:', error);
             });
         }
+
+        // Example function to notify when a new message comes in
+function notifyNewMessage(message) {
+    // Check if the user is subscribed
+    if (subscription) { // Assuming `subscription` holds the active user's subscription
+        fetch('/send-notification', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                subscription: subscription,
+                message: message
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Notification sent:', data);
+        })
+        .catch(error => {
+            console.error('Error sending notification:', error);
+        });
+        
+    } else {
+        console.warn('User is not subscribed for push notifications');
+    }
+}
+
     </script>
 
 </body>
