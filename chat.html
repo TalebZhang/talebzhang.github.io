@@ -174,7 +174,7 @@
     <div class="chat-input-section">
         <!-- Icons on the left -->
         <i class="fa-regular fa-image"></i>
-        <i class="fa-solid fa-volume-high"></i>
+        <i class="fa-solid fa-microphone" id="audio-record-button"></i>
         <i class="fa-solid fa-phone"></i>
         <i class="fa-solid fa-video"></i>
 
@@ -417,6 +417,87 @@ function notifyNewMessage(message) {
     } else {
         console.warn('User has not granted notification permission');
     }
+}
+
+        // Get the audio record button element
+const audioRecordButton = document.getElementById('audio-record-button');
+
+// Define variables for recording audio
+let isRecording = false;
+let mediaRecorder;
+let audioChunks = [];
+
+// Start or stop audio recording
+audioRecordButton.addEventListener('click', () => {
+    if (isRecording) {
+        // Stop the recording
+        mediaRecorder.stop();
+        isRecording = false;
+        audioRecordButton.classList.remove('recording'); // Optionally change icon
+    } else {
+        // Start the recording
+        startRecording();
+        isRecording = true;
+        audioRecordButton.classList.add('recording'); // Optionally change icon
+    }
+});
+
+// Start recording the audio
+function startRecording() {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                // Display the audio message
+                appendAudioMessage(audioUrl);
+                audioChunks = []; // Clear the audio chunks array
+            };
+            mediaRecorder.start();
+        })
+        .catch(error => {
+            console.error('Error accessing microphone:', error);
+        });
+}
+
+// Append the audio message to the chat box
+function appendAudioMessage(audioUrl) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('chat-message', 'self');  // Add sender class
+
+    // Create the audio element
+    const audioElement = document.createElement('audio');
+    audioElement.controls = true;
+    audioElement.src = audioUrl; // Set the audio source to the blob URL
+
+    messageElement.appendChild(audioElement);
+    chatBox.appendChild(messageElement);
+
+    // Scroll to the latest message
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Modify `saveMessageToDatabase` function to send audio to the server
+function saveAudioMessageToDatabase(chatId, audioBlob) {
+    const formData = new FormData();
+    formData.append('audio', audioBlob, 'audio-message.wav'); // Append the audio file
+
+    fetch(`http://localhost:3000/send-audio-message/${chatId}`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Audio message saved', data);
+        loadMessages(chatId); // Reload messages
+    })
+    .catch(error => {
+        console.error('Error saving audio message:', error);
+    });
 }
     </script>
 
