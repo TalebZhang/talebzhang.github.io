@@ -246,7 +246,6 @@ document.addEventListener('keydown', (event) => {
             messageElement.appendChild(messageText);
             
             chatBox.appendChild(messageElement);
-            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         
@@ -313,6 +312,7 @@ document.addEventListener('keydown', (event) => {
                     if (newMessages.length > 0) {
                         showNewMessageReminder(newMessages.length);
                         showNewMessageReminder1(newMessages.length);
+                        chatBox.scrollTop = chatBox.scrollHeight;
                     }
                         // Append each message to the chat box without clearing it
                         messages.forEach(msg => {
