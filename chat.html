@@ -486,7 +486,7 @@ function saveAudioMessageToDatabase(chatId, audioBlob) {
     const formData = new FormData();
     formData.append('audio', audioBlob, 'audio-message.wav'); // Append the audio file
 
-    fetch(`http://localhost:3000/send-audio-message/${chatId}`, {
+    fetch(`https://chatapp-bsrk.onrender.com/send-audio-message/${chatId}`, {
         method: 'POST',
         body: formData
     })
