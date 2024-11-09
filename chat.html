@@ -442,12 +442,16 @@ audioRecordButton.addEventListener('click', () => {
         // Stop the recording
         mediaRecorder.stop();
         isRecording = false;
-        audioRecordButton.classList.remove('recording'); // Optionally change icon
+        // Change the icon to microphone and remove 'recording' state
+         audioRecordButton.classList.remove('fa-stop'); // Remove stop icon
+        audioRecordButton.classList.add('fa-microphone'); // Add microphone icon
     } else {
         // Start the recording
         startRecording();
         isRecording = true;
-        audioRecordButton.classList.add('recording'); // Optionally change icon
+        // Change the icon to stop and add 'recording' state
+        audioRecordButton.classList.remove('fa-microphone'); // Remove microphone icon
+        audioRecordButton.classList.add('fa-stop'); // Add stop icon
     }
 });
 
