@@ -283,7 +283,7 @@ document.addEventListener('keydown', (event) => {
 
         
         // Save message to the database
-        function saveMessageToDatabase(chatId, message, , type = 'text') {
+        function saveMessageToDatabase(chatId, message, type = 'text') {
             fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
                 method: 'POST',
                 headers: {
