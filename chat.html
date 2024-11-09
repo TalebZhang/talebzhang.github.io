@@ -301,8 +301,8 @@ document.addEventListener('keydown', (event) => {
            fetch(`https://chatapp-bsrk.onrender.com/messages/${chatId}`)
                 .then(response => response.json())
                 .then(messages => {
-                    console.log(messages);
-                    chatBox.innerHTML = '';
+                    
+                   
                     let newMessages = [];
                     
                      if (Array.isArray(messages)) {
