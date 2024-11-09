@@ -308,17 +308,20 @@ document.addEventListener('keydown', (event) => {
                      if (Array.isArray(messages)) {
 
                          newMessages = messages.filter(msg => new Date(msg.timestamp).getTime() > lastLoadedTimestamp);
-                    // If there are new messages, show a reminder
+                    
+                        // Append each message to the chat box without clearing it
+                       // Append each new message to the chat box
+                newMessages.forEach(msg => {
+                    const sender = msg.sender === 'self' ? 'self' : 'user';
+                    appendMessage(msg.content, sender, msg.timestamp);
+                });
+
+                         // If there are new messages, show a reminder
                     if (newMessages.length > 0) {
                         showNewMessageReminder(newMessages.length);
                         showNewMessageReminder1(newMessages.length);
                         chatBox.scrollTop = chatBox.scrollHeight;
                     }
-                        // Append each message to the chat box without clearing it
-                        messages.forEach(msg => {
-                    const sender = msg.sender === 'self' ? 'self' : 'user';
-                    appendMessage(msg.content, sender, msg.timestamp);
-                });
 
                  // Update lastLoadedTimestamp to the latest message timestamp
                 if (messages.length > 0) {
