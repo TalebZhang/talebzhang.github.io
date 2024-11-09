@@ -204,19 +204,19 @@
         });
         
          const triggerAction = () => {
-  // Your action here
-  const message = messageInput.value.trim();
-            if (message !== '') {
-                
-                messageInput.value = '';
-                sendButton.style.display = 'none';
-
-                // Trigger notification for new message
-                notifyNewMessage(message);  
-                // Save the message to the database
-                saveMessageToDatabase(chatId, message);
-            }
-};
+          // Your action here
+          const message = messageInput.value.trim();
+                    if (message !== '') {
+                        
+                        messageInput.value = '';
+                        sendButton.style.display = 'none';
+        
+                        // Trigger notification for new message
+                        notifyNewMessage(message);  
+                        // Save the message to the database
+                        saveMessageToDatabase(chatId, message, 'text');
+                    }
+        };
 
 // Event listener for the sendButton click
 sendButton.addEventListener('click', triggerAction);
@@ -230,7 +230,7 @@ document.addEventListener('keydown', (event) => {
 
         
         // Append the message to the chat box
-        function appendMessage(message, sender, timestamp) {
+        function appendMessage(message, sender, timestamp, type) {
             const messageElement = document.createElement('div');
             messageElement.classList.add('chat-message');
             messageElement.classList.add(sender); 
@@ -241,9 +241,16 @@ document.addEventListener('keydown', (event) => {
             timestampElement.textContent = formatTimestamp(timestamp); // Format timestamp for readability
             messageElement.appendChild(timestampElement);
 
-            const messageText = document.createElement('p');
-            messageText.textContent = message;
-            messageElement.appendChild(messageText);
+            if (type === 'audio') {
+        const audioElement = document.createElement('audio');
+        audioElement.controls = true;
+        audioElement.src = message; // URL to the audio file (you'll save this on the server)
+        messageElement.appendChild(audioElement);
+    } else {
+        const messageText = document.createElement('p');
+        messageText.textContent = message;
+        messageElement.appendChild(messageText);
+    }
             
             chatBox.appendChild(messageElement);
         }
@@ -276,7 +283,7 @@ document.addEventListener('keydown', (event) => {
 
         
         // Save message to the database
-        function saveMessageToDatabase(chatId, message) {
+        function saveMessageToDatabase(chatId, message, , type = 'text') {
             fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
                 method: 'POST',
                 headers: {
@@ -297,7 +304,9 @@ document.addEventListener('keydown', (event) => {
         let lastLoadedTimestamp = 0; // Track the last loaded message timestamp
         
         // Load previous messages
-        function loadMessages(chatId) {
+        function loadMessages(chatId, type = '') {
+             // Construct query parameter for type
+   const queryParam = type ? `?type=${type}` : '';
            fetch(`https://chatapp-bsrk.onrender.com/messages/${chatId}`)
                 .then(response => response.json())
                 .then(messages => {
@@ -313,7 +322,7 @@ document.addEventListener('keydown', (event) => {
                        // Append each new message to the chat box
                 newMessages.forEach(msg => {
                     const sender = msg.sender === 'self' ? 'self' : 'user';
-                    appendMessage(msg.content, sender, msg.timestamp);
+                    appendMessage(msg.content, sender, msg.timestamp, msg.type);
                 });
 
                          // If there are new messages, show a reminder
@@ -454,7 +463,8 @@ function startRecording() {
                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                 const audioUrl = URL.createObjectURL(audioBlob);
                 // Display the audio message
-                appendAudioMessage(audioUrl);
+                saveAudioMessageToDatabase(chatId, audioBlob);
+                
                 audioChunks = []; // Clear the audio chunks array
             };
             mediaRecorder.start();
@@ -464,27 +474,12 @@ function startRecording() {
         });
 }
 
-// Append the audio message to the chat box
-function appendAudioMessage(audioUrl) {
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('chat-message', 'self');  // Add sender class
-
-    // Create the audio element
-    const audioElement = document.createElement('audio');
-    audioElement.controls = true;
-    audioElement.src = audioUrl; // Set the audio source to the blob URL
-
-    messageElement.appendChild(audioElement);
-    chatBox.appendChild(messageElement);
-
-    // Scroll to the latest message
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
 
 // Modify `saveMessageToDatabase` function to send audio to the server
 function saveAudioMessageToDatabase(chatId, audioBlob) {
     const formData = new FormData();
     formData.append('audio', audioBlob, 'audio-message.wav'); // Append the audio file
+    formData.append('type', 'audio');  // Add type field to indicate it's an audio message
 
     fetch(`https://chatapp-bsrk.onrender.com/send-audio-message/${chatId}`, {
         method: 'POST',
