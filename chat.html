@@ -491,11 +491,31 @@ function saveAudioMessageToDatabase(chatId, audioBlob) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Audio message saved', data);
-        loadMessages(chatId); // Reload messages
+        // Assuming the server returns the URL of the uploaded audio
+         const audioUrl = data.filePath;
+
+// Save the audio URL along with other message data in the database
+fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        messageContent: audioUrl, // Send the audio URL
+        type: 'audio' // Specify the type as audio
     })
+})
+      .then(response => response.json())
+        .then(data => {
+            console.log('Audio message saved', data);
+            loadMessages(chatId); // Reload messages
+        })
     .catch(error => {
         console.error('Error saving audio message:', error);
+    });
+        })
+    .catch(error => {
+        console.error('Error uploading audio file:', error);
     });
 }
     </script>
