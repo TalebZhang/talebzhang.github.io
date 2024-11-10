@@ -442,6 +442,17 @@ audioRecordButton.addEventListener('click', () => {
         // Stop the recording
         mediaRecorder.stop();
         isRecording = false;
+
+         mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                // Display the audio message
+                // Save audio to the backend
+                saveAudioMessageToDatabase(chatId, audioBlob);
+                
+                // appendMessage(audioUrl,sender, timestamp, 'audio');
+                audioChunks = []; // Clear the audio chunks array
+            };
         // Change the icon to microphone and remove 'recording' state
          audioRecordButton.classList.remove('fa-stop'); // Remove stop icon
         audioRecordButton.classList.add('fa-microphone'); // Add microphone icon
@@ -460,17 +471,12 @@ function startRecording() {
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
             mediaRecorder = new MediaRecorder(stream);
+            audioChunks = []; // Initialize or clear the audio chunks array
+
             mediaRecorder.ondataavailable = event => {
                 audioChunks.push(event.data);
             };
-            mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                const audioUrl = URL.createObjectURL(audioBlob);
-                // Display the audio message
-                saveAudioMessageToDatabase(chatId, audioBlob);
-                
-                audioChunks = []; // Clear the audio chunks array
-            };
+            
             mediaRecorder.start();
         })
         .catch(error => {
