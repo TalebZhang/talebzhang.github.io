@@ -791,7 +791,7 @@ async function startCall() {
 
     } catch (error) {
         console.error('Error starting call:', error);
-        alert('Error accessing media devices.');
+        alert('Error accessing media devices.', err.name, err.message);
     }
 }
 
