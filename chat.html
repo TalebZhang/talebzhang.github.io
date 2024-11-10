@@ -519,7 +519,7 @@ fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
       .then(response => response.json())
         .then(data => {
             console.log('Audio message saved', data);
-            loadMessages(chatId); // Reload messages
+            
         })
     .catch(error => {
         console.error('Error saving audio message:', error);
