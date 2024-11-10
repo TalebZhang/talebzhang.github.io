@@ -726,13 +726,14 @@ startCallBtn.addEventListener('click', () => {
     if (isCalling) {
         hangupCall();
         startCallBtn.classList.toggle('hang-up');  // Hang up if already calling
-         chatBox.classList.add('hidden');
+        chatBox.classList.remove('hidden');
        
         callOverlay.classList.toggle('show'); 
     } else {
         startCall();  
         startCallBtn.classList.toggle('hang-up'); // Start a new call
-        chatBox.classList.remove('hidden');
+        
+         chatBox.classList.add('hidden');
         
         callOverlay.classList.toggle('show'); 
     }
