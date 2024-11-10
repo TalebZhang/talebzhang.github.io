@@ -176,6 +176,24 @@
 #startCallBtn.hang-up i {
     transform: rotate(135deg); /* Rotate icon to indicate "end call" */
 }
+
+       
+.hidden {
+    display: none;
+}
+
+
+.fullscreen-audio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    color: white;
+    z-index: 9999;
+}
+
     </style>
 </head>
 <body>
@@ -677,9 +695,13 @@ startCallBtn.addEventListener('click', () => {
     if (isCalling) {
         hangupCall();
         startCallBtn.classList.toggle('hang-up');  // Hang up if already calling
+         chatBox.classList.add('hidden');
+        remoteAudio.classList.add('fullscreen-audio');
     } else {
         startCall();  
         startCallBtn.classList.toggle('hang-up'); // Start a new call
+        chatBox.classList.remove('hidden');
+        remoteAudio.classList.remove('fullscreen-audio');
     }
 });
 
