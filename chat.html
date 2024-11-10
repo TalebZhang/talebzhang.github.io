@@ -743,6 +743,11 @@ startCallBtn.addEventListener('click', () => {
 async function startCall() {
     try {
         // Get user's audio stream
+        if (!navigator.mediaDevices) {
+            console.error('navigator.mediaDevices is not available in this environment.');
+            alert('Media devices are not available.');
+            return;
+        }
         if (navigator.mediaDevices) {
     try {
         localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -751,6 +756,8 @@ async function startCall() {
     }
 } else {
     console.error('navigator.mediaDevices is not available in this environment.');
+    alert('Failed to access microphone. Please check permissions.');
+            return;
 }
         const localAudio = new Audio();
         localAudio.srcObject = localStream;
