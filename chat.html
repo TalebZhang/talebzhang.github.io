@@ -586,8 +586,13 @@ socket.onopen = () => {
 };
 
 // Listen for incoming signaling messages
-socket.onmessage = (message) => {
-    const signal = JSON.parse(message.data);
+socket.onmessage = (event) => {
+    const message = event.data;
+
+    // Check if the message is a string (i.e., JSON)
+    if (typeof message === 'string') {
+        try {
+    const signal = JSON.parse(message);
 
     if (signal.offer) {
         handleOffer(signal.offer);
@@ -596,7 +601,32 @@ socket.onmessage = (message) => {
     } else if (signal.iceCandidate) {
         handleNewICECandidate(signal.iceCandidate);
     }
-};
+} catch (e) {
+            console.error('Error parsing JSON:', e);
+        }
+}else if (message instanceof Blob) {
+        // If the message is a Blob, read it as text
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            try {
+                const signal = JSON.parse(reader.result);
+
+                if (signal.offer) {
+                    handleOffer(signal.offer);
+                } else if (signal.answer) {
+                    handleAnswer(signal.answer);
+                } else if (signal.iceCandidate) {
+                    handleNewICECandidate(signal.iceCandidate);
+                }
+            } catch (e) {
+                console.error('Error parsing JSON from Blob:', e);
+            }
+        };
+        reader.readAsText(message); // Read the Blob as text
+    } else {
+        console.warn('Received unsupported message type:', message);
+    }
+    };
 
 // Toggle Start Call / Hang Up functionality
 startCallBtn.addEventListener('click', () => {
