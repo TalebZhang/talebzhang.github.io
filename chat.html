@@ -596,6 +596,28 @@ socket.onmessage = (event) => {
     const signal = JSON.parse(message);
 
     if (signal.offer) {
+        if (!peerConnection) {
+                    console.log('Initializing peerConnection for the offer...');
+                    peerConnection = new RTCPeerConnection(serverIceConfig);
+                    // Handle ICE candidates
+                    peerConnection.onicecandidate = (event) => {
+                        if (event.candidate) {
+                            sendSignal({
+                                iceCandidate: event.candidate
+                            });
+                        }
+                    };
+                    // Add local stream to peer connection
+                    if (localStream) {
+                        localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+                    }
+                    // Handle remote stream
+                    peerConnection.ontrack = (event) => {
+                        if (remoteAudio) {
+                            remoteAudio.srcObject = event.streams[0];
+                        }
+                    };
+                }
         handleOffer(signal.offer);
     } else if (signal.answer) {
         handleAnswer(signal.answer);
@@ -613,6 +635,28 @@ socket.onmessage = (event) => {
                 const signal = JSON.parse(reader.result);
 
                 if (signal.offer) {
+                    if (!peerConnection) {
+                        console.log('Initializing peerConnection for the offer...');
+                        peerConnection = new RTCPeerConnection(serverIceConfig);
+                        // Handle ICE candidates
+                        peerConnection.onicecandidate = (event) => {
+                            if (event.candidate) {
+                                sendSignal({
+                                    iceCandidate: event.candidate
+                                });
+                            }
+                        };
+                        // Add local stream to peer connection
+                        if (localStream) {
+                            localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+                        }
+                        // Handle remote stream
+                        peerConnection.ontrack = (event) => {
+                            if (remoteAudio) {
+                                remoteAudio.srcObject = event.streams[0];
+                            }
+                        };
+                    }
                     handleOffer(signal.offer);
                 } else if (signal.answer) {
                     handleAnswer(signal.answer);
@@ -628,7 +672,6 @@ socket.onmessage = (event) => {
         console.warn('Received unsupported message type:', message);
     }
     };
-
 // Toggle Start Call / Hang Up functionality
 startCallBtn.addEventListener('click', () => {
     if (isCalling) {
