@@ -468,6 +468,10 @@ function startRecording() {
                 const audioUrl = URL.createObjectURL(audioBlob);
                 // Display the audio message
                 saveAudioMessageToDatabase(chatId, audioBlob);
+
+                 // Display the audio message immediately in the frontend
+                appendMessage(audioUrl, 'self', new Date().toISOString(), 'audio'); // You can adjust sender and timestamp
+
                 
                 audioChunks = []; // Clear the audio chunks array
             };
