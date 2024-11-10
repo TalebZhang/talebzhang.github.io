@@ -842,6 +842,9 @@ async function handleOffer(offer){
         // Set the remote description with the received offer
         await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
 
+        // Once remote description is set, process any queued ICE candidates
+        processPendingCandidates();
+
         // Create an answer and set it as the local description
         const answer = await peerConnection.createAnswer();
         await peerConnection.setLocalDescription(answer);
@@ -881,6 +884,23 @@ async function handleNewICECandidate(candidate) {
     } else {
         // Queue the candidate if remote description is not set yet
         pendingCandidates.push(candidate);
+    }
+}
+
+        // Function to process pending ICE candidates once remote description is set
+function processPendingCandidates() {
+    if (peerConnection && peerConnection.remoteDescription) {
+        pendingCandidates.forEach(async (candidate) => {
+            try {
+                await peerConnection.addIceCandidate(candidate);
+            } catch (error) {
+                console.error('Error adding queued ICE candidate:', error);
+            }
+        });
+        // Clear the queue after processing
+        pendingCandidates = [];
+    } else {
+        console.log('Remote description not yet set. Cannot process pending candidates.');
     }
 }
 
