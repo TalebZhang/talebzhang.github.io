@@ -447,6 +447,10 @@ audioRecordButton.addEventListener('click', () => {
                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                 const audioUrl = URL.createObjectURL(audioBlob);
                 // Display the audio message
+
+             // Append the audio message to chat (if needed)
+            appendMessage(audioUrl, 'self', new Date().toISOString(), 'audio');
+
                 // Save audio to the backend
                 saveAudioMessageToDatabase(chatId, audioBlob);
                 
@@ -505,8 +509,8 @@ function saveAudioMessageToDatabase(chatId, audioBlob) {
         // Assuming the server returns the URL of the uploaded audio
          const audioUrl = data.filePath;
 
-// Save the audio URL along with other message data in the database
-fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
+// Send the audio URL as a message, with its type set as 'audio'
+return fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
