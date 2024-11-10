@@ -554,7 +554,7 @@ return fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
 
 
         // WebSocket connection for signaling
-const socket = new WebSocket('ws://chatapp-bsrk.onrender.com');
+const socket = new WebSocket('wss://chatapp-bsrk.onrender.com');
 
 // WebRTC configuration
 let localStream;
