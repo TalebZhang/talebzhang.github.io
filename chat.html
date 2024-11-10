@@ -698,7 +698,12 @@ async function startCall() {
 
 // Handle the incoming offer from the peer
 async function handleOffer(offer) {
-    if (!localStream) {
+   
+
+    // Add local stream to peer connection
+    localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+     if (!localStream) {
         console.error('Local stream not available yet');
         return;
     }
@@ -707,10 +712,6 @@ async function handleOffer(offer) {
         console.log('Initializing peerConnection...');
         peerConnection = new RTCPeerConnection(serverIceConfig);
     }
-    
-
-    // Add local stream to peer connection
-    localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
 
     // Handle remote stream
     peerConnection.ontrack = (event) => {
