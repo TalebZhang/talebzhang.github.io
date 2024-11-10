@@ -644,8 +644,15 @@ startCallBtn.addEventListener('click', () => {
 async function startCall() {
     try {
         // Get user's audio stream
+        if (navigator.mediaDevices) {
+    try {
         localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        
+    } catch (err) {
+        console.error('Error accessing media devices: ', err);
+    }
+} else {
+    console.error('navigator.mediaDevices is not available in this environment.');
+}
         const localAudio = new Audio();
         localAudio.srcObject = localStream;
         localAudio.play();
@@ -695,7 +702,12 @@ async function handleOffer(offer) {
         console.error('Local stream not available yet');
         return;
     }
-    peerConnection = new RTCPeerConnection(serverIceConfig);
+
+    if (!peerConnection) {
+        console.log('Initializing peerConnection...');
+        peerConnection = new RTCPeerConnection(serverIceConfig);
+    }
+    
 
     // Add local stream to peer connection
     localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
@@ -740,8 +752,18 @@ function handleAnswer(answer) {
 }
 
 // Handle incoming ICE candidates
-function handleNewICECandidate(candidate) {
-    peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+async function handleNewICECandidate(candidate) {
+    if (!peerConnection) {
+        console.error('peerConnection is not initialized yet');
+        return;
+    }
+
+    try {
+        await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+    } catch (error) {
+        console.error('Error adding ICE candidate:', error);
+    }
+    
 }
 
 // Send signaling messages via WebSocket
