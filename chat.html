@@ -795,75 +795,86 @@ async function startCall() {
     }
 }
 
-// Handle the incoming offer from the peer
 async function handleOffer(offer) {
-   
-
-    // Add local stream to peer connection
-    localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
-
-     if (!localStream) {
+    // Check if local stream is available
+    if (!localStream) {
         console.error('Local stream not available yet');
         return;
     }
 
+    // Initialize peerConnection if it doesn't already exist
     if (!peerConnection) {
         console.log('Initializing peerConnection...');
         peerConnection = new RTCPeerConnection(serverIceConfig);
+
+        // Handle remote stream
+        peerConnection.ontrack = (event) => {
+            if (remoteAudio) {
+                remoteAudio.srcObject = event.streams[0];
+            }
+        };
+
+        // Gather ICE candidates
+        peerConnection.onicecandidate = (event) => {
+            if (event.candidate) {
+                sendSignal({
+                    iceCandidate: event.candidate
+                });
+            }
+        };
     }
 
-    // Handle remote stream
-    peerConnection.ontrack = (event) => {
-        if (remoteAudio) {
-            remoteAudio.srcObject = event.streams[0];
+    // Add local stream to peer connection if not already added
+    localStream.getTracks().forEach(track => {
+        if (!peerConnection.getSenders().find(sender => sender.track === track)) {
+            peerConnection.addTrack(track, localStream);
         }
-    };
+    });
 
-    // Gather ICE candidates
-    peerConnection.onicecandidate = (event) => {
-        if (event.candidate) {
-            sendSignal({
-                iceCandidate: event.candidate
-            });
-        }
-    };
     try {
-    // Set remote description and create answer
-    await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
-    // Ensure remote description is set before creating an answer
-    if (peerConnection.remoteDescription) {
+        // Set the remote description with the received offer
+        await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+
+        // Create an answer and set it as the local description
         const answer = await peerConnection.createAnswer();
         await peerConnection.setLocalDescription(answer);
 
-        // Send answer back to peer
+        // Send the answer back to the peer
         sendSignal({
             answer: answer
         });
-    } else {
-        console.error('Failed to set remote description');
-    }} catch (error) {
+
+    } catch (error) {
         console.error('Error handling offer:', error);
     }
 }
+
 
 // Handle incoming answer from peer
 function handleAnswer(answer) {
     peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
 }
 
-// Handle incoming ICE candidates
+let pendingCandidates = []; // Queue for ICE candidates if remote description isn't set
+
 async function handleNewICECandidate(candidate) {
     if (!peerConnection) {
         console.error('peerConnection is not initialized yet');
         return;
     }
 
-    try {
-        await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
-    } catch (error) {
-        console.error('Error adding ICE candidate:', error);
+    // Check if remote description is already set
+    if (peerConnection.remoteDescription) {
+        // Remote description is set, so we can add the candidate directly
+        try {
+            await peerConnection.addIceCandidate(candidate);
+        } catch (error) {
+            console.error('Error adding ICE candidate:', error);
+        }
+    } else {
+        // Queue the candidate if remote description is not set yet
+        pendingCandidates.push(candidate);
     }
-    
 }
 
 // Send signaling messages via WebSocket
