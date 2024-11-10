@@ -791,11 +791,11 @@ async function startCall() {
 
     } catch (error) {
         console.error('Error starting call:', error);
-        alert('Error accessing media devices.', err.name, err.message);
+        alert('Error accessing media devices.');
     }
 }
 
-async function handleOffer(offer) {
+async function handleOffer(offer)
     // Check if local stream is available
     if (!localStream) {
         console.error('Local stream not available yet');
