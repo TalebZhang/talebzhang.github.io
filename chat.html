@@ -156,6 +156,26 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             opacity: 0.8;
         }
+
+        #startCallBtn {
+    color: white;
+    background-color: green;
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Adjust spacing between icon and text */
+}
+
+#startCallBtn.hang-up {
+    background-color: red; /* Change button color to red when in "hang-up" mode */
+}
+
+#startCallBtn.hang-up i {
+    transform: rotate(135deg); /* Rotate icon to indicate "end call" */
+}
     </style>
 </head>
 <body>
@@ -175,7 +195,8 @@
         <!-- Icons on the left -->
         <i class="fa-regular fa-image"></i>
         <i class="fa-solid fa-microphone" id="audio-record-button"></i>
-        <i class="fa-solid fa-phone"></i>
+         <!-- Single button to start and hang up the call -->
+    <button id="startCallBtn"> <i class="fa-solid fa-phone"></i></button>
         <i class="fa-solid fa-video"></i>
 
         <!-- Input Box -->
@@ -530,6 +551,168 @@ return fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
         console.error('Error uploading audio file:', error);
     });
 }
+
+
+        // WebSocket connection for signaling
+const socket = new WebSocket('ws://chatapp-bsrk.onrender.com');
+
+// WebRTC configuration
+let localStream;
+let peerConnection;
+const serverIceConfig = {
+    iceServers: [
+        { 
+            urls: 'stun:stun.l.google.com:19302'  // Google STUN server for testing
+        }
+        // // Add TURN server here if available
+        // {
+        //     urls: 'turn:your-turn-server.com:3478', // Example TURN server
+        //     username: 'webrtcuser',  // TURN username
+        //     credential: 'password123' // TURN password
+        // }
+    ]
+};
+
+// DOM elements
+const startCallBtn = document.getElementById('startCallBtn');
+const remoteAudio = document.getElementById('remoteAudio');
+
+// Call state
+let isCalling = false;
+
+// Set up WebSocket connection
+socket.onopen = () => {
+    console.log('WebSocket connection established');
+};
+
+// Listen for incoming signaling messages
+socket.onmessage = (message) => {
+    const signal = JSON.parse(message.data);
+
+    if (signal.offer) {
+        handleOffer(signal.offer);
+    } else if (signal.answer) {
+        handleAnswer(signal.answer);
+    } else if (signal.iceCandidate) {
+        handleNewICECandidate(signal.iceCandidate);
+    }
+};
+
+// Toggle Start Call / Hang Up functionality
+startCallBtn.addEventListener('click', () => {
+    if (isCalling) {
+        hangupCall();
+        startCallBtn.classList.toggle('hang-up');  // Hang up if already calling
+    } else {
+        startCall();  
+        startCallBtn.classList.toggle('hang-up'); // Start a new call
+    }
+});
+
+// Start a call (get local media and create peer connection)
+async function startCall() {
+    try {
+        // Get user's audio stream
+        localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        
+        const localAudio = new Audio();
+        localAudio.srcObject = localStream;
+        localAudio.play();
+
+        // Create WebRTC peer connection
+        peerConnection = new RTCPeerConnection(serverIceConfig);
+
+        // Add local stream to peer connection
+        localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+        // Handle remote stream
+        peerConnection.ontrack = (event) => {
+            remoteAudio.srcObject = event.streams[0];
+        };
+
+        // Gather ICE candidates and send to peer
+        peerConnection.onicecandidate = (event) => {
+            if (event.candidate) {
+                sendSignal({
+                    iceCandidate: event.candidate
+                });
+            }
+        };
+
+        // Create offer
+        const offer = await peerConnection.createOffer();
+        await peerConnection.setLocalDescription(offer);
+
+        // Send offer to the other peer via signaling server
+        sendSignal({
+            offer: offer
+        });
+
+        // Toggle button text and state
+       
+        isCalling = true;
+
+    } catch (error) {
+        console.error('Error starting call:', error);
+        alert('Error accessing media devices.');
+    }
+}
+
+// Handle the incoming offer from the peer
+async function handleOffer(offer) {
+    peerConnection = new RTCPeerConnection(serverIceConfig);
+
+    // Add local stream to peer connection
+    localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+    // Handle remote stream
+    peerConnection.ontrack = (event) => {
+        remoteAudio.srcObject = event.streams[0];
+    };
+
+    // Gather ICE candidates
+    peerConnection.onicecandidate = (event) => {
+        if (event.candidate) {
+            sendSignal({
+                iceCandidate: event.candidate
+            });
+        }
+    };
+
+    // Set remote description and create answer
+    await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+    const answer = await peerConnection.createAnswer();
+    await peerConnection.setLocalDescription(answer);
+
+    // Send answer back to peer
+    sendSignal({
+        answer: answer
+    });
+}
+
+// Handle incoming answer from peer
+function handleAnswer(answer) {
+    peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+}
+
+// Handle incoming ICE candidates
+function handleNewICECandidate(candidate) {
+    peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+}
+
+// Send signaling messages via WebSocket
+function sendSignal(signal) {
+    socket.send(JSON.stringify(signal));
+}
+
+// Hang up the call
+function hangupCall() {
+    peerConnection.close();
+    peerConnection = null;
+    isCalling = false;
+    remoteAudio.srcObject = null;
+}
+
     </script>
 
 </body>
