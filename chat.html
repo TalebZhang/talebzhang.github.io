@@ -237,12 +237,13 @@
      <div class="call-overlay" id="callOverlay">
             <div class="phone-icon"></div>
         </div>
+<input type="file" id="imageUpload" accept="image/*" style="display: none;" />
 
 
     <!-- Input Section -->
     <div class="chat-input-section">
         <!-- Icons on the left -->
-        <i class="fa-regular fa-image"></i>
+        <button id="sendImageBtn"><i class="fa-regular fa-image"></i></button>
         <i class="fa-solid fa-microphone" id="audio-record-button"></i>
          <!-- Single button to start and hang up the call -->
     <button id="startCallBtn"> <i class="fa-solid fa-phone"></i></button>
@@ -261,6 +262,8 @@
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
         const callOverlay = document.getElementById('callOverlay');
+        const imageUpload = document.getElementById('imageUpload');
+const sendImageBtn = document.getElementById('sendImageBtn');
 
         const chatId = 'yozi';
 
@@ -291,6 +294,24 @@
 
 // Event listener for the sendButton click
 sendButton.addEventListener('click', triggerAction);
+
+// Open the file picker when clicking the button
+sendImageBtn.addEventListener('click', () => {
+    imageUpload.click();
+});
+
+// Handle the selected image file
+imageUpload.addEventListener('change', () => {
+    const file = imageUpload.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64Image = reader.result;
+            sendSignal({ type: 'image', data: base64Image });
+        };
+        reader.readAsDataURL(file);
+    }
+});
 
 // Event listener for the Enter key press
 document.addEventListener('keydown', (event) => {
@@ -717,7 +738,13 @@ socket.onmessage = (event) => {
             }
         };
         reader.readAsText(message); // Read the Blob as text
-    } else {
+    }  else if (message.type === 'image') {
+        // Create an image element to display the received image
+        const img = document.createElement('img');
+        img.src = message.data; // Base64 image data from the server
+        img.style.width = '100px'; // Adjust as needed
+        chatBox.appendChild(img); // Append to the chat box
+    }else {
         console.warn('Received unsupported message type:', message);
     }
     };
