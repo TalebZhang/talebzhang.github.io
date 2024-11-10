@@ -691,6 +691,10 @@ async function startCall() {
 
 // Handle the incoming offer from the peer
 async function handleOffer(offer) {
+    if (!localStream) {
+        console.error('Local stream not available yet');
+        return;
+    }
     peerConnection = new RTCPeerConnection(serverIceConfig);
 
     // Add local stream to peer connection
@@ -698,7 +702,9 @@ async function handleOffer(offer) {
 
     // Handle remote stream
     peerConnection.ontrack = (event) => {
-        remoteAudio.srcObject = event.streams[0];
+        if (remoteAudio) {
+            remoteAudio.srcObject = event.streams[0];
+        }
     };
 
     // Gather ICE candidates
@@ -709,16 +715,23 @@ async function handleOffer(offer) {
             });
         }
     };
-
+    try {
     // Set remote description and create answer
     await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
-    const answer = await peerConnection.createAnswer();
-    await peerConnection.setLocalDescription(answer);
+    // Ensure remote description is set before creating an answer
+    if (peerConnection.remoteDescription) {
+        const answer = await peerConnection.createAnswer();
+        await peerConnection.setLocalDescription(answer);
 
-    // Send answer back to peer
-    sendSignal({
-        answer: answer
-    });
+        // Send answer back to peer
+        sendSignal({
+            answer: answer
+        });
+    } else {
+        console.error('Failed to set remote description');
+    }} catch (error) {
+        console.error('Error handling offer:', error);
+    }
 }
 
 // Handle incoming answer from peer
