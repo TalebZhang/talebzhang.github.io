@@ -448,9 +448,6 @@ audioRecordButton.addEventListener('click', () => {
                 const audioUrl = URL.createObjectURL(audioBlob);
                 // Display the audio message
 
-             // Append the audio message to chat (if needed)
-            appendMessage(audioUrl, 'self', new Date().toISOString(), 'audio');
-
                 // Save audio to the backend
                 saveAudioMessageToDatabase(chatId, audioBlob);
                 
