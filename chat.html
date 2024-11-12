@@ -443,8 +443,13 @@ document.addEventListener('keydown', (event) => {
                        // Append each new message to the chat box
                 newMessages.forEach(msg => {
                     if(email==='test@gmail.com'){
-                    const sender = 'self'} else {const sender = 'user'}
+                    const sender = 'self';
+                        appendMessage(msg.content, sender, msg.timestamp, msg.type);
+                    } else {
+                        const sender = 'user';
                     appendMessage(msg.content, sender, msg.timestamp, msg.type);
+                    }
+                    
                 });
 
                          // If there are new messages, show a reminder
