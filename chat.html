@@ -722,11 +722,44 @@ async function startCall() {
 
 // Handle incoming signaling messages
 function handleSignalMessage(event) {
-    const message = JSON.parse(event.data);
-    if (message.offer) handleOffer(message.offer);
-    else if (message.answer) handleAnswer(message.answer);
-    else if (message.iceCandidate) handleNewICECandidate(message.iceCandidate);
+    const message = event.data;
+
+    if (message instanceof Blob) {
+        // If the message is a Blob, read it as text
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            try {
+                const signal = JSON.parse(reader.result);
+                processSignal(signal);
+            } catch (e) {
+                console.error('Error parsing Blob message:', e);
+            }
+        };
+        reader.readAsText(message); // Read the Blob as text
+    } else if (typeof message === 'string') {
+        // If the message is a string (JSON), parse directly
+        try {
+            const signal = JSON.parse(message);
+            processSignal(signal);
+        } catch (e) {
+            console.error('Error parsing JSON:', e);
+        }
+    } else {
+        console.warn('Received unsupported message type:', message);
+    }
 }
+
+// Process signaling data
+function processSignal(signal) {
+    if (signal.offer) {
+        handleOffer(signal.offer);
+    } else if (signal.answer) {
+        handleAnswer(signal.answer);
+    } else if (signal.iceCandidate) {
+        handleNewICECandidate(signal.iceCandidate);
+    }
+}
+
 
 // Handle incoming offer
 async function handleOffer(offer) {
