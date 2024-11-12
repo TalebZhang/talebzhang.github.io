@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Register</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f5;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+    text-align: center;
+}
+
+.form-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    color: #3498db;
+    border-bottom: 2px solid #3498db;
+}
+
+.form {
+    display: none;
+    text-align: left;
+}
+
+.form.active {
+    display: block;
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+label {
+    margin-top: 10px;
+    display: block;
+    color: #666;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.submit-btn:hover {
+    background: #2980b9;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <div class="form-header">
+            <button class="tab-btn active" onclick="showForm('login')">Login</button>
+            <button class="tab-btn" onclick="showForm('register')">Register</button>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="loginForm" class="form active">
+            <h2>Login to Your Account</h2>
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" placeholder="Enter your email" required>
+            
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+        
+        <!-- Register Form -->
+        <form id="registerForm" class="form">
+            <h2>Create an Account</h2>
+            <label for="regName">Full Name</label>
+            <input type="text" id="regName" placeholder="Enter your full name" required>
+            
+            <label for="regEmail">Email</label>
+            <input type="email" id="regEmail" placeholder="Enter your email" required>
+            
+            <label for="regPassword">Password</label>
+            <input type="password" id="regPassword" placeholder="Create a password" required>
+            
+            <button type="submit" class="submit-btn">Register</button>
+        </form>
+    </div>
+</div>
+<script>
+    function showForm(formId) {
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const loginBtn = document.querySelector('.tab-btn:first-child');
+    const registerBtn = document.querySelector('.tab-btn:last-child');
+    
+    if (formId === 'login') {
+        loginForm.classList.add('active');
+        registerForm.classList.remove('active');
+        loginBtn.classList.add('active');
+        registerBtn.classList.remove('active');
+    } else {
+        loginForm.classList.remove('active');
+        registerForm.classList.add('active');
+        loginBtn.classList.remove('active');
+        registerBtn.classList.add('active');
+    }
+}
+
+
+    // URL to your backend server (replace with your actual backend URL)
+const API_URL = 'https://chatapp-bsrk.onrender.com';
+
+// Login function
+async function login(email, password) {
+    try {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(`Login successful: ${data.message}`);
+            // Handle success (e.g., redirect to another page or update UI)
+            // Save user information in localStorage or sessionStorage
+            localStorage.setItem('user', JSON.stringify(data.user)); // Assuming 'data.user' contains user info
+            // Redirect to the chat page
+            window.location.href = 'https://yozipic.top/chat.html';
+        } else {
+            alert(`Login failed: ${data.message}`);
+            // Handle failure (e.g., show error message to user)
+        }
+    } catch (error) {
+        console.error('Error logging in:', error);
+    }
+}
+
+// Register function
+async function register(chatId, email, password) {
+    try {
+        const response = await fetch(`${API_URL}/api/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ chatId, email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(`Registration successful: ${data.message}`);
+            // Handle success (e.g., redirect to login page or update UI)
+            showForm('login');
+            // You can also perform other actions here, such as clearing the form or redirecting
+        } else {
+            alert(`Registration failed: ${data.message}`);
+            // Handle failure (e.g., show error message to user)
+        }
+    } catch (error) {
+        console.error('Error registering:', error);
+    }
+}
+
+// Event listeners for form submissions
+document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    login(email, password);
+});
+
+document.getElementById('registerForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const chatId = document.getElementById('regName').value;
+    const email = document.getElementById('regEmail').value;
+    const password = document.getElementById('regPassword').value;
+    register(chatId, email, password);
+});
+
+</script>
+</body>
+</html>
