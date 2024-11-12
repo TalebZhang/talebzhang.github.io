@@ -782,7 +782,10 @@ async function handleOffer(offer) {
 function handleAnswer(answer) {
     peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
 }
-
+        
+// Global variable to store pending ICE candidates
+let pendingCandidates = []; 
+        
 async function handleNewICECandidate(candidate) {
     if (!peerConnection) {
         console.error('peerConnection is not initialized yet');
