@@ -507,7 +507,11 @@ function showNewMessageReminder(newMessageCount) {
      // Set up interval to refresh messages every 100 milliseconds
         setInterval(() => {
             loadMessages(email);
+            
+        }, 1000);
+         setInterval(() => {
             loadMessages('test@gmail.com');
+            
         }, 1000);
     
     // Load messages on initial page load
