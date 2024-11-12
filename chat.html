@@ -32,12 +32,16 @@
 
         /* Chat box */
         .chat-box {
-            padding: 10px 10px 80px;
-            margin-top: 60px;
-            height: calc(100vh - 60px);
-            overflow-y: scroll;
-            background-color: white;
-        }
+    padding: 10px 10px 80px;
+    margin-top: 60px;
+    height: calc(100vh - 60px);
+    overflow-y: scroll;
+    background-color: white;
+    display: flex;
+    flex-direction: column;  /* Stack messages vertically */
+    justify-content: flex-start;  /* Align messages to the top */
+}
+
 
         /* Chat messages */
         .chat-message {
@@ -141,6 +145,9 @@
     color: white;
     word-wrap: break-word;
     margin: 0;
+}
+.chat-message.user, .chat-message.self {
+    flex-grow: 0;
 }
 
         .timestamp {
