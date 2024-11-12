@@ -47,16 +47,6 @@
             max-width: 100%;
         }
 
-        .chat-message.user p {
-            background-color:#f1f1f1;
-            padding: 10px;
-            border-radius: 10px;
-            word-wrap: break-word;
-            justify-content: flex-start;
-            margin-left: 10px; /* Push the element to the right */
-            margin-right: auto;
-            }
-
         /* Input section fixed at the bottom */
         .chat-input-section {
             position: fixed;
@@ -120,19 +110,27 @@
         .chat-message.self {
             display: flex;
             flex-direction: column;    /* Stack timestamp and message vertically */
-            align-items: flex-end;     /* Align both the timestamp and message to the right */
             margin: 10px 10px 10px auto;
             max-width: 60%;            /* Optional: Adjusts message width for better readability */
         }
         
         .chat-message.self p {
-            background-color: #4CAF50;
+            background-color:#f1f1f1;
             padding: 10px;
             border-radius: 10px;
-            color: white;
+             align-items: flex-end;     /* Align both the timestamp and message to the right */
             word-wrap: break-word;
             margin: 0;
         }
+         .chat-message.user p {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            align-items: flex-start; 
+             word-wrap: break-word;
+            
+            }
         
         .timestamp {
             font-size: 12px;           /* Smaller font size for the timestamp */
@@ -278,13 +276,14 @@
         const sendButton = document.getElementById('send-button');
         const callOverlay = document.getElementById('callOverlay');
         const imageUpload = document.getElementById('imageUpload');
-const sendImageBtn = document.getElementById('sendImageBtn');
+        const sendImageBtn = document.getElementById('sendImageBtn');
+        let email = localStorage.getItem('userEmail');
 
-        const chatId = 'yozi';
+        // const chatId = 'yozi';
 
-        if (!chatId) {
-            console.error('No chat ID found in URL');
-        }
+        // if (!chatId) {
+        //     console.error('No chat ID found in URL');
+        // }
 
         // Expand input when focused
         messageInput.addEventListener('focus', () => {
@@ -303,7 +302,8 @@ const sendImageBtn = document.getElementById('sendImageBtn');
                         // Trigger notification for new message
                         notifyNewMessage(message);  
                         // Save the message to the database
-                        saveMessageToDatabase(chatId, message, 'text');
+                       
+                        saveMessageToDatabase(email, message, 'text');
                     }
         };
 
@@ -390,18 +390,18 @@ document.addEventListener('keydown', (event) => {
 
         
         // Save message to the database
-        function saveMessageToDatabase(chatId, message, type = 'text') {
-            fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
+        function saveMessageToDatabase(email, message, type = 'text') {
+            fetch(`https://chatapp-bsrk.onrender.com/send-message`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ messageContent: message }),
+                body: JSON.stringify({ email: email, messageContent: message }),
             })
             .then(response => response.json())
             .then(data => {
                 console.log('Message saved', data);
-                loadMessages(chatId);
+                loadMessages(email);
             })
             .catch(error => {
                 console.error('Error saving message:', error);
@@ -411,10 +411,16 @@ document.addEventListener('keydown', (event) => {
         let lastLoadedTimestamp = 0; // Track the last loaded message timestamp
         
         // Load previous messages
-        function loadMessages(chatId, type = '') {
+        function loadMessages(email, type = '') {
              // Construct query parameter for type
    const queryParam = type ? `?type=${type}` : '';
-           fetch(`https://chatapp-bsrk.onrender.com/messages/${chatId}`)
+           fetch(`https://chatapp-bsrk.onrender.com/messages`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: email}),
+            })
                 .then(response => response.json())
                 .then(messages => {
                     
@@ -428,7 +434,8 @@ document.addEventListener('keydown', (event) => {
                         // Append each message to the chat box without clearing it
                        // Append each new message to the chat box
                 newMessages.forEach(msg => {
-                    const sender = msg.sender === 'self' ? 'self' : 'user';
+                    if(email='test@gmail.com'){
+                    const sender = 'self'} else {const sender = 'user'}
                     appendMessage(msg.content, sender, msg.timestamp, msg.type);
                 });
 
@@ -499,11 +506,13 @@ function showNewMessageReminder(newMessageCount) {
         
      // Set up interval to refresh messages every 100 milliseconds
         setInterval(() => {
-            loadMessages(chatId);
+            loadMessages(email);
+            loadMessages('test@gmail.com');
         }, 1000);
     
     // Load messages on initial page load
-loadMessages(chatId);
+    loadMessages(email);
+    loadMessages('test@gmail.com');
 
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('service-worker.js')
@@ -556,7 +565,7 @@ audioRecordButton.addEventListener('click', () => {
                 // Display the audio message
 
                 // Save audio to the backend
-                saveAudioMessageToDatabase(chatId, audioBlob);
+                saveAudioMessageToDatabase(email, audioBlob);
                 
                 // appendMessage(audioUrl,sender, timestamp, 'audio');
                 audioChunks = []; // Clear the audio chunks array
@@ -594,12 +603,12 @@ function startRecording() {
 
 
 // Modify `saveMessageToDatabase` function to send audio to the server
-function saveAudioMessageToDatabase(chatId, audioBlob) {
+function saveAudioMessageToDatabase(email, audioBlob) {
     const formData = new FormData();
     formData.append('audio', audioBlob, 'audio-message.wav'); // Append the audio file
     formData.append('type', 'audio');  // Add type field to indicate it's an audio message
 
-    fetch(`https://chatapp-bsrk.onrender.com/send-audio-message/${chatId}`, {
+    fetch(`https://chatapp-bsrk.onrender.com/send-audio-message`, {
         method: 'POST',
         body: formData
     })
@@ -614,12 +623,13 @@ function saveAudioMessageToDatabase(chatId, audioBlob) {
          const audioUrl = data.filePath;
 
 // Send the audio URL as a message, with its type set as 'audio'
-return fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
+return fetch(`https://chatapp-bsrk.onrender.com/send-message`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+        email: email,
         messageContent: audioUrl, // Send the audio URL
         type: 'audio' // Specify the type as audio
     })
@@ -961,7 +971,6 @@ function hangupCall() {
 
     window.onload = function() {
             const user = localStorage.getItem('user');
-            console.log(user);
             if (!user) {
                 // If no user data is found, redirect to the login page
                 window.location.href = 'https://yozipic.top/login.html';
