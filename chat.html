@@ -527,15 +527,10 @@ function showNewMessageReminder(newMessageCount) {
     }, 3000);}
 
         // Poll for new messages every 0.1 seconds
-        
-     // Set up interval to refresh messages every 100 milliseconds
-        setInterval(() => {
-            loadMessages(Memail);
-            loadMessages('test@gmail.com');
-        }, 1000);
+    
     
     // Load messages on initial pagMe load
-    loadMessages(Memail);
+    loadMessages('test1@example.com');
     loadMessages('test@gmail.com');
 
         if ('serviceWorker' in navigator) {
