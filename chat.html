@@ -771,12 +771,21 @@ function handleSignalMessage(event) {
 
 // Process signaling data
 function processSignal(signal) {
+ try {   
     if (signal.offer) {
         handleOffer(signal.offer);
     } else if (signal.answer) {
-        handleAnswer(signal.answer);
+         if (signal.answer) {
+                handleAnswer(signal.answer);  // Ensure signal.answer is not null
+            } else {
+                console.error('Received an invalid or empty answer');
+            }
     } else if (signal.iceCandidate) {
         handleNewICECandidate(signal.iceCandidate);
+    } else {
+            console.error('Unknown signal type:', signal);
+        } } catch (error) {
+        console.error('Error processing signal:', error);
     }
 }
 
@@ -793,11 +802,27 @@ async function handleOffer(offer) {
     sendSignal({ answer });
 }
 
-// Handle incoming answer
 function handleAnswer(answer) {
-    peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+    try {
+        // Check if peerConnection is already initialized
+        if (!peerConnection) {
+            console.log('peerConnection is null, initializing...');
+            peerConnection = new RTCPeerConnection(config);
+        }
+
+        // Set remote description (the answer received from the other peer)
+        peerConnection.setRemoteDescription(new RTCSessionDescription(answer))
+            .then(() => {
+                console.log('Remote description set successfully');
+            })
+            .catch((error) => {
+                console.error('Error setting remote description:', error);
+            });
+    } catch (error) {
+        console.error('Error in handleAnswer:', error);
+    }
 }
-        
+    
 // Global variable to store pending ICE candidates
 let pendingCandidates = []; 
         
