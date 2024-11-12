@@ -705,6 +705,7 @@ async function getLocalMedia() {
 
 // Start the call
 async function startCall() {
+   try {
     localStream = await getLocalMedia();
     if (!localStream) return;
 
@@ -718,6 +719,10 @@ async function startCall() {
     await peerConnection.setLocalDescription(offer);
     sendSignal({ offer });
     isCalling = true;
+}
+    catch (error) {
+        console.error('Error starting call:', error);
+    }
 }
 
 // Handle incoming signaling messages
@@ -778,14 +783,44 @@ function handleAnswer(answer) {
     peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
 }
 
-// Handle incoming ICE candidate
 async function handleNewICECandidate(candidate) {
+    if (!peerConnection) {
+        console.error('peerConnection is not initialized yet');
+        return;
+    }
+
     try {
-        await peerConnection.addIceCandidate(candidate);
+        // Check if remote description is already set
+        if (peerConnection.remoteDescription) {
+            // Remote description is set, so we can add the candidate directly
+            await peerConnection.addIceCandidate(candidate);
+        } else {
+            // If remote description isn't set, queue the candidate for later
+            pendingCandidates.push(candidate);
+        }
     } catch (error) {
         console.error('Error adding ICE candidate:', error);
     }
 }
+
+// Function to process pending ICE candidates once remote description is set
+function processPendingCandidates() {
+    if (peerConnection && peerConnection.remoteDescription) {
+        pendingCandidates.forEach(async (candidate) => {
+            try {
+                await peerConnection.addIceCandidate(candidate);
+            } catch (error) {
+                console.error('Error adding queued ICE candidate:', error);
+            }
+        });
+        // Clear the queue after processing
+        pendingCandidates = [];
+    } else {
+        console.log('Remote description not yet set. Cannot process pending candidates.');
+    }
+}
+
+
 
 // Send signaling message
 function sendSignal(signal) {
