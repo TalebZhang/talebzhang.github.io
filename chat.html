@@ -412,6 +412,7 @@ document.addEventListener('keydown', (event) => {
         
         // Load previous messages
         function loadMessages(email, type = '') {
+            console.log('Email passed to loadMessages:', email); /
              // Construct query parameters for email and type
     const queryParam = `?email=${encodeURIComponent(email)}${type ? `&type=${type}` : ''}`;
     
