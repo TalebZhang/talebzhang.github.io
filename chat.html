@@ -543,6 +543,21 @@ function showNewMessageReminder(newMessageCount) {
                 });
         }
 
+// Check if notifications are supported by the browser
+if ("Notification" in window) {
+    // Ask for notification permission
+    Notification.requestPermission().then(function(permission) {
+        if (permission === "granted") {
+            console.log("Notification permission granted.");
+        } else {
+            console.log("Notification permission denied.");
+        }
+    }).catch(function(error) {
+        console.error("Error requesting notification permission:", error);
+    });
+} else {
+    console.log("Notifications are not supported by this browser.");
+}
 
        
 function notifyNewMessage(message) {
