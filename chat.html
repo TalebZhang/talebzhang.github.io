@@ -412,15 +412,15 @@ document.addEventListener('keydown', (event) => {
         
         // Load previous messages
         function loadMessages(email, type = '') {
-             // Construct query parameter for type
-   const queryParam = type ? `?type=${type}` : '';
-           fetch(`https://chatapp-bsrk.onrender.com/messages`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: email}),
-            })
+             // Construct query parameters for email and type
+    const queryParam = `?email=${encodeURIComponent(email)}${type ? `&type=${type}` : ''}`;
+    
+    fetch(`https://chatapp-bsrk.onrender.com/messages${queryParam}`, {
+        method: 'GET', // Using GET since we’re sending data as query parameters
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
                 .then(response => response.json())
                 .then(messages => {
                     
