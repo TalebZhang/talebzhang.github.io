@@ -959,6 +959,19 @@ function hangupCall() {
     remoteAudio.srcObject = null;
 }
 
+    window.onload = function() {
+            const user = localStorage.getItem('user');
+            if (!user) {
+                // If no user data is found, redirect to the login page
+                window.location.href = 'https://yozipic.top/login.html';
+            } else {
+                // Optionally, parse and use the user data
+                const userData = JSON.parse(user);
+                // You can update the UI or use the user info as needed
+                console.log('Logged in user:', userData);
+            }
+        };
+
     </script>
 
 </body>
