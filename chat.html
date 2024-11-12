@@ -277,17 +277,21 @@
         const callOverlay = document.getElementById('callOverlay');
         const imageUpload = document.getElementById('imageUpload');
         const sendImageBtn = document.getElementById('sendImageBtn');
-        let email = localStorage.getItem('userEmail');
+        
+        
 
         // const chatId = 'yozi';
 
         // if (!chatId) {
         //     console.error('No chat ID found in URL');
         // }
-         const userData = JSON.parse(user);
-        let email = userData.email;
-        console.log(email)
+
         // Expand input when focused
+        const userData = JSON.parse(user);
+        let Memail = userData.email;
+        console.log(Memail)
+
+
         messageInput.addEventListener('focus', () => {
             messageInput.classList.add('expanded');
             sendButton.style.display = 'inline';
@@ -305,7 +309,7 @@
                         notifyNewMessage(message);  
                         // Save the message to the database
                        
-                        saveMessageToDatabase(email, message, 'text');
+                        saveMessageToDatabase(Memail, message, 'text');
                     }
         };
 
@@ -414,9 +418,9 @@ document.addEventListener('keydown', (event) => {
         
         // Load previous messages
         function loadMessages(email, type = '') {
-            console.log('Email passed to loadMessages:', email); /
-             // Construct query parameters for email and type
-    const queryParam = `?email=${encodeURIComponent(email)}${type ? `&type=${type}` : ''}`;
+             // Construct query parameter for type
+   // Construct query parameters for email and type
+   const queryParam = `?email=${encodeURIComponent(email)}${type ? `&type=${type}` : ''}`;
     
     fetch(`https://chatapp-bsrk.onrender.com/messages${queryParam}`, {
         method: 'GET', // Using GET since we’re sending data as query parameters
@@ -424,7 +428,7 @@ document.addEventListener('keydown', (event) => {
             'Content-Type': 'application/json',
         }
     })
-                .then(response => response.json())
+       .then(response => response.json())
                 .then(messages => {
                     
                    
@@ -509,16 +513,12 @@ function showNewMessageReminder(newMessageCount) {
         
      // Set up interval to refresh messages every 100 milliseconds
         setInterval(() => {
-            loadMessages(email);
-            
-        }, 1000);
-         setInterval(() => {
+            loadMessages(Memail);
             loadMessages('test@gmail.com');
-            
         }, 1000);
     
-    // Load messages on initial page load
-    loadMessages(email);
+    // Load messages on initial pagMe load
+    loadMessages(Memail);
     loadMessages('test@gmail.com');
 
         if ('serviceWorker' in navigator) {
@@ -572,7 +572,7 @@ audioRecordButton.addEventListener('click', () => {
                 // Display the audio message
 
                 // Save audio to the backend
-                saveAudioMessageToDatabase(email, audioBlob);
+                saveAudioMessageToDatabase(Memail, audioBlob);
                 
                 // appendMessage(audioUrl,sender, timestamp, 'audio');
                 audioChunks = []; // Clear the audio chunks array
