@@ -107,31 +107,42 @@
         text-decoration: none;
         color: white;
       }
-        .chat-message.self {
-            display: flex;
-            flex-direction: column;    /* Stack timestamp and message vertically */
-            margin: 10px 10px 10px auto;
-            max-width: 60%;            /* Optional: Adjusts message width for better readability */
-        }
-        
-        .chat-message.self p {
-            background-color:#f1f1f1;
-            padding: 10px;
-            border-radius: 10px;
-             align-items: flex-end;     /* Align both the timestamp and message to the right */
-            word-wrap: break-word;
-            margin: 0;
-        }
-         .chat-message.user p {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border-radius: 10px;
-            align-items: flex-start; 
-             word-wrap: break-word;
-            
-            }
-        
+       /* For the user's (self) message */
+.chat-message.self {
+    display: flex;
+    flex-direction: column;     /* Stack timestamp and message vertically */
+    align-items: flex-start;    /* Align both the timestamp and message to the left */
+    margin: 10px auto;          /* Center the messages with space around */
+    max-width: 60%;             /* Optional: Adjusts message width for better readability */
+}
+
+.chat-message.self p {
+    background-color: #f1f1f1;  /* Gray background for the user's message */
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+/* For the other user's message */
+.chat-message.user {
+    display: flex;
+    flex-direction: column;     /* Stack timestamp and message vertically */
+    align-items: flex-end;      /* Align both the timestamp and message to the right */
+    margin: 10px auto;          /* Center the messages with space around */
+    max-width: 60%;             /* Optional: Adjusts message width for better readability */
+}
+
+.chat-message.user p {
+    background-color: #4CAF50;  /* Green background for the other user's message */
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    word-wrap: break-word;
+    margin: 0;
+}
+
         .timestamp {
             font-size: 12px;           /* Smaller font size for the timestamp */
             color: #888888;            /* Light gray color */
@@ -346,8 +357,7 @@ document.addEventListener('keydown', (event) => {
         // Append the message to the chat box
         function appendMessage(message, sender, timestamp, type) {
             const messageElement = document.createElement('div');
-            messageElement.classList.add('chat-message');
-            messageElement.classList.add(sender); 
+            messageElement.classList.add('chat-message', sender); 
 
             // Create and add timestamp element
             const timestampElement = document.createElement('small');
