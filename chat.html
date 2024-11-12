@@ -961,6 +961,7 @@ function hangupCall() {
 
     window.onload = function() {
             const user = localStorage.getItem('user');
+            console.log(user);
             if (!user) {
                 // If no user data is found, redirect to the login page
                 window.location.href = 'https://yozipic.top/login.html';
