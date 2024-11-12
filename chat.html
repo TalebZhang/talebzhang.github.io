@@ -5,264 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>聊天室</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: white;
-        }
-
-        /* Fixed header */
-        .chat-header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 4px 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-        }
-
-        .chat-header p {
-            margin: 0;
-            opacity: 1;
-            text-align: center;
-        }
-
-        /* Chat box */
-        .chat-box {
-    padding: 10px 10px 80px;
-    margin-top: 60px;
-    height: calc(100vh - 60px);
-    overflow-y: scroll;
-    background-color: white;
-    display: flex;
-    flex-direction: column;  /* Stack messages vertically */
-    justify-content: flex-start;  /* Align messages to the top */
-}
-
-
-     
-
-        /* Input section fixed at the bottom */
-        .chat-input-section {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: white;
-            border-top: 1px solid #ccc;
-            padding: 10px 0px;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-        }
-
-        .input-box {
-            width: 54%;
-            padding: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-box input {
-            border: none;
-            outline: none;
-            width: 50%;
-            padding: 5px 0;
-            flex-grow: 1;
-        }
-
-        .input-box i {
-            margin: 0 5px;
-            cursor: pointer;
-        }
-
-        .send-button {
-            display: none;
-            cursor: pointer;
-            margin-left: 0px;
-        }
-
-        .input-box input.expanded {
-            width: 95%;
-        }
-
-        .headname{
-            font-size: 25px;
-            font-weight: bold;
-        }
-
-        .motto{
-            font-size: 14px;
-            font-weight: normal;
-        }
-
-      a {
-        text-decoration: none;
-        color: white;
-      }
-       /* For the user's (self) message */
-.chat-message.self {
-    display: flex;
-    flex-direction: column;     /* Stack timestamp and message vertically */
-    align-items: flex-start;    /* Align both the timestamp and message to the left */
-    margin: 10px 0 10px 0;          /* Center the messages with space around */
-    max-width: 100%;             /* Optional: Adjusts message width for better readability */
-}
-
-.chat-message.self p {
-    background-color: #f1f1f1;  /* Gray background for the user's message */
-    padding: 10px;
-    border-radius: 10px;
-    color: black;
-    word-wrap: break-word;
-    margin: 0;
-}
-
-/* For the other user's message */
-.chat-message.user {
-    display: flex;
-    flex-direction: column;     /* Stack timestamp and message vertically */
-    align-items: flex-end;      /* Align both the timestamp and message to the right */
-    margin:10px 0 10px 0; ;          /* Center the messages with space around */
-    max-width: 100%;             /* Optional: Adjusts message width for better readability */
-}
-
-.chat-message.user p {
-    background-color: #4CAF50;  /* Green background for the other user's message */
-    padding: 10px;
-    border-radius: 10px;
-    color: white;
-    word-wrap: break-word;
-    margin: 0;
-}
-.chat-message.user, .chat-message.self {
-    flex-grow: 0;
-}
-
-        .timestamp {
-            font-size: 12px;           /* Smaller font size for the timestamp */
-            color: #888888;            /* Light gray color */
-            margin-bottom: 0px;        /* Space below the timestamp */
-            text-align: right;         /* Align timestamp to the right */
-            width: 100%;               /* Ensures the timestamp takes full width of the container */
-        }
-        
-        .new-message-reminder {
-            position: fixed;
-            bottom: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 14px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0.8;
-        }
-
-        #startCallBtn {
-    color: white;
-    background-color: green;
-    padding: 10px 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Adjust spacing between icon and text */
-}
-
-#startCallBtn.hang-up {
-    background-color: red; /* Change button color to red when in "hang-up" mode */
-}
-
-#startCallBtn.hang-up i {
-    transform: rotate(135deg); /* Rotate icon to indicate "end call" */
-}
-
-       
-.hidden {
-    display: none;
-}
-
-
-        .call-overlay {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 120px;
-    height: 120px;
-    display: none; /* Hidden by default */
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1); /* Faint circle background */
-}
-
-.call-overlay.show {
-    display: flex; /* Show when .show class is added */
-}
-
-.phone-icon {
-    width: 80px;
-    height: 80px;
-    background-image: url('pic/pcon.png'); /* Replace with your phone icon */
-    background-size: contain;
-    background-repeat: no-repeat;
-    animation: moveAround 3s ease-in-out infinite; /* Floating animation */
-}
-
-/* Keyframes for a subtle moving animation */
-@keyframes moveAround {
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(5px, -5px); }
-    50% { transform: translate(0, -10px); }
-    75% { transform: translate(-5px, -5px); }
-    100% { transform: translate(0, 0); }
-}
-
-        #sendImageBtn {
-    border: none; /* Removes the border */
-    background-color: white; /* Sets the background to white */
-    color: black; /* Optional: Sets the text color to black for contrast */
-    padding: 10px 20px; /* Optional: Adjusts padding to make the button look better */
-    font-size: 16px; /* Optional: Adjusts the font size */
-    cursor: pointer; /* Optional: Adds a pointer cursor to indicate it's clickable */
-}
-
-/* Optional: Add a hover effect for better user experience */
-#sendImageBtn:hover {
-    background-color: #f0f0f0; /* Light gray background on hover */
-}
-
-
-
-    </style>
+    <link rel="stylesheet" href="chat.css">
+    <style></style>
 </head>
 <body>
-
     <!-- Chat Header -->
     <div class="chat-header">
         <p class="headname">YOZi</p>
         <p class="motto">小心驶得万年船</p>
-       
     </div>
 
     <!-- Chat Box -->
     <div class="chat-box" id="chat-box"></div>
     <audio id="remoteAudio" autoplay></audio>
-     <div class="call-overlay" id="callOverlay">
-            <div class="phone-icon"></div>
-        </div>
-<input type="file" id="imageUpload" accept="image/*" style="display: none;" />
+    <div class="call-overlay" id="callOverlay">
+        <div class="phone-icon"></div>
+    </div>
+    <input type="file" id="imageUpload" accept="image/*" style="display: none;" />
 
 
     <!-- Input Section -->
@@ -271,7 +30,7 @@
         <button id="sendImageBtn"><i class="fa-regular fa-image"></i></button>
         <i class="fa-solid fa-microphone" id="audio-record-button"></i>
          <!-- Single button to start and hang up the call -->
-    <button id="startCallBtn"> <i class="fa-solid fa-phone"></i></button>
+        <button id="startCallBtn"> <i class="fa-solid fa-phone"></i></button>
         <i class="fa-solid fa-video"></i>
 
         <!-- Input Box -->
@@ -282,6 +41,8 @@
         <i class="fa-solid fa-paper-plane send-button" id="send-button"></i>
     </div>
 
+
+
     <script>
         const chatBox = document.getElementById('chat-box');
         const messageInput = document.getElementById('message-input');
@@ -291,18 +52,9 @@
         const sendImageBtn = document.getElementById('sendImageBtn');
         
         
-
-        // const chatId = 'yozi';
-
-        // if (!chatId) {
-        //     console.error('No chat ID found in URL');
-        // }
-
-        // Expand input when focused
         const user = localStorage.getItem('user');
         const userData = JSON.parse(user);
         let Memail = userData.email;
-        console.log(Memail)
 
 
         messageInput.addEventListener('focus', () => {
@@ -310,49 +62,46 @@
             sendButton.style.display = 'inline';
         });
         
-         const triggerAction = () => {
+        const triggerAction = () => {
           // Your action here
-          const message = messageInput.value.trim();
-                    if (message !== '') {
-                        
-                        messageInput.value = '';
-                        sendButton.style.display = 'none';
-        
-                        // Trigger notification for new message
-                        notifyNewMessage(message);  
-                        // Save the message to the database
-                       
-                        saveMessageToDatabase(Memail, message, 'text');
-                    }
+            const message = messageInput.value.trim();
+            if (message !== '') {
+                messageInput.value = '';
+                sendButton.style.display = 'none';
+                notifyNewMessage(message);  
+                // Save the message to the database
+                saveMessageToDatabase(Memail, message, 'text');
+            }
         };
 
-// Event listener for the sendButton click
-sendButton.addEventListener('click', triggerAction);
+        // Event listener for the sendButton click
+        sendButton.addEventListener('click', triggerAction);
+        // Event listener for the Enter key press
+        document.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            triggerAction();
+        }
+        });
 
-// Open the file picker when clicking the button
-sendImageBtn.addEventListener('click', () => {
-    imageUpload.click();
-});
 
-// Handle the selected image file
-imageUpload.addEventListener('change', () => {
-    const file = imageUpload.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const base64Image = reader.result;
-            sendSignal({ type: 'image', data: base64Image });
-        };
-        reader.readAsDataURL(file);
-    }
-});
+        // Open the file picker when clicking the button
+        sendImageBtn.addEventListener('click', () => {
+            imageUpload.click();
+        });
 
-// Event listener for the Enter key press
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
-    triggerAction();
-  }
-});
+        // Handle the selected image file
+        imageUpload.addEventListener('change', () => {
+            const file = imageUpload.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const base64Image = reader.result;
+                    sendSignal({ type: 'image', data: base64Image });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
 
         
         // Append the message to the chat box
@@ -367,15 +116,15 @@ document.addEventListener('keydown', (event) => {
             messageElement.appendChild(timestampElement);
 
             if (type === 'audio') {
-        const audioElement = document.createElement('audio');
-        audioElement.controls = true;
-        audioElement.src = message; // URL to the audio file (you'll save this on the server)
-        messageElement.appendChild(audioElement);
-    } else {
-        const messageText = document.createElement('p');
-        messageText.textContent = message;
-        messageElement.appendChild(messageText);
-    }
+            const audioElement = document.createElement('audio');
+            audioElement.controls = true;
+            audioElement.src = message; // URL to the audio file (you'll save this on the server)
+            messageElement.appendChild(audioElement);
+        } else {
+            const messageText = document.createElement('p');
+            messageText.textContent = message;
+            messageElement.appendChild(messageText);
+        }
             
             chatBox.appendChild(messageElement);
         }
@@ -385,10 +134,9 @@ document.addEventListener('keydown', (event) => {
         // Format the timestamp (e.g., convert to readable format like '12:30 PM')
         function formatTimestamp(timestamp) {
             // Check if the timestamp is valid
-                if (!timestamp) return 'Invalid date';
+            if (!timestamp) return 'Invalid date';
             
             const date = new Date(timestamp);
-            
             
             // Check if the date conversion succeeded
             if (isNaN(date.getTime())) {
@@ -430,38 +178,34 @@ document.addEventListener('keydown', (event) => {
         
         // Load previous messages
         function loadMessages(email, type = '') {
-             // Construct query parameter for type
-   // Construct query parameters for email and type
-   const queryParam = `?email=${encodeURIComponent(email)}${type ? `&type=${type}` : ''}`;
+        
+            // Construct query parameters for email and type
+            const queryParam = `?email=${encodeURIComponent(email)}${type ? `&type=${type}` : ''}`;
     
-    fetch(`https://chatapp-bsrk.onrender.com/messages${queryParam}`, {
-        method: 'GET', // Using GET since we’re sending data as query parameters
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-       .then(response => response.json())
-                .then(messages => {
+            fetch(`https://chatapp-bsrk.onrender.com/messages${queryParam}`, {
+                method: 'GET', // Using GET since we’re sending data as query parameters
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(messages => {
+                let newMessages = [];
                     
-                   
-                    let newMessages = [];
+                if (Array.isArray(messages)) {
+                    newMessages = messages.filter(msg => new Date(msg.timestamp).getTime() > lastLoadedTimestamp);
                     
-                     if (Array.isArray(messages)) {
-
-                         newMessages = messages.filter(msg => new Date(msg.timestamp).getTime() > lastLoadedTimestamp);
+                    // Append each new message to the chat box
+                    newMessages.forEach(msg => {
+                        if(email==='test@gmail.com'){
+                            const sender = 'self';
+                            appendMessage(msg.content, sender, msg.timestamp, msg.type);
+                        } else {
+                            const sender = 'user';
+                            appendMessage(msg.content, sender, msg.timestamp, msg.type);
+                        }
                     
-                        // Append each message to the chat box without clearing it
-                       // Append each new message to the chat box
-                newMessages.forEach(msg => {
-                    if(email==='test@gmail.com'){
-                    const sender = 'self';
-                        appendMessage(msg.content, sender, msg.timestamp, msg.type);
-                    } else {
-                        const sender = 'user';
-                    appendMessage(msg.content, sender, msg.timestamp, msg.type);
-                    }
-                    
-                });
+                    });
 
                          // If there are new messages, show a reminder
                     if (newMessages.length > 0) {
@@ -470,40 +214,45 @@ document.addEventListener('keydown', (event) => {
                         chatBox.scrollTop = chatBox.scrollHeight;
                     }
 
-                 // Update lastLoadedTimestamp to the latest message timestamp
-                if (messages.length > 0) {
-                    lastLoadedTimestamp = new Date(messages[messages.length - 1].timestamp).getTime();
+                    // Update lastLoadedTimestamp to the latest message timestamp
+                    if (messages.length > 0) {
+                        lastLoadedTimestamp = new Date(messages[messages.length - 1].timestamp).getTime();
+                    }
+                } else {
+                    console.error('Received data is not an array:', messages);
                 }
-            } else {
-                console.error('Received data is not an array:', messages);
-            }
-                })
-                .catch(error => {
-                    console.error('Error loading messages:', error);
-                });
+            })
+            .catch(error => {
+                console.error('Error loading messages:', error);
+            });
         }
 
-// Check if the user has already granted permission
-if (Notification.permission === 'default') {
-    Notification.requestPermission().then(function(permission) {
-        if (permission === 'granted') {
-            console.log('Notification permission granted.');
+        
+
+
+        // Check if notifications are supported by the browser
+        if ("Notification" in window) {
+            // Ask for notification permission
+            Notification.requestPermission().then(function(permission) {
+                if (permission === "granted") {
+                    console.log("Notification permission granted.");
+                } else {
+                    console.log("Notification permission denied.");
+                }
+            }).catch(function(error) {
+                console.error("Error requesting notification permission:", error);
+            });
         } else {
-            console.log('Notification permission denied.');
+            console.log("Notifications are not supported by this browser.");
         }
-    }).catch(function(err) {
-        console.error('Permission request failed:', err);
-    });
-}
-
 
         // Function to show a reminder when new messages are loaded
         function showNewMessageReminder1(newMessageCount) {
             if (Notification.permission === "granted") {
                 const notification = new Notification("新消息", {
                     body: `${newMessageCount} new message${newMessageCount > 1 ? 's' : ''}`,
-                     icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
-                     badge: 'https://yozipic.top/pic/badge.png', // Use your badge URL
+                    icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
+                    badge: 'https://yozipic.top/pic/badge.png', // Use your badge URL
                     tag: 'new-message-notification', // Used to group multiple notifications
                 });
 
@@ -514,375 +263,156 @@ if (Notification.permission === 'default') {
             }
         }
 
+        
+
         // Function to show a reminder when new messages are loaded
-function showNewMessageReminder(newMessageCount) {
-    const reminder = document.createElement('div');
-    reminder.classList.add('new-message-reminder');
-    reminder.textContent = `${newMessageCount} new message${newMessageCount > 1 ? 's' : ''}`;
-    document.body.appendChild(reminder);
+        function showNewMessageReminder(newMessageCount) {
+            const reminder = document.createElement('div');
+            reminder.classList.add('new-message-reminder');
+            reminder.textContent = `${newMessageCount} new message${newMessageCount > 1 ? 's' : ''}`;
+            document.body.appendChild(reminder);
 
-    // Remove the reminder after a few seconds
-    setTimeout(() => {
-        reminder.remove();
-    }, 3000);}
+            // Remove the reminder after a few seconds
+            setTimeout(() => {
+                reminder.remove();
+            }, 3000);
+        }
 
-        // Poll for new messages every 0.1 seconds
     
-    
-    // Load messages on initial pagMe load
-    loadMessages('test1@example.com');
-    loadMessages('test@gmail.com');
+        // Load messages on initial pagMe load
+        loadMessages('test1@example.com');
+        loadMessages('test@gmail.com');
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-                .then(function (registration) {
-                    console.log('Service Worker registered', registration);
+
+
+
+       
+        function notifyNewMessage(message) {
+            // Check if the user has notification permissions
+            if (Notification.permission === 'granted') {
+                const notification = new Notification("新しいメッセージ", {
+                    body: message,
+                    icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
+                    badge: 'https://yozipic.top/pic/badge.png' // Update this to the correct URL
+                });
+
+                // Close the notification after a few seconds
+                setTimeout(() => {
+                    notification.close();
+                }, 5000);
+            } else {
+                console.warn('User has not granted notification permission');
+            }
+        }
+
+        // Get the audio record button element
+        const audioRecordButton = document.getElementById('audio-record-button');
+
+        // Define variables for recording audio
+        let isRecording = false;
+        let mediaRecorder;
+        let audioChunks = [];
+
+        // Start or stop audio recording
+        audioRecordButton.addEventListener('click', () => {
+            if (isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+
+                    // Save audio to the backend
+                    saveAudioMessageToDatabase(Memail, audioBlob);
+                    audioChunks = []; // Clear the audio chunks array
+                };
+
+                audioRecordButton.classList.remove('fa-stop'); 
+                audioRecordButton.classList.add('fa-microphone'); 
+            } else {
+                
+                startRecording();
+                isRecording = true;
+        
+                audioRecordButton.classList.remove('fa-microphone');
+                audioRecordButton.classList.add('fa-stop'); 
+            }
+        });
+
+        // Start recording the audio
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = []; // Initialize or clear the audio chunks array
+
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+                    
+                    mediaRecorder.start();
                 })
-                .catch(function (error) {
-                    console.error('Service Worker registration failed', error);
+                .catch(error => {
+                    console.error('Error accessing microphone:', error);
                 });
         }
 
-// Check if notifications are supported by the browser
-if ("Notification" in window) {
-    // Ask for notification permission
-    Notification.requestPermission().then(function(permission) {
-        if (permission === "granted") {
-            console.log("Notification permission granted.");
-        } else {
-            console.log("Notification permission denied.");
-        }
-    }).catch(function(error) {
-        console.error("Error requesting notification permission:", error);
-    });
-} else {
-    console.log("Notifications are not supported by this browser.");
-}
 
-       
-function notifyNewMessage(message) {
-    // Check if the user has notification permissions
-    if (Notification.permission === 'granted') {
-        const notification = new Notification("新しいメッセージ", {
-            body: message,
-            icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
-            badge: 'https://yozipic.top/pic/badge.png' // Update this to the correct URL
-        });
+        // Modify `saveMessageToDatabase` function to send audio to the server
+        function saveAudioMessageToDatabase(email, audioBlob) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'audio-message.wav'); // Append the audio file
+            formData.append('type', 'audio'); 
 
-        // Close the notification after a few seconds
-        setTimeout(() => {
-            notification.close();
-        }, 5000);
-    } else {
-        console.warn('User has not granted notification permission');
-    }
-}
-
-        // Get the audio record button element
-const audioRecordButton = document.getElementById('audio-record-button');
-
-// Define variables for recording audio
-let isRecording = false;
-let mediaRecorder;
-let audioChunks = [];
-
-// Start or stop audio recording
-audioRecordButton.addEventListener('click', () => {
-    if (isRecording) {
-        // Stop the recording
-        mediaRecorder.stop();
-        isRecording = false;
-
-         mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                const audioUrl = URL.createObjectURL(audioBlob);
-                // Display the audio message
-
-                // Save audio to the backend
-                saveAudioMessageToDatabase(Memail, audioBlob);
-                
-                // appendMessage(audioUrl,sender, timestamp, 'audio');
-                audioChunks = []; // Clear the audio chunks array
-            };
-        // Change the icon to microphone and remove 'recording' state
-         audioRecordButton.classList.remove('fa-stop'); // Remove stop icon
-        audioRecordButton.classList.add('fa-microphone'); // Add microphone icon
-    } else {
-        // Start the recording
-        startRecording();
-        isRecording = true;
-        // Change the icon to stop and add 'recording' state
-        audioRecordButton.classList.remove('fa-microphone'); // Remove microphone icon
-        audioRecordButton.classList.add('fa-stop'); // Add stop icon
-    }
-});
-
-// Start recording the audio
-function startRecording() {
-    navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(stream => {
-            mediaRecorder = new MediaRecorder(stream);
-            audioChunks = []; // Initialize or clear the audio chunks array
-
-            mediaRecorder.ondataavailable = event => {
-                audioChunks.push(event.data);
-            };
-            
-            mediaRecorder.start();
-        })
-        .catch(error => {
-            console.error('Error accessing microphone:', error);
-        });
-}
-
-
-// Modify `saveMessageToDatabase` function to send audio to the server
-function saveAudioMessageToDatabase(email, audioBlob) {
-    const formData = new FormData();
-    formData.append('audio', audioBlob, 'audio-message.wav'); // Append the audio file
-    formData.append('type', 'audio');  // Add type field to indicate it's an audio message
-
-    fetch(`https://chatapp-bsrk.onrender.com/send-audio-message`, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response =>  {
-        if (!response.ok) {
-            throw new Error('Failed to upload audio file');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Assuming the server returns the URL of the uploaded audio
-         const audioUrl = data.filePath;
-
-// Send the audio URL as a message, with its type set as 'audio'
-return fetch(`https://chatapp-bsrk.onrender.com/send-message`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        email: email,
-        messageContent: audioUrl, // Send the audio URL
-        type: 'audio' // Specify the type as audio
-    })
-})
-      .then(response => response.json())
-        .then(data => {
-            console.log('Audio message saved', data);
-            
-        })
-    .catch(error => {
-        console.error('Error saving audio message:', error);
-    });
-        })
-    .catch(error => {
-        console.error('Error uploading audio file:', error);
-    });
-}
-
-
-// WebSocket connection for signaling
-const socket = new WebSocket('wss://chatapp-bsrk.onrender.com');
-
-// WebRTC configuration
-const serverIceConfig = {
-    iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]  // Google STUN server
-};
-
-// DOM elements
-const startCallBtn = document.getElementById('startCallBtn');
-const remoteAudio = document.getElementById('remoteAudio');
-
-// Call state
-let localStream, peerConnection, isCalling = false;
-
-// Initialize WebSocket connection
-socket.onopen = () => console.log('WebSocket connection established');
-socket.onmessage = handleSignalMessage;
-
-// Start or Hang Up Call
-startCallBtn.addEventListener('click', () => {
-    isCalling ? hangupCall() : startCall();
-    startCallBtn.classList.toggle('hang-up');
-});
-
-// Get local audio stream
-async function getLocalMedia() {
-    try {
-        return await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch (err) {
-        console.error('Error accessing media devices:', err);
-        alert('Failed to access microphone.');
-    }
-}
-
-// Start the call
-async function startCall() {
-   try {
-    localStream = await getLocalMedia();
-    if (!localStream) return;
-
-    peerConnection = new RTCPeerConnection(serverIceConfig);
-    peerConnection.onicecandidate = event => event.candidate && sendSignal({ iceCandidate: event.candidate });
-    peerConnection.ontrack = event => remoteAudio.srcObject = event.streams[0];
-
-    localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
-
-    const offer = await peerConnection.createOffer();
-    await peerConnection.setLocalDescription(offer);
-    sendSignal({ offer });
-    isCalling = true;
-}
-    catch (error) {
-        console.error('Error starting call:', error);
-    }
-}
-
-// Handle incoming signaling messages
-function handleSignalMessage(event) {
-    const message = event.data;
-
-    if (message instanceof Blob) {
-        // If the message is a Blob, read it as text
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            try {
-                const signal = JSON.parse(reader.result);
-                processSignal(signal);
-            } catch (e) {
-                console.error('Error parsing Blob message:', e);
-            }
-        };
-        reader.readAsText(message); // Read the Blob as text
-    } else if (typeof message === 'string') {
-        // If the message is a string (JSON), parse directly
-        try {
-            const signal = JSON.parse(message);
-            processSignal(signal);
-        } catch (e) {
-            console.error('Error parsing JSON:', e);
-        }
-    } else {
-        console.warn('Received unsupported message type:', message);
-    }
-}
-
-// Process signaling data
-function processSignal(signal) {
- try {   
-    if (signal.offer) {
-        handleOffer(signal.offer);
-    } else if (signal.answer) {
-         if (signal.answer) {
-                handleAnswer(signal.answer);  // Ensure signal.answer is not null
-            } else {
-                console.error('Received an invalid or empty answer');
-            }
-    } else if (signal.iceCandidate) {
-        handleNewICECandidate(signal.iceCandidate);
-    } else {
-            console.error('Unknown signal type:', signal);
-        } } catch (error) {
-        console.error('Error processing signal:', error);
-    }
-}
-
-
-// Handle incoming offer
-async function handleOffer(offer) {
-    peerConnection = peerConnection || new RTCPeerConnection(serverIceConfig);
-    peerConnection.onicecandidate = event => event.candidate && sendSignal({ iceCandidate: event.candidate });
-    peerConnection.ontrack = event => remoteAudio.srcObject = event.streams[0];
-
-    await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
-    const answer = await peerConnection.createAnswer();
-    await peerConnection.setLocalDescription(answer);
-    sendSignal({ answer });
-}
-
-function handleAnswer(answer) {
-    try {
-        // Check if peerConnection is already initialized
-        if (!peerConnection) {
-            console.log('peerConnection is null, initializing...');
-            peerConnection = new RTCPeerConnection(config);
-        }
-
-        // Set remote description (the answer received from the other peer)
-        peerConnection.setRemoteDescription(new RTCSessionDescription(answer))
-            .then(() => {
-                console.log('Remote description set successfully');
+            fetch(`https://chatapp-bsrk.onrender.com/send-audio-message`, {
+                method: 'POST',
+                body: formData
             })
-            .catch((error) => {
-                console.error('Error setting remote description:', error);
+            .then(response =>  {
+                if (!response.ok) {
+                    throw new Error('Failed to upload audio file');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const audioUrl = data.filePath;
+
+                // Send the audio URL as a message, with its type set as 'audio'
+                return fetch(`https://chatapp-bsrk.onrender.com/send-message`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    messageContent: audioUrl, // Send the audio URL
+                    type: 'audio' // Specify the type as audio
+                })
+                }).then(response => response.json()
+                ).then(data => {
+                    console.log('Audio message saved', data);
+                    if(email==='test@gmail.com'){
+                            const sender = 'self';
+                            appendMessage(audioUrl, sender, timestamp, type='audio') 
+                        } else {
+                            const sender = 'user';
+                            appendMessage(audioUrl, sender, timestamp, type='audio') 
+                        }
+                    
+                }).catch(error => {
+                console.error('Error saving audio message:', error);
+                });
+            }).catch(error => {
+                console.error('Error uploading audio file:', error);
             });
-    } catch (error) {
-        console.error('Error in handleAnswer:', error);
-    }
-}
-    
-// Global variable to store pending ICE candidates
-let pendingCandidates = []; 
-        
-async function handleNewICECandidate(candidate) {
-    if (!peerConnection) {
-        console.error('peerConnection is not initialized yet');
-        return;
-    }
-
-    try {
-        // Check if remote description is already set
-        if (peerConnection.remoteDescription) {
-            // Remote description is set, so we can add the candidate directly
-            await peerConnection.addIceCandidate(candidate);
-        } else {
-            // If remote description isn't set, queue the candidate for later
-            pendingCandidates.push(candidate);
         }
-    } catch (error) {
-        console.error('Error adding ICE candidate:', error);
-    }
-}
-
-// Function to process pending ICE candidates once remote description is set
-function processPendingCandidates() {
-    if (peerConnection && peerConnection.remoteDescription) {
-        pendingCandidates.forEach(async (candidate) => {
-            try {
-                await peerConnection.addIceCandidate(candidate);
-            } catch (error) {
-                console.error('Error adding queued ICE candidate:', error);
-            }
-        });
-        // Clear the queue after processing
-        pendingCandidates = [];
-    } else {
-        console.log('Remote description not yet set. Cannot process pending candidates.');
-    }
-}
 
 
-
-// Send signaling message
-function sendSignal(signal) {
-    socket.send(JSON.stringify(signal));
-}
-
-// Hang up the call
-function hangupCall() {
-    if (peerConnection) {
-        peerConnection.close();
-        peerConnection = null;
-    }
-    remoteAudio.srcObject = null;
-    isCalling = false;
-}
 
         
 
-    window.onload = function() {
+        window.onload = function() {
             const user = localStorage.getItem('user');
             if (!user) {
                 // If no user data is found, redirect to the login page
