@@ -284,7 +284,9 @@
         // if (!chatId) {
         //     console.error('No chat ID found in URL');
         // }
-
+         const userData = JSON.parse(user);
+        let email = userData.email;
+        console.log(email)
         // Expand input when focused
         messageInput.addEventListener('focus', () => {
             messageInput.classList.add('expanded');
