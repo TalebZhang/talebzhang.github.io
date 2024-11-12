@@ -1,0 +1,236 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+/* Fixed header */
+.chat-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 4px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.chat-header p {
+    margin: 0;
+    opacity: 1;
+    text-align: center;
+}
+
+/* Chat box */
+.chat-box {
+padding: 10px 10px 80px;
+margin-top: 60px;
+height: calc(100vh - 60px);
+overflow-y: scroll;
+background-color: white;
+display: flex;
+flex-direction: column;  /* Stack messages vertically */
+justify-content: flex-start;  /* Align messages to the top */
+}
+
+
+
+
+/* Input section fixed at the bottom */
+.chat-input-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid #ccc;
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.input-box {
+    width: 54%;
+    padding: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+}
+
+.input-box input {
+    border: none;
+    outline: none;
+    width: 50%;
+    padding: 5px 0;
+    flex-grow: 1;
+}
+
+.input-box i {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.send-button {
+    display: none;
+    cursor: pointer;
+    margin-left: 0px;
+}
+
+.input-box input.expanded {
+    width: 95%;
+}
+
+.headname{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.motto{
+    font-size: 14px;
+    font-weight: normal;
+}
+
+a {
+text-decoration: none;
+color: white;
+}
+/* For the user's (self) message */
+.chat-message.self {
+display: flex;
+flex-direction: column;     /* Stack timestamp and message vertically */
+align-items: flex-start;    /* Align both the timestamp and message to the left */
+margin: 10px 0 10px 0;          /* Center the messages with space around */
+max-width: 100%;             /* Optional: Adjusts message width for better readability */
+}
+
+.chat-message.self p {
+background-color: #f1f1f1;  /* Gray background for the user's message */
+padding: 10px;
+border-radius: 10px;
+color: black;
+word-wrap: break-word;
+margin: 0;
+}
+
+/* For the other user's message */
+.chat-message.user {
+display: flex;
+flex-direction: column;     /* Stack timestamp and message vertically */
+align-items: flex-end;      /* Align both the timestamp and message to the right */
+margin:10px 0 10px 0; ;          /* Center the messages with space around */
+max-width: 100%;             /* Optional: Adjusts message width for better readability */
+}
+
+.chat-message.user p {
+background-color: #4CAF50;  /* Green background for the other user's message */
+padding: 10px;
+border-radius: 10px;
+color: white;
+word-wrap: break-word;
+margin: 0;
+}
+.chat-message.user, .chat-message.self {
+flex-grow: 0;
+}
+
+.timestamp {
+    font-size: 12px;           /* Smaller font size for the timestamp */
+    color: #888888;            /* Light gray color */
+    margin-bottom: 0px;        /* Space below the timestamp */
+    text-align: right;         /* Align timestamp to the right */
+    width: 100%;               /* Ensures the timestamp takes full width of the container */
+}
+
+.new-message-reminder {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0.8;
+}
+
+#startCallBtn {
+color: white;
+background-color: green;
+padding: 10px 10px;
+border: none;
+cursor: pointer;
+font-size: 16px;
+display: flex;
+align-items: center;
+gap: 8px; /* Adjust spacing between icon and text */
+}
+
+#startCallBtn.hang-up {
+background-color: red; /* Change button color to red when in "hang-up" mode */
+}
+
+#startCallBtn.hang-up i {
+transform: rotate(135deg); /* Rotate icon to indicate "end call" */
+}
+
+
+.hidden {
+display: none;
+}
+
+
+.call-overlay {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 120px;
+height: 120px;
+display: none; /* Hidden by default */
+justify-content: center;
+align-items: center;
+border-radius: 50%;
+background-color: rgba(255, 255, 255, 0.1); /* Faint circle background */
+}
+
+.call-overlay.show {
+display: flex; /* Show when .show class is added */
+}
+
+.phone-icon {
+width: 80px;
+height: 80px;
+background-image: url('pic/pcon.png'); /* Replace with your phone icon */
+background-size: contain;
+background-repeat: no-repeat;
+animation: moveAround 3s ease-in-out infinite; /* Floating animation */
+}
+
+/* Keyframes for a subtle moving animation */
+@keyframes moveAround {
+0% { transform: translate(0, 0); }
+25% { transform: translate(5px, -5px); }
+50% { transform: translate(0, -10px); }
+75% { transform: translate(-5px, -5px); }
+100% { transform: translate(0, 0); }
+}
+
+#sendImageBtn {
+border: none; /* Removes the border */
+background-color: white; /* Sets the background to white */
+color: black; /* Optional: Sets the text color to black for contrast */
+padding: 10px 20px; /* Optional: Adjusts padding to make the button look better */
+font-size: 16px; /* Optional: Adjusts the font size */
+cursor: pointer; /* Optional: Adds a pointer cursor to indicate it's clickable */
+}
+
+/* Optional: Add a hover effect for better user experience */
+#sendImageBtn:hover {
+background-color: #f0f0f0; /* Light gray background on hover */
+}
