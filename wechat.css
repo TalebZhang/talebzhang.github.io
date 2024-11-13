@@ -1,0 +1,147 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  .friends-page {
+    height: 100vh;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+ /* General styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Search icon styles */
+  .search-icon {
+    font-size: 20px;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out; /* Added transition */
+  }
+  
+  /* Input field transition */
+.search-input {
+    visibility: hidden; /* Hide input initially */
+    padding: 8px;
+    width: 0; /* Start with no width */
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+    opacity: 0; /* Initially invisible */
+    transition: width 0.3s ease, opacity 0.3s ease, padding 0.3s ease; /* Slow expansion */
+  }
+  
+  /* When active, show and expand the input */
+  .search-container.active .search-input {
+    visibility: visible; /* Hide input initially */
+    width: 200px; /* Expanded width */
+    padding: 8px; /* Padding for input */
+    opacity: 1; /* Make input visible */
+  }
+  
+  /* Search icon transition */
+  .search-container.active .search-icon {
+    opacity: 0; /* Fade out the icon */
+    transform: scale(0.8); /* Optionally scale down the icon */
+  }
+  
+  
+  .search-input:focus {
+    border-color: #0078d4;
+  }
+  
+  
+  
+  
+  /* Friend list styles */
+  .friend-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .friend-item {
+    display: flex; /* Arrange avatar and info horizontally */
+    align-items: center; /* Vertically center the avatar and info */
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    z-index: 10;
+  }
+  
+  .friend-avatar img {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-right: 6px; /* Adjust spacing between avatar and text */
+  }
+  
+  .friend-info {
+    display: flex;
+    flex-direction: column; /* Stack name, status, and time vertically */
+  }
+  
+  .friend-header {
+    display: flex;
+    justify-content: flex-start; /* Align name to the left and time to the right */
+    width: 100%; /* Full width for the row */
+    align-items: center; /* Vertically align the items */
+  }
+  
+  .friend-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: auto; /* Ensure the name pushes the time to the right */
+  }
+  
+  .message-time {
+    font-size: 12px;
+    color: #999;
+    margin-left: 130px; /* Add space between the name and time */
+    margin-bottom: 5px;
+  }
+  
+  .friend-status {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px; /* Space between name/time and status */
+  }
+  
+  
+  
+  
+  
+  
+  /* Hover effect for friend items */
+  .friend-item:hover {
+    background-color: #f3f0f0!important;;
+    cursor: pointer;
+  }
+  
