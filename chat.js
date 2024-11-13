@@ -257,7 +257,7 @@ const chatBox = document.getElementById('chat-box');
             //   <p><strong>Last seen:</strong> ${friendTime}</p>
             //   <!-- Add more details here if necessary -->
             // `;
-            loadMessage('test1@example.com');
+            loadMessages('test1@example.com');
         });
         });
         loadMessages('test@gmail.com');
