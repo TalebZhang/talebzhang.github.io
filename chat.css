@@ -4,7 +4,9 @@ body {
     padding: 0;
     background-color: white;
 }
-
+.chatpagebox{
+    display: none;
+}
 /* Fixed header */
 .chat-header {
     background-color: #4CAF50;
