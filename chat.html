@@ -397,10 +397,10 @@
                     console.log('Audio message saved', data);
                     if(email==='test@gmail.com'){
                             const sender = 'self';
-                            appendMessage(audioUrl, sender, timestamp, type='audio') 
+                            appendMessage(audioUrl, sender, data.timestamp, type='audio') 
                         } else {
                             const sender = 'user';
-                            appendMessage(audioUrl, sender, timestamp, type='audio') 
+                            appendMessage(audioUrl, sender, data.timestamp, type='audio') 
                         }
                     
                 }).catch(error => {
