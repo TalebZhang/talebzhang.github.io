@@ -366,7 +366,7 @@
             formData.append('type', 'audio'); 
 
              // Construct query parameters for email and type
-             const queryParam = `?email=${encodeURIComponent(email)}${type ? `&type=${type}` : ''}`;
+             const queryParam = `?email=${encodeURIComponent(email)}`;
 
             fetch(`https://chatapp-bsrk.onrender.com/send-audio-message${queryParam}`, {
                 method: 'POST',
