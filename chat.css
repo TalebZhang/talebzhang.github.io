@@ -278,7 +278,7 @@ background-color: #f0f0f0; /* Light gray background on hover */
     height: 340px;
     object-fit: cover;
     position: absolute;
-    bottom: -150px;    /* Distance from the bottom */
+    bottom: 0px;    /* Distance from the bottom */
     right: -30px;     /* Distance from the right */
     border: 2px solid white;
     border-radius: 10px;
@@ -361,8 +361,8 @@ button:hover {
     #local-video {
         width: 120px;
     height: 210px;
-        bottom: -280px;
-        right: -160px;
+        bottom: -0px;
+        right: -10px;
         cursor: move;
         
     }
