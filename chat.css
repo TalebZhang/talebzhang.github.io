@@ -319,9 +319,10 @@ background-color: #f0f0f0; /* Light gray background on hover */
 }
 .callcome {
     border: none;
-    padding: 10px 10px;
-    font-size: 1.2em;
+    padding: 2px 2px;
+    font-size: 0.6em;
     color: rgb(255, 255, 255);
+    border-radius:50%
     cursor: pointer;
     /* Fixed width for buttons */
 }
@@ -345,7 +346,7 @@ button:hover {
         position: absolute;
         width: 120px;
         height: 210px;
-        bottom:120px;
+        top:100px;
         left: 220px;
         cursor: move;
         border: 2px solid white;
