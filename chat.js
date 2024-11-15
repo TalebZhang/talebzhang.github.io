@@ -417,7 +417,7 @@ const chatBox = document.getElementById('chat-box');
         }
 
          // Get references to the containers
-const initialContainer = document.querySelector('#chatPageBox');
+const initialContainer = document.querySelector('#chatpagebox');
 const videoCallContainer = document.querySelector('#videoCallContainer');
 
 // Get references to the buttons
