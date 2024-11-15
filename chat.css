@@ -361,8 +361,8 @@ button:hover {
     #local-video {
         width: 120px;
     height: 210px;
-        bottom: 400px;
-        right: -400px;
+        bottom: 600px;
+        right: 100px;
         cursor: move;
         
     }
