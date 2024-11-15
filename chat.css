@@ -346,8 +346,8 @@ button:hover {
         position: absolute;
         width: 120px;
         height: 210px;
-        bottom:200px;
-        left: 220px;
+        bottom:460px;
+        left: 240px;
         cursor: move;
         border: 2px solid white;
         border-radius: 10px;
