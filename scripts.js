@@ -153,63 +153,32 @@ const addNewIceCandidate = iceCandidate=>{
 }
 
 
-document.querySelector('#call').addEventListener('click',call)
-let isVideoActive = false; 
+document.querySelector('#call').addEventListener('click',call);
+
+let isVideoActive = true; 
 const toggleVideoButton = document.querySelector('#toggle-video');
-// Toggle video on and off
+
 const toggleVideo = () => {
     if (isVideoActive) {
-        stopVideo();  // Stop the video if it's currently active.
-        toggleVideoButton.innerHTML = '<i class="fas fa-video"></i>';  // Change button text to "Start Video"
+        stopVideo();
+        toggleVideoButton.innerHTML = '<i class="fas fa-video"></i>'; 
     } else {
         fetchUserMedia().catch(err => {
             console.error('Error accessing media devices:', err);
         });
-        toggleVideoButton.innerHTML = '<i class="fas fa-video-slash"></i>';    // Change button text to "Stop Video"
+        toggleVideoButton.innerHTML = '<i class="fas fa-video-slash"></i>';   
     }
 
-    isVideoActive = !isVideoActive;  // Toggle the flag to track video state.
+    isVideoActive = !isVideoActive;
 };
 
-// Stop the local video stream (called when the user toggles off the video)
+
 const stopVideo = () => {
     if (localStream) {
-        // Stop all video tracks
         const videoTracks = localStream.getVideoTracks();
         videoTracks.forEach(track => track.stop());
-        localVideoEl.srcObject = null;  // Disconnect the video from the element.
-        console.log('Video stopped');
+        localVideoEl.srcObject = null;  
     }
 };
 
-// Event listener to toggle video on and off
 toggleVideoButton.addEventListener('click', toggleVideo);
-
-// Variables to track the mouse position
-let isDragging = false;
-let offsetX, offsetY;
-
-// Mouse down event: start dragging
-localVideoEl.addEventListener('mousedown', (e) => {
-    isDragging = true;
-
-    // Calculate the mouse offset within the video element
-    offsetX = e.clientX - localVideoEl.getBoundingClientRect().left;
-    offsetY = e.clientY - localVideoEl.getBoundingClientRect().top;
-
-    // Change cursor to indicate dragging
-    localVideoEl.style.cursor = 'grabbing';
-});
-
-// Mouse move event: drag the window
-document.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-        // Calculate the new position of the video element
-        const x = e.clientX - offsetX;
-        const y = e.clientY - offsetY;
-
-        // Set the position of the video element
-        localVideoEl.style.left = `${x}px`;
-        localVideoEl.style.top = `${y}px`;
-    }
-});
