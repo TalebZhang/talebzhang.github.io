@@ -1,4 +1,4 @@
-const userName = R-"+Math.floor(Math.random() * 100)
+const userName = "R-"+Math.floor(Math.random() * 100);
 const password = "x";
 document.querySelector('#user-name').innerHTML = userName;
 
