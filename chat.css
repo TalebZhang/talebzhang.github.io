@@ -279,7 +279,7 @@ background-color: #f0f0f0; /* Light gray background on hover */
     object-fit: cover;
     position: absolute;
     bottom: -150px;    /* Distance from the bottom */
-    right: -630px;     /* Distance from the right */
+    right: -30px;     /* Distance from the right */
     border: 2px solid white;
     border-radius: 10px;
     z-index: 2;      /* Ensures it's on top of the remote video */
