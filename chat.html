@@ -94,6 +94,26 @@
     </div>
 </div>
 
+<div class="container">
+    <div id="videos">
+        <div id="video-wrapper">
+            <div id="waiting">Waiting for answer...</div>
+            <video class="video-player" id="local-video" autoplay playsinline controls></video>
+            <video class="video-player" id="remote-video" autoplay playsinline controls></video>
+        </div>
+       
+        
+        <!-- Buttons inside the remote video window -->
+        <div id="controls">
+            <button id="user-name"  class="vcbutton vcbutton1"><i class="fas fa-microphone"></i> </button>
+            <button id="toggle-video"  class="vcbutton vcbutton1"><i class="fas fa-video"></i></button>
+            <button id="call" class="vcbutton vcbutton1"> <i class="fas fa-phone"></i></button>
+            <button id="hangup" class="vcbutton vcbutton2"><i class="fas fa-phone-slash"></i> </button>
+            <div id="answer" class="col"></div>
+        </div>
+    </div>
+</div>
+
     <script src="chat.js"></script>
     <script src="https://chatapp-bsrk.onrender.com/socket.io/socket.io.js"></script>
     <script src='scripts.js'></script>
