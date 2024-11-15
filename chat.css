@@ -259,8 +259,8 @@ background-color: #f0f0f0; /* Light gray background on hover */
     position: fixed;  /* Keeps the video fixed in place */
     top: 0;           /* Aligns to the top of the viewport */
     left: 0;          /* Aligns to the left of the viewport */
-    width: 100vw;     /* Makes the video take the full viewport width */
-    height: 100vh;    /* Makes the video take the full viewport height */
+    width: 100%;
+        height: 100%;  /* Makes the video take the full viewport height */
     object-fit: cover; /* Ensures the video covers the full screen without distortion */
     /* Optional: background color if video fails to load */
     z-index: 1;       /* Ensures the video stays below other elements (e.g., local video) */
@@ -278,7 +278,7 @@ background-color: #f0f0f0; /* Light gray background on hover */
     height: 340px;
     object-fit: cover;
     position: absolute;
-    bottom: 0px;    /* Distance from the bottom */
+    bottom: 200px;    /* Distance from the bottom */
     right: -30px;     /* Distance from the right */
     border: 2px solid white;
     border-radius: 10px;
@@ -361,8 +361,8 @@ button:hover {
     #local-video {
         width: 120px;
     height: 210px;
-        bottom: -0px;
-        right: -10px;
+        bottom: 200px;
+        right: -80px;
         cursor: move;
         
     }
