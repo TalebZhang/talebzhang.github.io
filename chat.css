@@ -264,11 +264,11 @@ background-color: #f0f0f0; /* Light gray background on hover */
     object-fit: cover; /* Ensures the video covers the full screen without distortion */
     /* Optional: background color if video fails to load */
     z-index: 1;       /* Ensures the video stays below other elements (e.g., local video) */
-    background-image: url('pic/phcal.jpg');
+/*     background-image: url('pic/phcal.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    filter: blur(5px);
+    filter: blur(5px); */
 }
 
 
@@ -284,10 +284,10 @@ background-color: #f0f0f0; /* Light gray background on hover */
     border-radius: 10px;
     z-index: 2;      /* Ensures it's on top of the remote video */
     cursor: move;
-    background-image: url('pic/phcal.jpg');
+/*     background-image: url('pic/phcal.jpg');
     background-size: cover;
     background-position: center center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
 }
 
 /* Waiting message */
