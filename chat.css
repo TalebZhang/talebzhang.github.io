@@ -309,7 +309,7 @@ background-color: #f0f0f0; /* Light gray background on hover */
     left: 50%;
     transform: translateX(-50%); /* Center buttons horizontally */
     z-index: 2;
-    display: flex;
+    
     float: left;
     
     align-items: center;
