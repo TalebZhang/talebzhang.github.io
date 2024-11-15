@@ -154,7 +154,7 @@ const addNewIceCandidate = iceCandidate=>{
 
 
 document.querySelector('#call').addEventListener('click',call)
-
+let isVideoActive = false; 
 const toggleVideoButton = document.querySelector('#toggle-video');
 // Toggle video on and off
 const toggleVideo = () => {
