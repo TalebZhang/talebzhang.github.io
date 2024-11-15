@@ -416,7 +416,26 @@ const chatBox = document.getElementById('chat-box');
             });
         }
 
+         // Get references to the containers
+const initialContainer = document.querySelector('#chatPageBox');
+const videoCallContainer = document.querySelector('#videoCallContainer');
 
+// Get references to the buttons
+const startCallBtn = document.querySelector('#startCallBtn');
+const hangupBtn = document.querySelector('#hangup');
+
+// Function to start the call (hide initial container, show video call container)
+startCallBtn.addEventListener('click', () => {
+    initialContainer.style.display = 'none'; // Hide the initial container
+    videoCallContainer.style.display = 'block'; // Show the video call container
+});
+
+// Function to hang up the call (show the initial container, hide the video call container)
+hangupBtn.addEventListener('click', () => {
+    videoCallContainer.style.display = 'none'; // Hide the video call container
+    initialContainer.style.display = 'block'; // Show the initial container
+    
+});
 
         
 
