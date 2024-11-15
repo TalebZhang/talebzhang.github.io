@@ -313,6 +313,18 @@ background-color: #f0f0f0; /* Light gray background on hover */
     align-items: center;
     gap: 15px;
 }
+.callcome {
+    border: none;
+    height: 50px;
+    width: 50px;
+    padding: 10px 10px;
+    font-size: 1.2em;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    border-radius: 50%;
+    /* Fixed width for buttons */
+    background-color: #02f406;
+}
 
 .vcbutton {
     
