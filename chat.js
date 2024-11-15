@@ -430,13 +430,6 @@ startCallBtn.addEventListener('click', () => {
     videoCallContainer.style.display = 'block'; // Show the video call container
 });
 
-// Function to hang up the call (show the initial container, hide the video call container)
-hangupBtn.addEventListener('click', () => {
-    videoCallContainer.style.display = 'none'; // Hide the video call container
-    initialContainer.style.display = 'block'; // Show the initial container
-    
-});
-
         
 
         window.onload = function() {
