@@ -237,13 +237,7 @@ cursor: pointer; /* Optional: Adds a pointer cursor to indicate it's clickable *
 background-color: #f0f0f0; /* Light gray background on hover */
 }
 
-/* Container for the entire call interface */
-.container {
-    height: 100vh;
-    
-    background-color: #2c3e50;
-    color: white;
-}
+
 .friend-page {
     display:none;
 }
@@ -251,7 +245,6 @@ background-color: #f0f0f0; /* Light gray background on hover */
 #videos {
     width: 100%;
     height: 100%;   
-    align-items: center;
 }
 
 /* Remote video (big window) - Fullscreen */
@@ -259,16 +252,16 @@ background-color: #f0f0f0; /* Light gray background on hover */
     position: fixed;  /* Keeps the video fixed in place */
     top: 0;           /* Aligns to the top of the viewport */
     left: 0;          /* Aligns to the left of the viewport */
-    width: 100%;
-        height: 100%;  /* Makes the video take the full viewport height */
+    width: 100%;     /* Makes the video take the full viewport width */
+    height: 100%;    /* Makes the video take the full viewport height */
     object-fit: cover; /* Ensures the video covers the full screen without distortion */
     /* Optional: background color if video fails to load */
     z-index: 1;       /* Ensures the video stays below other elements (e.g., local video) */
-/*     background-image: url('pic/phcal.jpg');
+    background-image: url('pic/phcal.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    filter: blur(5px); */
+    filter: blur(5px);
 }
 
 
@@ -278,16 +271,16 @@ background-color: #f0f0f0; /* Light gray background on hover */
     height: 340px;
     object-fit: cover;
     position: absolute;
-    bottom: 200px;    /* Distance from the bottom */
-    right: -30px;     /* Distance from the right */
+    bottom: 100px;    /* Distance from the bottom */
+   left: 1000px;     /* Distance from the right */
     border: 2px solid white;
     border-radius: 10px;
     z-index: 2;      /* Ensures it's on top of the remote video */
     cursor: move;
-/*     background-image: url('pic/phcal.jpg');
+    background-image: url('pic/phcal.jpg');
     background-size: cover;
     background-position: center center;
-    background-repeat: no-repeat; */
+    background-repeat: no-repeat;
 }
 
 /* Waiting message */
@@ -305,15 +298,24 @@ background-color: #f0f0f0; /* Light gray background on hover */
 /* Controls (Call, Hangup buttons) */
 #controls {
     position: absolute;
-    bottom: 50px; /* Space from the bottom of the remote video */
     left: 50%;
     transform: translateX(-50%); /* Center buttons horizontally */
     z-index: 2;
-    
+    display: flex;
     float: left;
-    
+    bottom: 0px;    /* Distance from the bottom */
     align-items: center;
     gap: 15px;
+}
+
+.vcbutton {
+    border: none;
+    padding: 10px 10px;
+    font-size: 1.2em;
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 50px; /* Fixed width for buttons */
 }
 .callcome {
     border: none;
@@ -325,18 +327,6 @@ background-color: #f0f0f0; /* Light gray background on hover */
 }
 .callco {
     background-color: #02f406;
-}
-
-.vcbutton {
-    
-    border: none;
-    padding: 10px 10px;
-    font-size: 1.2em;
-    color: white;
-    cursor: pointer;
-    border-radius: 50%;
-    width: 50px; /* Fixed width for buttons */
-    
 }
 .vcbutton1 {
     background-color: #02f406;
@@ -350,21 +340,16 @@ button:hover {
 
 /* Make the video elements stack correctly for smaller screens */
 @media screen and (max-width: 768px) {
-    /* Remote video remains fullscreen */
-    #remote-video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
     /* Local video is slightly smaller on mobile */
     #local-video {
+        position: absolute;
         width: 120px;
-    height: 210px;
-        bottom: 600px;
-        right: 240px;
+        height: 210px;
+        bottom:70px;
+        left: 220px;
         cursor: move;
-        
+        border: 2px solid white;
+        border-radius: 10px;
     }
 
     /* Hide the waiting message */
@@ -374,20 +359,23 @@ button:hover {
 
     /* Move buttons inside remote video for mobile */
     #controls {
-        bottom: 20px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%); /* Center buttons horizontally */
+        z-index: 2;
+        display: flex;
+        float: left;
+        bottom: 0px;    /* Distance from the bottom */
+        align-items: center;
+        gap: 15px;
     }
 }
 
 /* For very small screens */
 @media screen and (max-width: 480px) {
     /* Local video becomes even smaller */
-    #local-video {
-      
-    }
-
-    /* Adjust button sizes for small screens */
-    button {
-       
-    }
+  
 }
+
+
 
