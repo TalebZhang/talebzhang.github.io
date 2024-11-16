@@ -138,6 +138,7 @@ input {
     </div>
 </div>
 <script>
+    import bcrypt from 'bcryptjs';
     function showForm(formId) {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
@@ -176,9 +177,13 @@ async function login(email, password) {
 
         if (response.ok) {
             alert(`Login successful: ${data.message}`);
-            // Handle success (e.g., redirect to another page or update UI)
-            // Save user information in localStorage or sessionStorage
-            localStorage.setItem('user', JSON.stringify(data.user)); // Assuming 'data.user' contains user info
+            // Hash the password (client-side, for demonstration; this is insecure)
+        const hashedPassword = await bcrypt.hash(data.user.password, 10);
+
+        // Store hashed password in localStorage
+        localStorage.setItem('userEmail', data.user.email);
+        localStorage.setItem('userPassword', hashedPassword);  
+           // localStorage.setItem('user', JSON.stringify(data.user)); // Assuming 'data.user' contains user info
             // Redirect to the chat page
             window.location.href = 'https://yozipic.top/chat.html';
         } else {
