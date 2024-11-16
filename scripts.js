@@ -1,14 +1,37 @@
-const userName = "R-"+Math.floor(Math.random() * 100);
-const password = "x";
-document.querySelector('#user-name').innerHTML = userName;
+const user = localStorage.getItem('user');
+const userData = user ? JSON.parse(user) : null; // Handle null case
+let userName = userData ? userData.email : '';  // Use email from userData
+let password = '';
+let socket; // Declare socket in the higher scope
 
-//if trying it on a phone, use this instead...
-// const socket = io.connect('https://LOCAL-DEV-IP-HERE:8181/',{
-const socket = io.connect('https://chatapp-bsrk.onrender.com',{
-    auth: {
-        userName,password
+(async () => {
+    if (!userName) {
+        console.error("No username found in localStorage or userData.");
+        return;
     }
-})
+
+    try {
+        const response = await fetch(`https://chatapp-bsrk.onrender.com/get-password/${userName}`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch password");
+        }
+
+        const data = await response.json();
+        password = data.password;
+
+        console.log("Socket initialized with username and password:", password);
+
+        //if trying it on a phone, use this instead...
+        // const socket = io.connect('https://LOCAL-DEV-IP-HERE:8181/',{
+        socket = io.connect('https://chatapp-bsrk.onrender.com',{
+            auth: {
+                userName,password
+            }
+        })
+    } catch (error) {
+        console.error("Error fetching password or initializing socket:", error);
+    }
+})();
 
 const localVideoEl = document.querySelector('#local-video');
 const remoteVideoEl = document.querySelector('#remote-video');
