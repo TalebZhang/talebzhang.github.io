@@ -1,5 +1,3 @@
-const userna = localStorage.getItem('user');
-const userData = userna ? JSON.parse(userna) : null; // Handle null case
 let userName = userData ? userData.email : '';  // Use email from userData
 let password = localStorage.getItem('userPassword');
       
