@@ -152,6 +152,39 @@ const addNewIceCandidate = iceCandidate=>{
     console.log("======Added Ice Candidate======")
 }
 
+// Hang up the call (close the WebRTC connection)
+const  hangup = () => {
+    if (peerConnection) {
+        // Close peer connection
+        peerConnection.close();
+        peerConnection = null;
+
+        // Stop local media stream
+        localStream.getTracks().forEach(track => {
+            track.stop();
+        });
+        localStream = null;
+
+        // Stop remote media stream
+        if (remoteStream) {
+            remoteStream.getTracks().forEach(track => {
+                track.stop();
+            });
+            remoteStream = null;
+        }
+
+        // Notify server that the call is ended
+        socket.emit('hangup');
+    }
+}
+
+
+socket.on('hangup', () => {
+    alert('The other user has hung up the call.');
+    hangup();
+});
+
+document.getElementById('hangup').addEventListener('click', hangup);
 
 document.querySelector('#call').addEventListener('click',call);
 
