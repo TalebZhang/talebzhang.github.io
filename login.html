@@ -137,7 +137,9 @@ input {
         </form>
     </div>
 </div>
-<script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+
+<script type="module">
     import bcrypt from 'bcryptjs';
     function showForm(formId) {
     const loginForm = document.getElementById('loginForm');
@@ -239,7 +241,6 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
 });
 
 </script>
-<script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
 
 </body>
 </html>
