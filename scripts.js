@@ -2,11 +2,6 @@ const user = localStorage.getItem('user');
 const userData = user ? JSON.parse(user) : null; // Handle null case
 let userName = userData ? userData.email : '';  // Use email from userData
 let password = localStorage.getItem('userPassword');
-
-    if (!userName || !password) {
-        console.error("No username found in localStorage or userData.");
-        return;
-    }
       
     //if trying it on a phone, use this instead...
     // const socket = io.connect('https://LOCAL-DEV-IP-HERE:8181/',{
