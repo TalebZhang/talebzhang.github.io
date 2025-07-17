@@ -76,7 +76,10 @@ a:active {
 
 
 .page {
- margin:auto;
+ margin-left:auto;
+ margin-right:auto;
+ margin-top: 40px;
+
 }
 
 .nav {
