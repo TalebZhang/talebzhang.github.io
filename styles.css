@@ -78,7 +78,7 @@ a:active {
 .page {
  margin-left:auto;
  margin-right:auto;
- margin-top: 40px;
+ margin-top: 70px;
 
 }
 
@@ -135,6 +135,7 @@ a:active {
   width: 55%;
   padding-right: 15px;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 /* 控制标题区块间距 */
