@@ -104,34 +104,59 @@ a:active {
    font-weight:500;
    text-align: justify;
  }
- .row {
+ 
+.row {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap; /* 允许换行防止溢出 */
   justify-content: space-between;
   align-items: flex-start;
 }
- /* Left column */
-.leftcolumn {   
+
+.leftcolumn {
   width: 25%;
   padding-left: 15px;
+  box-sizing: border-box;
 }
 
-.leftcolumn2 {   
- 
+.leftcolumn2 {
   width: 10%;
+  box-sizing: border-box;
 }
 
-.rightcolumn2 {   
-
+.rightcolumn2 {
   width: 10%;
+  box-sizing: border-box;
 }
 
-/* Right column */
 .rightcolumn {
   width: 55%;
   padding-right: 15px;
+  box-sizing: border-box;
 }
 
+/* 控制标题区块间距 */
+.englishreading {
+  margin-bottom: 40px;  /* 统一标题块间距 */
+}
+
+/* 标题下间距 */
+.title1 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 800;
+  color: black;
+  letter-spacing: 1px;
+}
+
+/* 段落间距 */
+.content {
+  margin-bottom: 15px;
+}
+
+/* 空段落隐藏，避免占位 */
+p:empty {
+  display: none;
+}
 
 .topic {
   margin-right:10px;
