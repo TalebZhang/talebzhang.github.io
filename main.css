@@ -1,0 +1,150 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color: white;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+header {
+  font-family: "Times New Roman", Times, serif;
+  background-color: white;
+  padding: 1px;
+  font-size: 15px;
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  top: 0;
+  z-index: 999;
+}
+
+hr {
+  height: 0.5px;
+  color: #f5f5f5;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+}
+
+a:hover {
+  color: black;
+}
+
+a:active {
+  color: hotpink;
+}
+
+span {
+  color: #828282;
+  font-size: 14px;
+}
+
+.button {
+  background-color: #f2f2f2;
+  color: #828282;
+  border-radius: 15px;
+  padding: 4px 5px;
+  text-align: center;
+  font-size: 13px;
+  display: inline-block;
+}
+
+.page {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 100px auto 0 auto;
+  max-width: 1200px;
+  padding: 0 10px;
+}
+
+.leftcolumn {
+  width: 30%;
+  padding: 15px;
+}
+
+.rightcolumn {
+  width: 70%;
+  padding: 15px;
+}
+
+.topiclist {
+  color: black;
+  font-size: 20px;
+}
+
+.topic {
+  margin: 10px 10px 0 0;
+  background-color: #f2f2f2;
+  color: #828282;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 15px;
+  display: inline-block;
+}
+
+.headnames {
+  margin-left: 120px;
+}
+
+.title1 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 800;
+  color: black;
+  letter-spacing: 1px;
+}
+
+.englishreading {
+  margin-bottom: 40px;
+}
+
+.content {
+  color: #7b7b7b;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: justify;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 600px) {
+  .page {
+    flex-direction: column;
+  }
+
+  .leftcolumn,
+  .rightcolumn {
+    width: 100%;
+    padding: 10px;
+  }
+ .leftcolumn {
+    order: 2; /* 在移动端，把导航排在下面 */
+  }
+
+  .rightcolumn {
+    order: 1; /* 内容排在上面 */
+  }
+  .headnames {
+    margin-left: 30px;
+  }
+
+  .title1 {
+    font-size: 16px;
+  }
+}
