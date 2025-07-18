@@ -44,7 +44,9 @@ a:visited {
 a:hover {
   color: black;
 }
-
+.whatamidoing {
+  color: blue;
+}
 a:active {
   color: hotpink;
 }
