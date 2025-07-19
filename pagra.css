@@ -19,7 +19,9 @@ header {
   top: 0;
   z-index:999;
 }
-
+.txtitle {
+  font-family: "PingFang SC", sans-serif; 
+}
 hr {
  height:0.5px;
  color: #f5f5f5;
