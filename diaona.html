@@ -335,7 +335,7 @@ function sendTextMessage() {
 // 3. 监听新消息，追加显示
 socket.on('chat message', (data) => {
   const isSelf = data.id === socket.id;
-  appendMessage(data.text, isSelf ? "self" : "user");
+  appendMessage(data.text, isSelf ? "self" : "user", data.timestamp, data.id);
 });
 
 // 4. 新增：加载历史消息的函数，调用后端API，渲染历史消息
@@ -346,9 +346,8 @@ async function loadChatHistory(room) {
     const messages = await res.json();
 
     messages.forEach(msg => {
-      // msg 结构应包含 text 和 timestamp，比如 {text: "...", timestamp: "...", id: "..."}
       const isSelf = msg.id === socket.id;
-      appendMessage(msg.text, isSelf ? "self" : "user", msg.timestamp);
+      appendMessage(msg.text, isSelf ? "self" : "user", msg.timestamp, msg.id);
     });
   } catch (error) {
     console.error(error);
@@ -357,9 +356,12 @@ async function loadChatHistory(room) {
 
 // 5. 修改：appendMessage 支持接收时间戳参数，优先显示历史消息的时间
 function appendMessage(text, sender, timeStr) {
-  const uniqueKey = `${text}|${timeStr}`;
-  if (renderedMessages.has(uniqueKey)) return; // 跳过重复消息
-  renderedMessages.add(uniqueKey);
+   if (!id) {
+    // 如果没有id，可以用text+time做备选，但建议后端必传id
+    id = `${text}|${timeStr}`;
+  }
+  if (renderedMessages.has(id)) return; // 跳过重复
+  renderedMessages.add(id);
 
   const msg = document.createElement("div");
   msg.className = `chat-message ${sender}`;
