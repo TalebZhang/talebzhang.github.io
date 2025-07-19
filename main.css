@@ -8,12 +8,31 @@ body {
   color: black;
   margin: 0;
   padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.dark-mode {
-  background-color: black;
-  color: white;
-}
+  :root {
+    --bg-color: white;
+    --text-color: black;
+  }
+
+  .dark-mode {
+    --bg-color: black;
+    --text-color: white;
+  }
+
+  .mode-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    background: none;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+  }
 
 header {
   font-family: "Times New Roman", Times, serif;
@@ -25,6 +44,16 @@ header {
   width: 100%;
   top: 0;
   z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+.englishlearning .title1 a[href="now"] {
+  display: inline-block; /* 让 margin 生效 */
+  margin-bottom: 20px;   /* 自定义间距 */
+  color:blue;
 }
 
 hr {
@@ -44,9 +73,7 @@ a:visited {
 a:hover {
   color: black;
 }
-.whatamidoing {
-  color: blue;
-}
+
 a:active {
   color: hotpink;
 }
