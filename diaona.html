@@ -355,7 +355,7 @@ async function loadChatHistory(room) {
 }
 
 // 5. 修改：appendMessage 支持接收时间戳参数，优先显示历史消息的时间
-function appendMessage(text, sender, timeStr，id) {
+function appendMessage(text, sender, timeStr, id) {
    if (!id) {
     // 如果没有id，可以用text+time做备选，但建议后端必传id
     id = `${text}|${timeStr}`;
