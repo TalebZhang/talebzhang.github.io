@@ -295,6 +295,7 @@
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script>
  const socket = io('wss://dn.zhe.nz');
+const renderedMessages = new Set();
 
 const chatBox = document.getElementById("chat-box");
 const input = document.getElementById("message-input");
@@ -356,6 +357,10 @@ async function loadChatHistory(room) {
 
 // 5. 修改：appendMessage 支持接收时间戳参数，优先显示历史消息的时间
 function appendMessage(text, sender, timeStr) {
+  const uniqueKey = `${text}|${timeStr}`;
+  if (renderedMessages.has(uniqueKey)) return; // 跳过重复消息
+  renderedMessages.add(uniqueKey);
+
   const msg = document.createElement("div");
   msg.className = `chat-message ${sender}`;
 
