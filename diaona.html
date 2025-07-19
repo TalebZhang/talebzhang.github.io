@@ -294,7 +294,7 @@
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script>
- const socket = io('http://18.181.78.79:5000');
+ const socket = io('https://dn.zhe.nz');
 
 const chatBox = document.getElementById("chat-box");
 const input = document.getElementById("message-input");
@@ -340,7 +340,7 @@ socket.on('chat message', (data) => {
 // 4. 新增：加载历史消息的函数，调用后端API，渲染历史消息
 async function loadChatHistory(room) {
   try {
-    const res = await fetch(`http://18.181.78.79:5000/api/chat-history/${room}`);
+    const res = await fetch(`https://dn.zhe.nz/api/chat-history/${room}`);
     if (!res.ok) throw new Error('获取历史记录失败');
     const messages = await res.json();
 
