@@ -312,7 +312,17 @@ socket.on("connect", () => {
 
 // 2. 显示系统消息
 socket.on("system message", (msg) => {
-  systemMessagePopup.innerText = msg;
+  let translatedMsg = msg;
+
+  if (msg.startsWith("一个用户连接了房间")) {
+    const room = msg.replace("一个用户连接了房间", "").trim();
+    translatedMsg = `A user joined room ${room}`;
+  } else if (msg.startsWith("用户离开了房间")) {
+    const room = msg.replace("用户离开了房间", "").trim();
+    translatedMsg = `A user left room ${room}`;
+  }
+
+  systemMessagePopup.innerText = translatedMsg;
   systemMessagePopup.style.display = "block";
   setTimeout(() => {
     systemMessagePopup.style.display = "none";
@@ -342,7 +352,7 @@ socket.on('chat message', (data) => {
 async function loadChatHistory(room) {
   try {
     const res = await fetch(`https://dn.zhe.nz/api/chat-history/${room}`);
-    if (!res.ok) throw new Error('获取历史记录失败');
+    if (!res.ok) throw new Error('Failed to retrieve history');
     const messages = await res.json();
 
     messages.forEach(msg => {
