@@ -32,6 +32,9 @@
 
         /* Chat box */
         .chat-box {
+            display: flex;
+flex-direction: column;
+
             padding: 10px 10px 80px;
             margin-top: 60px;
             height: calc(100vh - 60px);
@@ -39,14 +42,7 @@
             background-color: white;
         }
 
-        /* Chat messages */
-        .chat-message {
-            margin-bottom: 0px;
-            display: flex;
-            flex-direction: column;    /* Stack timestamp and message vertically */
-            align-items: flex-end;  
-        }
-
+      
         
 
         /* Input section fixed at the bottom */
@@ -109,10 +105,16 @@
         text-decoration: none;
         color: white;
       }
-        /* 自己（左侧灰色） */
+      .chat-message {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+/* 自己（左侧灰色） */
 .chat-message.self {
   align-items: flex-start;
-  margin: 10px 10px 10px auto;
+  margin-right: auto;
 }
 
 .chat-message.self p {
@@ -127,20 +129,22 @@
   overflow-wrap: break-word;
 }
 
-        .chat-message.user {
-  align-items: flex-start;
-  margin: 10px auto 10px 10px;
+/* 对方（右侧绿色） */
+.chat-message.user {
+  align-items: flex-end;
+  margin-left: auto;
 }
 
 .chat-message.user p {
-  background-color: #f1f1f1;
-  padding: 10px;
-  border-radius: 10px;
+  background-color: #95ec69;
+  color: #000;
+  padding: 10px 14px;
+  border-radius: 12px;
   margin: 0;
-  white-space: normal;
+  max-width: 70vw;
+  white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
-  max-width: 70vw;
 }
 
 /* ChatGPT 居中 */
@@ -379,7 +383,7 @@ localStorage.setItem('pendingTimestamps', JSON.stringify(pendingTimestamps));
 socket.on('chat message', (msg) => {
   
   // 用时间戳匹配，判断是否是自己发的消息
-  const index = pendingTimestamps.findIndex(t => Math.abs(t - msg.timestamp) < 100); // 允许50毫秒误差
+  const index = pendingTimestamps.findIndex(t => Math.abs(t - msg.clientTimestamp) < 100); // 允许50毫秒误差
   let sender;
 
   if (msg.role === "assistant") {
