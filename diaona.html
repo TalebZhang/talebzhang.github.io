@@ -282,7 +282,7 @@
     <!-- Chat Header -->
     <div class="chat-header">
         <p class="headname">刁娜的房间</p>
-        <p class="motto">chatting with zhen</p>
+        <p class="motto">聊天中</p>
        
     </div>
 <div id="systemMessagePopup" style="
@@ -337,9 +337,6 @@ const sendButton = document.getElementById("send-button");
 const systemMessagePopup = document.getElementById("systemMessagePopup");
 const renderedMessages = new Set();
 
-const myUserId = sessionStorage.getItem("myUserId") || crypto.randomUUID();
-sessionStorage.setItem("myUserId", myUserId);
-
 
 const room = window.location.pathname.split("/").pop().replace(".html", "");
 
@@ -363,26 +360,45 @@ input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendTextMessage();
 });
 
+// 初始化列表
+let pendingTimestamps = JSON.parse(localStorage.getItem('pendingTimestamps') || '[]');
+let sentMessageTimestamps = JSON.parse(localStorage.getItem('sentMessageTimestamps') || '[]');
+
 function sendTextMessage() {
   const text = input.value.trim();
   if (!text) return;
+  const now = Date.now();
+pendingTimestamps.push(now);
+localStorage.setItem('pendingTimestamps', JSON.stringify(pendingTimestamps));
 
-  socket.emit('chat message', { room, text, id: myUserId }); // 👈 发消息带 id
+  socket.emit('chat message', { room, text, clientTimestamp: now }); // 👈 发消息带 id
   input.value = "";
 }
 
 // 3. 监听新消息，追加显示
-socket.on('chat message', (data) => {
+socket.on('chat message', (msg) => {
+  
+  // 用时间戳匹配，判断是否是自己发的消息
+  const index = pendingTimestamps.findIndex(t => Math.abs(t - msg.timestamp) < 100); // 允许50毫秒误差
   let sender;
-  if (data.role === "assistant") {
+
+  if (msg.role === "assistant") {
     sender = "gpt";
-  } else if (data.id === myUserId) {
-    sender = "self"; // 自己
-  } else {
-    sender = "user"; // 对面的人
+  } else if (index !== -1) {
+    // 是自己发的消息
+    sender = "self";
+    pendingTimestamps.splice(index, 1); // 匹配后移除该时间戳
+    localStorage.setItem('pendingTimestamps', JSON.stringify(pendingTimestamps));
+
+   // 加入已确认时间戳
+    if (!sentMessageTimestamps.includes(msg.timestamp)) {
+      sentMessageTimestamps.push(msg.timestamp);
+      localStorage.setItem('sentMessageTimestamps', JSON.stringify(sentMessageTimestamps));
+    }} else {
+    sender = "user";
   }
 
-  appendMessage(data.text, sender, data.timestamp, data.id);
+  appendMessage(msg.text, sender, msg.timestamp, msg.id);
 });
 
 // 4. 新增：加载历史消息的函数，调用后端API，渲染历史消息
@@ -391,11 +407,18 @@ async function loadChatHistory(room) {
     const res = await fetch(`https://dn.zhe.nz/api/chat-history/${room}`);
     if (!res.ok) throw new Error('获取历史记录失败');
     const messages = await res.json();
+    sentMessageTimestamps = JSON.parse(localStorage.getItem('sentMessageTimestamps') || '[]');
 
     messages.forEach(msg => {
-      const sender = msg.role === "assistant"
-  ? "gpt"
-  : (msg.id === myUserId ? "self" : "user");
+        
+      let sender;
+    if (msg.role === "assistant") {
+      sender = "gpt";
+    } else if (sentMessageTimestamps.some(t => Math.abs(t - msg.timestamp) < 100)) {
+      sender = "self";
+    } else {
+      sender = "user";
+    }
 appendMessage(msg.text, sender, msg.timestamp, msg.id);
     });
   } catch (error) {
