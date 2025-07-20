@@ -405,6 +405,15 @@ socket.on('chat message', (msg) => {
   appendMessage(msg.text, sender, msg.timestamp, msg.id);
 });
 
+function toMillisTimestamp(time) {
+  if (typeof time === 'number') {
+    return time;
+  } else if (typeof time === 'string') {
+    return new Date(time).getTime();
+  } else {
+    return 0;
+  }
+}
 // 4. 新增：加载历史消息的函数，调用后端API，渲染历史消息
 async function loadChatHistory(room) {
   try {
@@ -415,14 +424,16 @@ async function loadChatHistory(room) {
 
     messages.forEach(msg => {
         
-      let sender;
-    if (msg.role === "assistant") {
-      sender = "gpt";
-    } else if (sentMessageTimestamps.some(t => Math.abs(t - msg.timestamp) < 100)) {
-      sender = "self";
-    } else {
-      sender = "user";
-    }
+       let sender;
+  if (msg.role === "assistant") {
+    sender = "gpt";
+  } else if (sentMessageTimestamps.some(t => {
+    return Math.abs(toMillisTimestamp(t) - toMillisTimestamp(msg.timestamp)) < 100;
+  })) {
+    sender = "self";
+  } else {
+    sender = "user";
+  }
 appendMessage(msg.text, sender, msg.timestamp, msg.id);
     });
   } catch (error) {
