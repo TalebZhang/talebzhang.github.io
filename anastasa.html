@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with Zhen</title>
+    <title>Ana is chatting</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -32,6 +32,9 @@
 
         /* Chat box */
         .chat-box {
+            display: flex;
+flex-direction: column;
+
             padding: 10px 10px 80px;
             margin-top: 60px;
             height: calc(100vh - 60px);
@@ -39,25 +42,8 @@
             background-color: white;
         }
 
-        /* Chat messages */
-        .chat-message {
-            margin-bottom: 0px;
-            display: flex;
-            flex-direction: column;    /* Stack timestamp and message vertically */
-            align-items: flex-end;  
-        }
-
-        .chat-message.user p {
-            background-color:#f1f1f1;
-            padding: 10px;
-            border-radius: 10px;
-            margin-left: 10px; /* Push the element to the right */
-            margin-right: auto;
-            white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  max-width: 70vw;
-            }
+      
+        
 
         /* Input section fixed at the bottom */
         .chat-input-section {
@@ -119,25 +105,74 @@
         text-decoration: none;
         color: white;
       }
-        .chat-message.self {
-            display: flex;
-            flex-direction: column;    /* Stack timestamp and message vertically */
-            align-items: flex-end;     /* Align both the timestamp and message to the right */
-            margin: 10px 10px 10px auto;            /* Optional: Adjusts message width for better readability */
-        }
-        
-        .chat-message.self p {
-            background-color: #4CAF50;
-            padding: 10px;
-            border-radius: 10px;
-            color: white;
-           white-space: normal;
-    word-break: break-word;
-    overflow-wrap: break-word;
-            margin: 0;
-            max-width: 70vw; /* 或者具体像素 max-width: 300px; */
+      .chat-message {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
 
-        }
+/* 自己（左侧灰色） */
+.chat-message.self {
+  align-items: flex-start;
+  margin-right: auto;
+}
+
+.chat-message.self p {
+  background-color: #e0e0e0;
+  color: #000;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin: 0;
+  max-width: 70vw;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 对方（右侧绿色） */
+.chat-message.user {
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+.chat-message.user p {
+  background-color: #95ec69;
+  color: #000;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin: 0;
+  max-width: 70vw;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ChatGPT 居中 */
+.chat-message.gpt {
+  align-items: center;
+  margin: 10px auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message.gpt p {
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  padding: 12px 16px;
+  border-radius: 10px;
+  max-width: 60vw;
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  color: #333;
+  user-select: text;
+}
+
         
         .timestamp {
             font-size: 12px;           /* Smaller font size for the timestamp */
@@ -238,7 +273,11 @@
     background-color: #f0f0f0; /* Light gray background on hover */
 }
 
-
+.chat-message.gpt {
+  background-color: #eef;
+  align-self: flex-start;
+  border-left: 4px solid #4a90e2;
+}
 
     </style>
 </head>
@@ -287,20 +326,21 @@
         <!-- Input Box -->
         <div class="input-box">
             <i class="fa-solid fa-expand" id="expand-icon"></i>
-            <input type="text" id="message-input" placeholder="iput...">
+            <input type="text" id="message-input" placeholder="请输入...">
         </div>
         <i class="fa-solid fa-paper-plane send-button" id="send-button"></i>
     </div>
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script>
- const socket = io('wss://dn.zhe.nz');
-const renderedMessages = new Set();
+ const socket = io('https://dn.zhe.nz');
 
 const chatBox = document.getElementById("chat-box");
 const input = document.getElementById("message-input");
 const sendButton = document.getElementById("send-button");
 const systemMessagePopup = document.getElementById("systemMessagePopup");
+const renderedMessages = new Set();
+
 
 const room = window.location.pathname.split("/").pop().replace(".html", "");
 
@@ -312,7 +352,7 @@ socket.on("connect", () => {
 
 // 2. 显示系统消息
 socket.on("system message", (msg) => {
-  let translatedMsg = msg;
+   let translatedMsg = msg;
 
   if (msg.startsWith("一个用户连接了房间")) {
     const room = msg.replace("一个用户连接了房间", "").trim();
@@ -334,36 +374,82 @@ input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendTextMessage();
 });
 
+// 初始化列表
+let pendingTimestamps = JSON.parse(localStorage.getItem('pendingTimestamps') || '[]');
+let sentMessageTimestamps = JSON.parse(localStorage.getItem('sentMessageTimestamps') || '[]');
+
 function sendTextMessage() {
   const text = input.value.trim();
   if (!text) return;
+  const now = Date.now();
+pendingTimestamps.push(now);
+localStorage.setItem('pendingTimestamps', JSON.stringify(pendingTimestamps));
 
-  socket.emit('chat message', { room, text });
+  socket.emit('chat message', { room, text, clientTimestamp: now }); // 👈 发消息带 id
   input.value = "";
 }
 
 // 3. 监听新消息，追加显示
-socket.on('chat message', (data) => {
-  const isSelf = data.id === socket.id;
-  appendMessage(data.text, isSelf ? "self" : "user", data.timestamp, data.id);
+socket.on('chat message', (msg) => {
+  
+  // 用时间戳匹配，判断是否是自己发的消息
+  const index = pendingTimestamps.findIndex(t => Math.abs(t - msg.clientTimestamp) < 100); // 允许50毫秒误差
+  let sender;
+
+  if (msg.role === "assistant") {
+    sender = "gpt";
+  } else if (index !== -1) {
+    // 是自己发的消息
+    sender = "self";
+    pendingTimestamps.splice(index, 1); // 匹配后移除该时间戳
+    localStorage.setItem('pendingTimestamps', JSON.stringify(pendingTimestamps));
+
+   // 加入已确认时间戳
+    if (!sentMessageTimestamps.includes(msg.timestamp)) {
+      sentMessageTimestamps.push(msg.timestamp);
+      localStorage.setItem('sentMessageTimestamps', JSON.stringify(sentMessageTimestamps));
+    }} else {
+    sender = "user";
+  }
+
+  appendMessage(msg.text, sender, msg.timestamp, msg.id);
 });
 
+function toMillisTimestamp(time) {
+  if (typeof time === 'number') {
+    return time;
+  } else if (typeof time === 'string') {
+    return new Date(time).getTime();
+  } else {
+    return 0;
+  }
+}
 // 4. 新增：加载历史消息的函数，调用后端API，渲染历史消息
 async function loadChatHistory(room) {
   try {
     const res = await fetch(`https://dn.zhe.nz/api/chat-history/${room}`);
-    if (!res.ok) throw new Error('Failed to retrieve history');
+    if (!res.ok) throw new Error('获取历史记录失败');
     const messages = await res.json();
+    sentMessageTimestamps = JSON.parse(localStorage.getItem('sentMessageTimestamps') || '[]');
 
     messages.forEach(msg => {
-      const isSelf = msg.id === socket.id;
-      appendMessage(msg.text, isSelf ? "self" : "user", msg.timestamp, msg.id);
+        
+       let sender;
+  if (msg.role === "assistant") {
+    sender = "gpt";
+  } else if (sentMessageTimestamps.some(t => {
+    return Math.abs(toMillisTimestamp(t) - toMillisTimestamp(msg.timestamp)) < 100;
+  })) {
+    sender = "self";
+  } else {
+    sender = "user";
+  }
+appendMessage(msg.text, sender, msg.timestamp, msg.id);
     });
   } catch (error) {
     console.error(error);
   }
 }
-
 // 5. 修改：appendMessage 支持接收时间戳参数，优先显示历史消息的时间
 function appendMessage(text, sender, timeStr, id) {
    if (!id) {
@@ -378,7 +464,7 @@ function appendMessage(text, sender, timeStr, id) {
 
   const time = document.createElement("div");
   time.className = "timestamp";
-  time.innerText = timeStr ? new Date(timeStr).toLocaleTimeString() : new Date().toLocaleTimeString();
+  time.innerText = timeStr ? new Date(timeStr).toLocaleString() : new Date().toLocaleString();
 
   const bubble = document.createElement("p");
   bubble.innerText = text;
