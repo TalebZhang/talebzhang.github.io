@@ -47,17 +47,7 @@
             align-items: flex-end;  
         }
 
-        .chat-message.user p {
-            background-color:#f1f1f1;
-            padding: 10px;
-            border-radius: 10px;
-            margin-left: 10px; /* Push the element to the right */
-            margin-right: auto;
-            white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  max-width: 70vw;
-            }
+        
 
         /* Input section fixed at the bottom */
         .chat-input-section {
@@ -119,25 +109,66 @@
         text-decoration: none;
         color: white;
       }
-        .chat-message.self {
-            display: flex;
-            flex-direction: column;    /* Stack timestamp and message vertically */
-            align-items: flex-end;     /* Align both the timestamp and message to the right */
-            margin: 10px 10px 10px auto;            /* Optional: Adjusts message width for better readability */
-        }
-        
-        .chat-message.self p {
-            background-color: #4CAF50;
-            padding: 10px;
-            border-radius: 10px;
-            color: white;
-           white-space: normal;
-    word-break: break-word;
-    overflow-wrap: break-word;
-            margin: 0;
-            max-width: 70vw; /* 或者具体像素 max-width: 300px; */
+        /* 自己（左侧灰色） */
+.chat-message.self {
+  align-items: flex-start;
+  margin: 10px 10px 10px auto;
+}
 
-        }
+.chat-message.self p {
+  background-color: #e0e0e0;
+  color: #000;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin: 0;
+  max-width: 70vw;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+        .chat-message.user {
+  align-items: flex-start;
+  margin: 10px auto 10px 10px;
+}
+
+.chat-message.user p {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 70vw;
+}
+
+/* ChatGPT 居中 */
+.chat-message.gpt {
+  align-items: center;
+  margin: 10px auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message.gpt p {
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  padding: 12px 16px;
+  border-radius: 10px;
+  max-width: 60vw;
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  color: #333;
+  user-select: text;
+}
+
         
         .timestamp {
             font-size: 12px;           /* Smaller font size for the timestamp */
@@ -238,7 +269,11 @@
     background-color: #f0f0f0; /* Light gray background on hover */
 }
 
-
+.chat-message.gpt {
+  background-color: #eef;
+  align-self: flex-start;
+  border-left: 4px solid #4a90e2;
+}
 
     </style>
 </head>
@@ -247,7 +282,7 @@
     <!-- Chat Header -->
     <div class="chat-header">
         <p class="headname">刁娜的房间</p>
-        <p class="motto">I am chatting with zhen</p>
+        <p class="motto">chatting with zhen</p>
        
     </div>
 <div id="systemMessagePopup" style="
@@ -294,13 +329,17 @@
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script>
- const socket = io('wss://dn.zhe.nz');
-const renderedMessages = new Set();
+ const socket = io('https://dn.zhe.nz');
 
 const chatBox = document.getElementById("chat-box");
 const input = document.getElementById("message-input");
 const sendButton = document.getElementById("send-button");
 const systemMessagePopup = document.getElementById("systemMessagePopup");
+const renderedMessages = new Set();
+
+const myUserId = sessionStorage.getItem("myUserId") || crypto.randomUUID();
+sessionStorage.setItem("myUserId", myUserId);
+
 
 const room = window.location.pathname.split("/").pop().replace(".html", "");
 
@@ -328,14 +367,22 @@ function sendTextMessage() {
   const text = input.value.trim();
   if (!text) return;
 
-  socket.emit('chat message', { room, text });
+  socket.emit('chat message', { room, text, id: myUserId }); // 👈 发消息带 id
   input.value = "";
 }
 
 // 3. 监听新消息，追加显示
 socket.on('chat message', (data) => {
-  const isSelf = data.id === socket.id;
-  appendMessage(data.text, isSelf ? "self" : "user", data.timestamp, data.id);
+  let sender;
+  if (data.role === "assistant") {
+    sender = "gpt";
+  } else if (data.id === myUserId) {
+    sender = "self"; // 自己
+  } else {
+    sender = "user"; // 对面的人
+  }
+
+  appendMessage(data.text, sender, data.timestamp, data.id);
 });
 
 // 4. 新增：加载历史消息的函数，调用后端API，渲染历史消息
@@ -346,14 +393,15 @@ async function loadChatHistory(room) {
     const messages = await res.json();
 
     messages.forEach(msg => {
-      const isSelf = msg.id === socket.id;
-      appendMessage(msg.text, isSelf ? "self" : "user", msg.timestamp, msg.id);
+      const sender = msg.role === "assistant"
+  ? "gpt"
+  : (msg.id === myUserId ? "self" : "user");
+appendMessage(msg.text, sender, msg.timestamp, msg.id);
     });
   } catch (error) {
     console.error(error);
   }
 }
-
 // 5. 修改：appendMessage 支持接收时间戳参数，优先显示历史消息的时间
 function appendMessage(text, sender, timeStr, id) {
    if (!id) {
@@ -368,7 +416,7 @@ function appendMessage(text, sender, timeStr, id) {
 
   const time = document.createElement("div");
   time.className = "timestamp";
-  time.innerText = timeStr ? new Date(timeStr).toLocaleTimeString() : new Date().toLocaleTimeString();
+  time.innerText = timeStr ? new Date(timeStr).toLocaleString() : new Date().toLocaleString();
 
   const bubble = document.createElement("p");
   bubble.innerText = text;
