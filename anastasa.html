@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Zhen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        /* Fixed header */
+        .chat-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 4px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .chat-header p {
+            margin: 0;
+            opacity: 1;
+            text-align: center;
+        }
+
+        /* Chat box */
+        .chat-box {
+            padding: 10px 10px 80px;
+            margin-top: 60px;
+            height: calc(100vh - 60px);
+            overflow-y: scroll;
+            background-color: white;
+        }
+
+        /* Chat messages */
+        .chat-message {
+            margin-bottom: 0px;
+            display: flex;
+            flex-direction: column;    /* Stack timestamp and message vertically */
+            align-items: flex-end;  
+        }
+
+        .chat-message.user p {
+            background-color:#f1f1f1;
+            padding: 10px;
+            border-radius: 10px;
+            margin-left: 10px; /* Push the element to the right */
+            margin-right: auto;
+            white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 70vw;
+            }
+
+        /* Input section fixed at the bottom */
+        .chat-input-section {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            border-top: 1px solid #ccc;
+            padding: 10px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .input-box {
+            width: 54%;
+            padding: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-box input {
+            border: none;
+            outline: none;
+            width: 50%;
+            padding: 5px 0;
+            flex-grow: 1;
+        }
+
+        .input-box i {
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .send-button {
+            display: none;
+            cursor: pointer;
+            margin-left: 0px;
+        }
+
+        .input-box input.expanded {
+            width: 95%;
+        }
+
+        .headname{
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .motto{
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
+        .chat-message.self {
+            display: flex;
+            flex-direction: column;    /* Stack timestamp and message vertically */
+            align-items: flex-end;     /* Align both the timestamp and message to the right */
+            margin: 10px 10px 10px auto;            /* Optional: Adjusts message width for better readability */
+        }
+        
+        .chat-message.self p {
+            background-color: #4CAF50;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+           white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+            margin: 0;
+            max-width: 70vw; /* 或者具体像素 max-width: 300px; */
+
+        }
+        
+        .timestamp {
+            font-size: 12px;           /* Smaller font size for the timestamp */
+            color: #888888;            /* Light gray color */
+            margin-bottom: 0px;        /* Space below the timestamp */
+            text-align: right;         /* Align timestamp to the right */
+            width: 100%;               /* Ensures the timestamp takes full width of the container */
+        }
+        
+        .new-message-reminder {
+            position: fixed;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
+        }
+
+        #startCallBtn {
+    color: white;
+    background-color: green;
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Adjust spacing between icon and text */
+}
+
+#startCallBtn.hang-up {
+    background-color: red; /* Change button color to red when in "hang-up" mode */
+}
+
+#startCallBtn.hang-up i {
+    transform: rotate(135deg); /* Rotate icon to indicate "end call" */
+}
+
+       
+.hidden {
+    display: none;
+}
+
+
+        .call-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1); /* Faint circle background */
+}
+
+.call-overlay.show {
+    display: flex; /* Show when .show class is added */
+}
+
+.phone-icon {
+    width: 80px;
+    height: 80px;
+    background-image: url('pic/pcon.png'); /* Replace with your phone icon */
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: moveAround 3s ease-in-out infinite; /* Floating animation */
+}
+
+/* Keyframes for a subtle moving animation */
+@keyframes moveAround {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(5px, -5px); }
+    50% { transform: translate(0, -10px); }
+    75% { transform: translate(-5px, -5px); }
+    100% { transform: translate(0, 0); }
+}
+
+        #sendImageBtn {
+    border: none; /* Removes the border */
+    background-color: white; /* Sets the background to white */
+    color: black; /* Optional: Sets the text color to black for contrast */
+    padding: 10px 10px; /* Optional: Adjusts padding to make the button look better */
+    font-size: 16px; /* Optional: Adjusts the font size */
+    cursor: pointer; /* Optional: Adds a pointer cursor to indicate it's clickable */
+}
+
+/* Optional: Add a hover effect for better user experience */
+#sendImageBtn:hover {
+    background-color: #f0f0f0; /* Light gray background on hover */
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Chat Header -->
+    <div class="chat-header">
+        <p class="headname">Anastasa</p>
+        <p class="motto">Chat with Zhen</p>
+       
+    </div>
+<div id="systemMessagePopup" style="
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  display: none;
+  z-index: 10000;
+  pointer-events: none;
+  user-select: none;
+"></div>
+
+    <!-- Chat Box -->
+    <div class="chat-box" id="chat-box"></div>
+    <audio id="remoteAudio" autoplay></audio>
+     <div class="call-overlay" id="callOverlay">
+            <div class="phone-icon"></div>
+        </div>
+<input type="file" id="imageUpload" accept="image/*" style="display: none;" />
+
+
+    <!-- Input Section -->
+    <div class="chat-input-section">
+        <!-- Icons on the left -->
+        <button id="sendImageBtn"><i class="fa-regular fa-image"></i></button>
+        <i class="fa-solid fa-microphone" id="audio-record-button"></i>
+         <!-- Single button to start and hang up the call -->
+    <button id="startCallBtn"> <i class="fa-solid fa-phone"></i></button>
+        <i class="fa-solid fa-video"></i>
+
+        <!-- Input Box -->
+        <div class="input-box">
+            <i class="fa-solid fa-expand" id="expand-icon"></i>
+            <input type="text" id="message-input" placeholder="iput...">
+        </div>
+        <i class="fa-solid fa-paper-plane send-button" id="send-button"></i>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+ const socket = io('wss://dn.zhe.nz');
+const renderedMessages = new Set();
+
+const chatBox = document.getElementById("chat-box");
+const input = document.getElementById("message-input");
+const sendButton = document.getElementById("send-button");
+const systemMessagePopup = document.getElementById("systemMessagePopup");
+
+const room = window.location.pathname.split("/").pop().replace(".html", "");
+
+// 1. 页面连接时，加入房间并加载历史记录
+socket.on("connect", () => {
+  socket.emit('join room', room);
+  loadChatHistory(room);  // 新增：调用加载历史消息函数
+});
+
+// 2. 显示系统消息
+socket.on("system message", (msg) => {
+  systemMessagePopup.innerText = msg;
+  systemMessagePopup.style.display = "block";
+  setTimeout(() => {
+    systemMessagePopup.style.display = "none";
+  }, 3000);
+});
+
+sendButton.addEventListener("click", sendTextMessage);
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendTextMessage();
+});
+
+function sendTextMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+
+  socket.emit('chat message', { room, text });
+  input.value = "";
+}
+
+// 3. 监听新消息，追加显示
+socket.on('chat message', (data) => {
+  const isSelf = data.id === socket.id;
+  appendMessage(data.text, isSelf ? "self" : "user", data.timestamp, data.id);
+});
+
+// 4. 新增：加载历史消息的函数，调用后端API，渲染历史消息
+async function loadChatHistory(room) {
+  try {
+    const res = await fetch(`https://dn.zhe.nz/api/chat-history/${room}`);
+    if (!res.ok) throw new Error('获取历史记录失败');
+    const messages = await res.json();
+
+    messages.forEach(msg => {
+      const isSelf = msg.id === socket.id;
+      appendMessage(msg.text, isSelf ? "self" : "user", msg.timestamp, msg.id);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// 5. 修改：appendMessage 支持接收时间戳参数，优先显示历史消息的时间
+function appendMessage(text, sender, timeStr, id) {
+   if (!id) {
+    // 如果没有id，可以用text+time做备选，但建议后端必传id
+    id = `${text}|${timeStr}`;
+  }
+  if (renderedMessages.has(id)) return; // 跳过重复
+  renderedMessages.add(id);
+
+  const msg = document.createElement("div");
+  msg.className = `chat-message ${sender}`;
+
+  const time = document.createElement("div");
+  time.className = "timestamp";
+  time.innerText = timeStr ? new Date(timeStr).toLocaleTimeString() : new Date().toLocaleTimeString();
+
+  const bubble = document.createElement("p");
+  bubble.innerText = text;
+
+  msg.appendChild(time);
+  msg.appendChild(bubble);
+  chatBox.appendChild(msg);
+
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+
+</script>
+
+      
+</body>
+</html>
