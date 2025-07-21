@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聊天室</title>
+    <title>正在聊天中</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -32,6 +32,9 @@
 
         /* Chat box */
         .chat-box {
+            display: flex;
+flex-direction: column;
+
             padding: 10px 10px 80px;
             margin-top: 60px;
             height: calc(100vh - 60px);
@@ -39,23 +42,8 @@
             background-color: white;
         }
 
-        /* Chat messages */
-        .chat-message {
-            margin-bottom: 0px;
-            display: flex;
-            justify-content: flex-start;
-            max-width: 100%;
-        }
-
-        .chat-message.user p {
-            background-color:#f1f1f1;
-            padding: 10px;
-            border-radius: 10px;
-            word-wrap: break-word;
-            justify-content: flex-start;
-            margin-left: 10px; /* Push the element to the right */
-            margin-right: auto;
-            }
+      
+        
 
         /* Input section fixed at the bottom */
         .chat-input-section {
@@ -117,22 +105,74 @@
         text-decoration: none;
         color: white;
       }
-        .chat-message.self {
-            display: flex;
-            flex-direction: column;    /* Stack timestamp and message vertically */
-            align-items: flex-end;     /* Align both the timestamp and message to the right */
-            margin: 10px 10px 10px auto;
-            max-width: 60%;            /* Optional: Adjusts message width for better readability */
-        }
-        
-        .chat-message.self p {
-            background-color: #4CAF50;
-            padding: 10px;
-            border-radius: 10px;
-            color: white;
-            word-wrap: break-word;
-            margin: 0;
-        }
+      .chat-message {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+/* 自己（左侧灰色） */
+.chat-message.self {
+  align-items: flex-start;
+  margin-right: auto;
+}
+
+.chat-message.self p {
+  background-color: #e0e0e0;
+  color: #000;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin: 0;
+  max-width: 70vw;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 对方（右侧绿色） */
+.chat-message.user {
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+.chat-message.user p {
+  background-color: #95ec69;
+  color: #000;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin: 0;
+  max-width: 70vw;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ChatGPT 居中 */
+.chat-message.gpt {
+  align-items: center;
+  margin: 10px auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message.gpt p {
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  padding: 12px 16px;
+  border-radius: 10px;
+  max-width: 60vw;
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  color: #333;
+  user-select: text;
+}
+
         
         .timestamp {
             font-size: 12px;           /* Smaller font size for the timestamp */
@@ -233,7 +273,11 @@
     background-color: #f0f0f0; /* Light gray background on hover */
 }
 
-
+.chat-message.gpt {
+  background-color: #eef;
+  align-self: flex-start;
+  border-left: 4px solid #4a90e2;
+}
 
     </style>
 </head>
@@ -241,10 +285,25 @@
 
     <!-- Chat Header -->
     <div class="chat-header">
-        <p class="headname">张</p>
-        <p class="motto">文字语音聊天室</p>
+        <p class="headname">晓林</p>
+        <p class="motto">聊天中</p>
        
     </div>
+<div id="systemMessagePopup" style="
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  display: none;
+  z-index: 10000;
+  pointer-events: none;
+  user-select: none;
+"></div>
 
     <!-- Chat Box -->
     <div class="chat-box" id="chat-box"></div>
@@ -272,694 +331,144 @@
         <i class="fa-solid fa-paper-plane send-button" id="send-button"></i>
     </div>
 
-    <script>
-        const chatBox = document.getElementById('chat-box');
-        const messageInput = document.getElementById('message-input');
-        const sendButton = document.getElementById('send-button');
-        const callOverlay = document.getElementById('callOverlay');
-        const imageUpload = document.getElementById('imageUpload');
-const sendImageBtn = document.getElementById('sendImageBtn');
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+ const socket = io('https://dn.zhe.nz');
 
-        const chatId = 'xiaolin';
+const chatBox = document.getElementById("chat-box");
+const input = document.getElementById("message-input");
+const sendButton = document.getElementById("send-button");
+const systemMessagePopup = document.getElementById("systemMessagePopup");
+const renderedMessages = new Set();
 
-        if (!chatId) {
-            console.error('No chat ID found in URL');
-        }
 
-        // Expand input when focused
-        messageInput.addEventListener('focus', () => {
-            messageInput.classList.add('expanded');
-            sendButton.style.display = 'inline';
-        });
-        
-         const triggerAction = () => {
-          // Your action here
-          const message = messageInput.value.trim();
-                    if (message !== '') {
-                        
-                        messageInput.value = '';
-                        sendButton.style.display = 'none';
-        
-                        // Trigger notification for new message
-                        notifyNewMessage(message);  
-                        // Save the message to the database
-                        saveMessageToDatabase(chatId, message, 'text');
-                    }
-        };
+const room = window.location.pathname.split("/").pop().replace(".html", "");
 
-// Event listener for the sendButton click
-sendButton.addEventListener('click', triggerAction);
-
-// Open the file picker when clicking the button
-sendImageBtn.addEventListener('click', () => {
-    imageUpload.click();
+// 1. 页面连接时，加入房间并加载历史记录
+socket.on("connect", () => {
+  socket.emit('join room', room);
+  loadChatHistory(room);  // 新增：调用加载历史消息函数
 });
 
-// Handle the selected image file
-imageUpload.addEventListener('change', () => {
-    const file = imageUpload.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const base64Image = reader.result;
-            sendSignal({ type: 'image', data: base64Image });
-        };
-        reader.readAsDataURL(file);
-    }
+// 2. 显示系统消息
+socket.on("system message", (msg) => {
+  systemMessagePopup.innerText = msg;
+  systemMessagePopup.style.display = "block";
+  setTimeout(() => {
+    systemMessagePopup.style.display = "none";
+  }, 3000);
 });
 
-// Event listener for the Enter key press
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
-    triggerAction();
+sendButton.addEventListener("click", sendTextMessage);
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendTextMessage();
+});
+
+// 初始化列表
+let pendingTimestamps = JSON.parse(localStorage.getItem('pendingTimestamps') || '[]');
+let sentMessageTimestamps = JSON.parse(localStorage.getItem('sentMessageTimestamps') || '[]');
+
+function sendTextMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+  const now = Date.now();
+pendingTimestamps.push(now);
+localStorage.setItem('pendingTimestamps', JSON.stringify(pendingTimestamps));
+
+  socket.emit('chat message', { room, text, clientTimestamp: now }); // 👈 发消息带 id
+  input.value = "";
+}
+
+// 3. 监听新消息，追加显示
+socket.on('chat message', (msg) => {
+  
+  // 用时间戳匹配，判断是否是自己发的消息
+  const index = pendingTimestamps.findIndex(t => Math.abs(t - msg.clientTimestamp) < 100); // 允许50毫秒误差
+  let sender;
+
+  if (msg.role === "assistant") {
+    sender = "gpt";
+  } else if (index !== -1) {
+    // 是自己发的消息
+    sender = "self";
+    pendingTimestamps.splice(index, 1); // 匹配后移除该时间戳
+    localStorage.setItem('pendingTimestamps', JSON.stringify(pendingTimestamps));
+
+   // 加入已确认时间戳
+    if (!sentMessageTimestamps.includes(msg.timestamp)) {
+      sentMessageTimestamps.push(msg.timestamp);
+      localStorage.setItem('sentMessageTimestamps', JSON.stringify(sentMessageTimestamps));
+    }} else {
+    sender = "user";
   }
+
+  appendMessage(msg.text, sender, msg.timestamp, msg.id);
 });
 
+function toMillisTimestamp(time) {
+  if (typeof time === 'number') {
+    return time;
+  } else if (typeof time === 'string') {
+    return new Date(time).getTime();
+  } else {
+    return 0;
+  }
+}
+// 4. 新增：加载历史消息的函数，调用后端API，渲染历史消息
+async function loadChatHistory(room) {
+  try {
+    const res = await fetch(`https://dn.zhe.nz/api/chat-history/${room}`);
+    if (!res.ok) throw new Error('获取历史记录失败');
+    const messages = await res.json();
+    sentMessageTimestamps = JSON.parse(localStorage.getItem('sentMessageTimestamps') || '[]');
+
+    messages.forEach(msg => {
         
-        // Append the message to the chat box
-        function appendMessage(message, sender, timestamp, type) {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('chat-message');
-            messageElement.classList.add(sender); 
-
-            // Create and add timestamp element
-            const timestampElement = document.createElement('small');
-            timestampElement.classList.add('timestamp');
-            timestampElement.textContent = formatTimestamp(timestamp); // Format timestamp for readability
-            messageElement.appendChild(timestampElement);
-
-            if (type === 'audio') {
-        const audioElement = document.createElement('audio');
-        audioElement.controls = true;
-        audioElement.src = message; // URL to the audio file (you'll save this on the server)
-        messageElement.appendChild(audioElement);
-    } else {
-        const messageText = document.createElement('p');
-        messageText.textContent = message;
-        messageElement.appendChild(messageText);
-    }
-            
-            chatBox.appendChild(messageElement);
-        }
-
-        
-
-        // Format the timestamp (e.g., convert to readable format like '12:30 PM')
-        function formatTimestamp(timestamp) {
-            // Check if the timestamp is valid
-                if (!timestamp) return 'Invalid date';
-            
-            const date = new Date(timestamp);
-            
-            
-            // Check if the date conversion succeeded
-            if (isNaN(date.getTime())) {
-                return 'Invalid date'; 
-            }
-            // Format the date to include year, month, day, hour, and minute
-            return date.toLocaleString('zh-CN', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false
-                });
-            }
-
-
-        
-        // Save message to the database
-        function saveMessageToDatabase(chatId, message, type = 'text') {
-            fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ messageContent: message }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Message saved', data);
-                loadMessages(chatId);
-            })
-            .catch(error => {
-                console.error('Error saving message:', error);
-            });
-        }
-
-        let lastLoadedTimestamp = 0; // Track the last loaded message timestamp
-        
-        // Load previous messages
-        function loadMessages(chatId, type = '') {
-             // Construct query parameter for type
-   const queryParam = type ? `?type=${type}` : '';
-           fetch(`https://chatapp-bsrk.onrender.com/messages/${chatId}`)
-                .then(response => response.json())
-                .then(messages => {
-                    
-                   
-                    let newMessages = [];
-                    
-                     if (Array.isArray(messages)) {
-
-                         newMessages = messages.filter(msg => new Date(msg.timestamp).getTime() > lastLoadedTimestamp);
-                    
-                        // Append each message to the chat box without clearing it
-                       // Append each new message to the chat box
-                newMessages.forEach(msg => {
-                    const sender = msg.sender === 'self' ? 'self' : 'user';
-                    appendMessage(msg.content, sender, msg.timestamp, msg.type);
-                });
-
-                         // If there are new messages, show a reminder
-                    if (newMessages.length > 0) {
-                        showNewMessageReminder(newMessages.length);
-                        showNewMessageReminder1(newMessages.length);
-                        chatBox.scrollTop = chatBox.scrollHeight;
-                    }
-
-                 // Update lastLoadedTimestamp to the latest message timestamp
-                if (messages.length > 0) {
-                    lastLoadedTimestamp = new Date(messages[messages.length - 1].timestamp).getTime();
-                }
-            } else {
-                console.error('Received data is not an array:', messages);
-            }
-                })
-                .catch(error => {
-                    console.error('Error loading messages:', error);
-                });
-        }
-
-// Check if the user has already granted permission
-if (Notification.permission === 'default') {
-    Notification.requestPermission().then(function(permission) {
-        if (permission === 'granted') {
-            console.log('Notification permission granted.');
-        } else {
-            console.log('Notification permission denied.');
-        }
-    }).catch(function(err) {
-        console.error('Permission request failed:', err);
+       let sender;
+  if (msg.role === "assistant") {
+    sender = "gpt";
+  } else if (sentMessageTimestamps.some(t => {
+    return Math.abs(toMillisTimestamp(t) - toMillisTimestamp(msg.timestamp)) < 100;
+  })) {
+    sender = "self";
+  } else {
+    sender = "user";
+  }
+appendMessage(msg.text, sender, msg.timestamp, msg.id);
     });
+  } catch (error) {
+    console.error(error);
+  }
+}
+// 5. 修改：appendMessage 支持接收时间戳参数，优先显示历史消息的时间
+function appendMessage(text, sender, timeStr, id) {
+   if (!id) {
+    // 如果没有id，可以用text+time做备选，但建议后端必传id
+    id = `${text}|${timeStr}`;
+  }
+  if (renderedMessages.has(id)) return; // 跳过重复
+  renderedMessages.add(id);
+
+  const msg = document.createElement("div");
+  msg.className = `chat-message ${sender}`;
+
+  const time = document.createElement("div");
+  time.className = "timestamp";
+  time.innerText = timeStr ? new Date(timeStr).toLocaleString() : new Date().toLocaleString();
+
+  const bubble = document.createElement("p");
+  bubble.innerText = text;
+
+  msg.appendChild(time);
+  msg.appendChild(bubble);
+  chatBox.appendChild(msg);
+
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 
-        // Function to show a reminder when new messages are loaded
-        function showNewMessageReminder1(newMessageCount) {
-            if (Notification.permission === "granted") {
-                const notification = new Notification("新消息", {
-                    body: `${newMessageCount} new message${newMessageCount > 1 ? 's' : ''}`,
-                     icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
-                     badge: 'https://yozipic.top/pic/badge.png', // Use your badge URL
-                    tag: 'new-message-notification', // Used to group multiple notifications
-                });
+</script>
 
-                // Automatically close the notification after a few seconds
-                setTimeout(() => {
-                    notification.close();
-                }, 5000);
-            }
-        }
-
-        // Function to show a reminder when new messages are loaded
-function showNewMessageReminder(newMessageCount) {
-    const reminder = document.createElement('div');
-    reminder.classList.add('new-message-reminder');
-    reminder.textContent = `${newMessageCount} new message${newMessageCount > 1 ? 's' : ''}`;
-    document.body.appendChild(reminder);
-
-    // Remove the reminder after a few seconds
-    setTimeout(() => {
-        reminder.remove();
-    }, 3000);}
-
-        // Poll for new messages every 0.1 seconds
-        
-     // Set up interval to refresh messages every 100 milliseconds
-        setInterval(() => {
-            loadMessages(chatId);
-        }, 1000);
-    
-    // Load messages on initial page load
-loadMessages(chatId);
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-                .then(function (registration) {
-                    console.log('Service Worker registered', registration);
-                })
-                .catch(function (error) {
-                    console.error('Service Worker registration failed', error);
-                });
-        }
-
-
-       
-function notifyNewMessage(message) {
-    // Check if the user has notification permissions
-    if (Notification.permission === 'granted') {
-        const notification = new Notification("新しいメッセージ", {
-            body: message,
-            icon: 'https://yozipic.top/pic/icon.png', // Update this to the correct URL
-            badge: 'https://yozipic.top/pic/badge.png' // Update this to the correct URL
-        });
-
-        // Close the notification after a few seconds
-        setTimeout(() => {
-            notification.close();
-        }, 5000);
-    } else {
-        console.warn('User has not granted notification permission');
-    }
-}
-
-        // Get the audio record button element
-const audioRecordButton = document.getElementById('audio-record-button');
-
-// Define variables for recording audio
-let isRecording = false;
-let mediaRecorder;
-let audioChunks = [];
-
-// Start or stop audio recording
-audioRecordButton.addEventListener('click', () => {
-    if (isRecording) {
-        // Stop the recording
-        mediaRecorder.stop();
-        isRecording = false;
-
-         mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                const audioUrl = URL.createObjectURL(audioBlob);
-                // Display the audio message
-
-                // Save audio to the backend
-                saveAudioMessageToDatabase(chatId, audioBlob);
-                
-                // appendMessage(audioUrl,sender, timestamp, 'audio');
-                audioChunks = []; // Clear the audio chunks array
-            };
-        // Change the icon to microphone and remove 'recording' state
-         audioRecordButton.classList.remove('fa-stop'); // Remove stop icon
-        audioRecordButton.classList.add('fa-microphone'); // Add microphone icon
-    } else {
-        // Start the recording
-        startRecording();
-        isRecording = true;
-        // Change the icon to stop and add 'recording' state
-        audioRecordButton.classList.remove('fa-microphone'); // Remove microphone icon
-        audioRecordButton.classList.add('fa-stop'); // Add stop icon
-    }
-});
-
-// Start recording the audio
-function startRecording() {
-    navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(stream => {
-            mediaRecorder = new MediaRecorder(stream);
-            audioChunks = []; // Initialize or clear the audio chunks array
-
-            mediaRecorder.ondataavailable = event => {
-                audioChunks.push(event.data);
-            };
-            
-            mediaRecorder.start();
-        })
-        .catch(error => {
-            console.error('Error accessing microphone:', error);
-        });
-}
-
-
-// Modify `saveMessageToDatabase` function to send audio to the server
-function saveAudioMessageToDatabase(chatId, audioBlob) {
-    const formData = new FormData();
-    formData.append('audio', audioBlob, 'audio-message.wav'); // Append the audio file
-    formData.append('type', 'audio');  // Add type field to indicate it's an audio message
-
-    fetch(`https://chatapp-bsrk.onrender.com/send-audio-message/${chatId}`, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response =>  {
-        if (!response.ok) {
-            throw new Error('Failed to upload audio file');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Assuming the server returns the URL of the uploaded audio
-         const audioUrl = data.filePath;
-
-// Send the audio URL as a message, with its type set as 'audio'
-return fetch(`https://chatapp-bsrk.onrender.com/send-message/${chatId}`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        messageContent: audioUrl, // Send the audio URL
-        type: 'audio' // Specify the type as audio
-    })
-})
-      .then(response => response.json())
-        .then(data => {
-            console.log('Audio message saved', data);
-            
-        })
-    .catch(error => {
-        console.error('Error saving audio message:', error);
-    });
-        })
-    .catch(error => {
-        console.error('Error uploading audio file:', error);
-    });
-}
-
-
-        // WebSocket connection for signaling
-const socket = new WebSocket('wss://chatapp-bsrk.onrender.com');
-
-// WebRTC configuration
-let localStream;
-let peerConnection;
-const serverIceConfig = {
-    iceServers: [
-        { 
-            urls: 'stun:stun.l.google.com:19302'  // Google STUN server for testing
-        }
-        // // Add TURN server here if available
-        // {
-        //     urls: 'turn:your-turn-server.com:3478', // Example TURN server
-        //     username: 'webrtcuser',  // TURN username
-        //     credential: 'password123' // TURN password
-        // }
-    ]
-};
-
-// DOM elements
-const startCallBtn = document.getElementById('startCallBtn');
-const remoteAudio = document.getElementById('remoteAudio');
-
-// Call state
-let isCalling = false;
-
-// Set up WebSocket connection
-socket.onopen = () => {
-    console.log('WebSocket connection established');
-};
-
-// Listen for incoming signaling messages
-socket.onmessage = (event) => {
-    const message = event.data;
-
-    // Check if the message is a string (i.e., JSON)
-    if (typeof message === 'string') {
-        try {
-    const signal = JSON.parse(message);
-
-    if (signal.offer) {
-        if (!peerConnection) {
-                    console.log('Initializing peerConnection for the offer...');
-                    peerConnection = new RTCPeerConnection(serverIceConfig);
-                    // Handle ICE candidates
-                    peerConnection.onicecandidate = (event) => {
-                        if (event.candidate) {
-                            sendSignal({
-                                iceCandidate: event.candidate
-                            });
-                        }
-                    };
-                    // Add local stream to peer connection
-                    if (localStream) {
-                        localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
-                    }
-                    // Handle remote stream
-                    peerConnection.ontrack = (event) => {
-                        if (remoteAudio) {
-                            remoteAudio.srcObject = event.streams[0];
-                        }
-                    };
-                }
-        handleOffer(signal.offer);
-    } else if (signal.answer) {
-        handleAnswer(signal.answer);
-    } else if (signal.iceCandidate) {
-        handleNewICECandidate(signal.iceCandidate);
-    }
-} catch (e) {
-            console.error('Error parsing JSON:', e);
-        }
-}else if (message instanceof Blob) {
-        // If the message is a Blob, read it as text
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            try {
-                const signal = JSON.parse(reader.result);
-
-                if (signal.offer) {
-                    if (!peerConnection) {
-                        console.log('Initializing peerConnection for the offer...');
-                        peerConnection = new RTCPeerConnection(serverIceConfig);
-                        // Handle ICE candidates
-                        peerConnection.onicecandidate = (event) => {
-                            if (event.candidate) {
-                                sendSignal({
-                                    iceCandidate: event.candidate
-                                });
-                            }
-                        };
-                        // Add local stream to peer connection
-                        if (localStream) {
-                            localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
-                        }
-                        // Handle remote stream
-                        peerConnection.ontrack = (event) => {
-                            if (remoteAudio) {
-                                remoteAudio.srcObject = event.streams[0];
-                            }
-                        };
-                    }
-                    handleOffer(signal.offer);
-                } else if (signal.answer) {
-                    handleAnswer(signal.answer);
-                } else if (signal.iceCandidate) {
-                    handleNewICECandidate(signal.iceCandidate);
-                }
-            } catch (e) {
-                console.error('Error parsing JSON from Blob:', e);
-            }
-        };
-        reader.readAsText(message); // Read the Blob as text
-    }  else if (message.type === 'image') {
-        // Create an image element to display the received image
-        const img = document.createElement('img');
-        img.src = message.data; // Base64 image data from the server
-        img.style.width = '100px'; // Adjust as needed
-        chatBox.appendChild(img); // Append to the chat box
-    }else {
-        console.warn('Received unsupported message type:', message);
-    }
-    };
-// Toggle Start Call / Hang Up functionality
-startCallBtn.addEventListener('click', () => {
-    if (isCalling) {
-        hangupCall();
-        startCallBtn.classList.toggle('hang-up');  // Hang up if already calling
-        chatBox.classList.remove('hidden');
-       
-        callOverlay.classList.toggle('show'); 
-    } else {
-        startCall();  
-        startCallBtn.classList.toggle('hang-up'); // Start a new call
-        
-         chatBox.classList.add('hidden');
-        
-        callOverlay.classList.toggle('show'); 
-    }
-});
-
-// Start a call (get local media and create peer connection)
-async function startCall() {
-    try {
-        // Get user's audio stream
-        if (!navigator.mediaDevices) {
-            console.error('navigator.mediaDevices is not available in this environment.');
-            alert('Media devices are not available.');
-            return;
-        }
-        if (navigator.mediaDevices) {
-    try {
-        localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch (err) {
-        console.error('Error accessing media devices: ', err);
-    }
-} else {
-    console.error('navigator.mediaDevices is not available in this environment.');
-    alert('Failed to access microphone. Please check permissions.');
-            return;
-}
-        const localAudio = new Audio();
-        localAudio.srcObject = localStream;
-        localAudio.play();
-
-        // Create WebRTC peer connection
-        peerConnection = new RTCPeerConnection(serverIceConfig);
-
-        // Add local stream to peer connection
-        localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
-
-        // Handle remote stream
-        peerConnection.ontrack = (event) => {
-            remoteAudio.srcObject = event.streams[0];
-        };
-
-        // Gather ICE candidates and send to peer
-        peerConnection.onicecandidate = (event) => {
-            if (event.candidate) {
-                sendSignal({
-                    iceCandidate: event.candidate
-                });
-            }
-        };
-
-        // Create offer
-        const offer = await peerConnection.createOffer();
-        await peerConnection.setLocalDescription(offer);
-
-        // Send offer to the other peer via signaling server
-        sendSignal({
-            offer: offer
-        });
-
-        // Toggle button text and state
-       
-        isCalling = true;
-
-    } catch (error) {
-        console.error('Error starting call:', error);
-        alert('Error accessing media devices.');
-    }
-}
-
-async function handleOffer(offer){
-    // Check if local stream is available
-    if (!localStream) {
-        console.error('Local stream not available yet');
-        return;
-    }
-
-    // Initialize peerConnection if it doesn't already exist
-    if (!peerConnection) {
-        console.log('Initializing peerConnection...');
-        peerConnection = new RTCPeerConnection(serverIceConfig);
-
-        // Handle remote stream
-        peerConnection.ontrack = (event) => {
-            if (remoteAudio) {
-                remoteAudio.srcObject = event.streams[0];
-            }
-        };
-
-        // Gather ICE candidates
-        peerConnection.onicecandidate = (event) => {
-            if (event.candidate) {
-                sendSignal({
-                    iceCandidate: event.candidate
-                });
-            }
-        };
-    }
-
-    // Add local stream to peer connection if not already added
-    localStream.getTracks().forEach(track => {
-        if (!peerConnection.getSenders().find(sender => sender.track === track)) {
-            peerConnection.addTrack(track, localStream);
-        }
-    });
-
-    try {
-        // Set the remote description with the received offer
-        await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
-
-        // Once remote description is set, process any queued ICE candidates
-        processPendingCandidates();
-
-        // Create an answer and set it as the local description
-        const answer = await peerConnection.createAnswer();
-        await peerConnection.setLocalDescription(answer);
-
-        // Send the answer back to the peer
-        sendSignal({
-            answer: answer
-        });
-
-    } catch (error) {
-        console.error('Error handling offer:', error);
-    }
-}
-
-
-// Handle incoming answer from peer
-function handleAnswer(answer) {
-    peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
-}
-
-let pendingCandidates = []; // Queue for ICE candidates if remote description isn't set
-
-async function handleNewICECandidate(candidate) {
-    if (!peerConnection) {
-        console.error('peerConnection is not initialized yet');
-        return;
-    }
-
-    // Check if remote description is already set
-    if (peerConnection.remoteDescription) {
-        // Remote description is set, so we can add the candidate directly
-        try {
-            await peerConnection.addIceCandidate(candidate);
-        } catch (error) {
-            console.error('Error adding ICE candidate:', error);
-        }
-    } else {
-        // Queue the candidate if remote description is not set yet
-        pendingCandidates.push(candidate);
-    }
-}
-
-        // Function to process pending ICE candidates once remote description is set
-function processPendingCandidates() {
-    if (peerConnection && peerConnection.remoteDescription) {
-        pendingCandidates.forEach(async (candidate) => {
-            try {
-                await peerConnection.addIceCandidate(candidate);
-            } catch (error) {
-                console.error('Error adding queued ICE candidate:', error);
-            }
-        });
-        // Clear the queue after processing
-        pendingCandidates = [];
-    } else {
-        console.log('Remote description not yet set. Cannot process pending candidates.');
-    }
-}
-
-// Send signaling messages via WebSocket
-function sendSignal(signal) {
-    socket.send(JSON.stringify(signal));
-}
-
-// Hang up the call
-function hangupCall() {
-    peerConnection.close();
-    peerConnection = null;
-    isCalling = false;
-    remoteAudio.srcObject = null;
-}
-
-    </script>
-
+      
 </body>
 </html>
