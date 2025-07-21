@@ -31,7 +31,9 @@ header {
   margin-bottom: 20px;   /* 自定义间距 */
   color:blue;
 }
-
+.marhead {
+  margin-top: 20px;
+}
 .intro {
     max-width: 95%;
     margin: 0 auto;     
