@@ -32,6 +32,16 @@ header {
   color:blue;
 }
 
+.intro {
+    max-width: 95%;
+    margin: 0 auto;     
+  }
+  h1 {
+    margin-bottom: 0.5em;
+  }
+  p {
+    line-height: 1.5;
+  }
 hr {
   height: 0.5px;
   color: #f5f5f5;
