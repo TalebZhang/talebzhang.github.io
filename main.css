@@ -32,7 +32,7 @@ header {
   color:blue;
 }
 .marhead {
-  margin-top: 40px;
+  margin-top: 100px;
 }
 .intro {
     max-width: 95%;
@@ -86,7 +86,7 @@ span {
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 100px auto 0 auto;
+  margin: 30px auto 0 auto;
   max-width: 1200px;
   padding: 0 10px;
 }
