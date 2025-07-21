@@ -20,7 +20,6 @@ header {
   width: 100%;
   top: 0;
   z-index: 999;
-  margin-bottom: 100px;
 }
 
 .hidden {
@@ -32,8 +31,9 @@ header {
   margin-bottom: 20px;   /* 自定义间距 */
   color:blue;
 }
-.marhead {
-  
+
+.intro:first-of-type {
+  margin-top: 100px; /* 避免被 header 遮住 */
 }
 .intro {
     max-width: 95%;
