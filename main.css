@@ -20,6 +20,7 @@ header {
   width: 100%;
   top: 0;
   z-index: 999;
+  margin-bottom: 100px;
 }
 
 .hidden {
@@ -32,11 +33,12 @@ header {
   color:blue;
 }
 .marhead {
-  margin-top: 100px;
+  
 }
 .intro {
     max-width: 95%;
-    margin: 0 auto;     
+    margin: 0 auto;
+   padding: 0 10px;
   }
   h1 {
     margin-bottom: 0.5em;
@@ -86,7 +88,7 @@ span {
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 30px auto 0 auto;
+  margin: 20px auto 0 auto;
   max-width: 1200px;
   padding: 0 10px;
 }
