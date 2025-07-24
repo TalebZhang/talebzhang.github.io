@@ -36,7 +36,9 @@ hr {
   color: black;
   letter-spacing: 1px;
 }
-
+.center-text {
+text-align: center;
+}
 span {
   color:#828282;
   font-size: 14px;
