@@ -119,7 +119,7 @@ const articles = [
   {
     class: "englishlearning",
     hidden: true,
-    title: "美A Level-Based Guide to Learning with American Dramas",
+    title: "A Level-Based Guide to Learning English with American Dramas",
     href: "pagra4",
     time: "Feb 14",
     duration: "5min read",
