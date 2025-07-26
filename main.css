@@ -39,7 +39,7 @@ header {
   font-family: "Times New Roman", Times, serif;
   background-color: white;
   padding: 1px;
-  font-size: 15px;
+  font-size: 18px;
   position: fixed;
   overflow: hidden;
   width: 100%;
@@ -52,14 +52,15 @@ header {
 }
 .introduce {
   width: 60%;
-  margin: 80px auto 10px;
+  margin: 100px auto 10px;
 }
-  h1 {
+  h3 {
     margin-bottom: 0.5em;
+    text-decoration: underline;
   }
   p {
     line-height: 1.5;
-    font-size:20px;
+    font-size:18px;
   }
 
 .hidden {
