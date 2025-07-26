@@ -78,11 +78,11 @@ body {
 }
 .chat-message.self {
     align-items: flex-end; /* Align self messages to the right */
-    margin-right: auto; /* Push self messages to the left */
+    margin-left: auto; /* Push self messages to the left */
 }
 .chat-message.user {
     align-items: flex-start; /* Align user messages to the left */
-    margin-left: auto; /* Push user messages to the right */
+    margin-right: auto; /* Push user messages to the right */
 }
 .chat-message.self p,
 .chat-message.user p {
