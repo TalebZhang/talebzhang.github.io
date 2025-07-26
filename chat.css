@@ -1,381 +1,196 @@
+/* General Body Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: white;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    font-family: Arial, sans-serif; /* Set font family */
+    background: #f7f7f7; /* Set background color to white */
 }
-.chatpagebox{
-    display: none;
-}
-/* Fixed header */
+
+/* Header Styling */
 .chat-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 4px 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
+    position: fixed; /* Fix the header at the top */
+    top: 0; /* Position it at the top */
+    width: 100%; /* Full width */
+    z-index: 10; /* Ensure it's above other content */
+    padding: 4px 0; /* Add vertical padding */
+    background: #f7f7f7; /* White background */
+    color: #0a0a0a; /* Dark text color */
+    text-align: center; /* Center-align the text */
+    border: 1px solid #e0e0e0; /* Light border at the bottom */
 }
-
 .chat-header p {
-    margin: 0;
-    opacity: 1;
-    text-align: center;
+    margin: 0; /* Remove paragraph margin */
+}
+.headname {
+    font-size: 20px; /* Set font size for header name */
+    font-weight: bold; /* Make the header name bold */
+}
+.motto {
+    font-size: 10px; /* Smaller font for motto */
 }
 
-/* Chat box */
+/* Chat Box Styling */
 .chat-box {
-padding: 10px 10px 80px;
-margin-top: 60px;
-height: calc(100vh - 60px);
-overflow-y: scroll;
-background-color: white;
-display: flex;
-flex-direction: column;  /* Stack messages vertically */
-justify-content: flex-start;  /* Align messages to the top */
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Arrange children in column */
+    padding: 0px 10px 80px; /* Add padding, space for input section */
+    margin-top: 60px; /* Space for the fixed header */
+    height: calc(100vh - 60px); /* Take the full height minus header */
+    overflow-y: auto; /* Allow vertical scrolling */
 }
 
-
-
-
-/* Input section fixed at the bottom */
+/* Input Section Styling */
 .chat-input-section {
-    position: fixed;
-    bottom: 0;
+    position: fixed; /* Fix the input section at the bottom */
+    bottom: 0; /* Position it at the bottom */
     left: 0;
-    width: 100%;
-    background-color: white;
-    border-top: 1px solid #ccc;
-    padding: 10px 0px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding around the input */
+    display: flex; /* Use flexbox layout */
+    justify-content: space-evenly; /* Distribute space evenly between items */
+    align-items: center; /* Vertically center the items */
+    background: #f7f7f7; /* White background */
+    border-top: 1px solid #ccc; /* Border at the top */
+    gap: 5px; /* Add a small gap between items */
 }
 
 .input-box {
-    width: 54%;
-    padding: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    display: flex;
-    align-items: center;
+    flex-grow: 1; /* Allow input box to grow and take available space */
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Vertically center the input field */
+    padding: 5px 0; /* Padding inside the box */
+    border: 1px solid #ccc; /* Border around input box */
+    border-radius: 5px; /* Rounded corners */
 }
 
 .input-box input {
-    border: none;
-    outline: none;
-    width: 50%;
-    padding: 5px 0;
-    flex-grow: 1;
+    flex-grow: 1; /* Make input field grow and fill available space */
+    border: none; /* Remove default border */
+    outline: none; /* Remove outline when focused */
+    padding: 5px 0; /* Padding inside input */
 }
 
-.input-box i {
-    margin: 0 5px;
-    cursor: pointer;
+/* Chat Messages Styling */
+.chat-message {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Stack message components vertically */
+    margin: 10px; /* Add margin around each message */
 }
-
-.send-button {
-    display: none;
-    cursor: pointer;
-    margin-left: 0px;
-}
-
-.input-box input.expanded {
-    width: 95%;
-}
-
-.headname{
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.motto{
-    font-size: 14px;
-    font-weight: normal;
-}
-
-a {
-text-decoration: none;
-color: white;
-}
-/* For the user's (self) message */
 .chat-message.self {
-display: flex;
-flex-direction: column;     /* Stack timestamp and message vertically */
-align-items: flex-start;    /* Align both the timestamp and message to the left */
-margin: 10px 0 10px 0;          /* Center the messages with space around */
-max-width: 100%;             /* Optional: Adjusts message width for better readability */
+    align-items: flex-end; /* Align self messages to the right */
+    margin-right: auto; /* Push self messages to the left */
 }
-
-.chat-message.self p {
-background-color: #f1f1f1;  /* Gray background for the user's message */
-padding: 10px;
-border-radius: 10px;
-color: black;
-word-wrap: break-word;
-margin: 0;
-}
-
-/* For the other user's message */
 .chat-message.user {
-display: flex;
-flex-direction: column;     /* Stack timestamp and message vertically */
-align-items: flex-end;      /* Align both the timestamp and message to the right */
-margin:10px 0 10px 0; ;          /* Center the messages with space around */
-max-width: 100%;             /* Optional: Adjusts message width for better readability */
+    align-items: flex-start; /* Align user messages to the left */
+    margin-left: auto; /* Push user messages to the right */
 }
-
+.chat-message.self p,
 .chat-message.user p {
-background-color: #4CAF50;  /* Green background for the other user's message */
-padding: 10px;
-border-radius: 10px;
-color: white;
-word-wrap: break-word;
-margin: 0;
+    padding: 10px 14px; /* Add padding inside message bubbles */
+    margin: 0; /* Remove margin */
+    max-width: 70vw; /* Set maximum width for message bubbles */
+    border-radius: 12px; /* Rounded corners for message bubbles */
+    white-space: pre-wrap; /* Preserve white space and wrap text */
+    word-break: break-word; /* Break words if necessary */
+    overflow-wrap: break-word; /* Break long words that overflow */
+    color: #000; /* Set text color to black */
 }
-.chat-message.user, .chat-message.self {
-flex-grow: 0;
+.chat-message.self p {
+    background: #e0e0e0; /* Light gray background for self messages */
+}
+.chat-message.user p {
+    background: #ffffff; /* Green background for user messages */
 }
 
+/* GPT Messages Styling */
+.chat-message.gpt {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Stack components vertically */
+    align-items: center; /* Center align the message */
+    width: 100%; /* Full width */
+    margin: 10px auto; /* Add margin and center it */
+    background: #eef; /* Light blue background */
+}
+
+.chat-message.gpt p {
+    background: #fff; /* White background for message bubble */
+    border: 1px solid #ddd; /* Light border around the message */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8); /* Shadow effect */
+    padding: 12px 16px; /* Padding inside message bubble */
+    border-radius: 10px; /* Rounded corners */
+    max-width: 60vw; /* Set maximum width for GPT message */
+    font-family: "Courier New", Courier, monospace; /* Use monospaced font for GPT messages */
+    color: #333; /* Dark gray text color */
+    white-space: pre-wrap; /* Preserve white space and wrap text */
+    user-select: text; /* Allow text selection */
+    word-break: break-word; /* Break long words */
+}
+
+/* Timestamp Styling */
 .timestamp {
-    font-size: 12px;           /* Smaller font size for the timestamp */
-    color: #888888;            /* Light gray color */
-    margin-bottom: 0px;        /* Space below the timestamp */
-    text-align: right;         /* Align timestamp to the right */
-    width: 100%;               /* Ensures the timestamp takes full width of the container */
+    font-size: 12px; /* Small font size for timestamp */
+    color: #888; /* Light gray color for timestamp */
+    width: 100%; /* Full width */
+    text-align: right; /* Align timestamp to the right */
+    margin-bottom: 0; /* Remove bottom margin */
 }
 
+/* New Message Reminder */
 .new-message-reminder {
-    position: fixed;
-    bottom: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    opacity: 0.8;
+    position: fixed; /* Fix the reminder at the bottom */
+    bottom: 70px; /* Position above the input section */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Adjust position to truly center */
+    padding: 10px; /* Padding around the reminder */
+    font-size: 14px; /* Font size for reminder text */
+    color: #fff; /* White text color */
+    background: #4CAF50; /* Green background */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Shadow effect */
+    opacity: 0.8; /* Slight transparency */
+    text-align: center; /* Center-align the text */
 }
 
-#startCallBtn {
-color: white;
-background-color: green;
-padding: 10px 10px;
-border: none;
-cursor: pointer;
-font-size: 16px;
-display: flex;
-align-items: center;
-gap: 8px; /* Adjust spacing between icon and text */
+/* Send Button Styling */
+#send-button {
+  background-color: #fbfcfb; /* Light background color */
+  color: rgb(170, 170, 170); /* Gray text color */
+  border: none; /* Remove border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 8px 14px; /* Padding inside the button */
+  font-size: 24px; /* Large font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover effect */
+  line-height: 1; /* Set line height */
+  user-select: none; /* Prevent text selection */
+  box-shadow: 0 2px 5px rgba(255, 254, 254, 0.89); /* Light shadow */
+  white-space: nowrap; /* Prevent text wrapping */
+  margin-right: 15px; /* Add margin to the right */
 }
 
-#startCallBtn.hang-up {
-background-color: red; /* Change button color to red when in "hang-up" mode */
+#send-button:hover {
+  background: #dadada; /* Change background color on hover */
+  transform: translateX(2px); /* Slightly shift button to the right */
+  color:white; /* Change text color to white */
 }
 
-#startCallBtn.hang-up i {
-transform: rotate(135deg); /* Rotate icon to indicate "end call" */
+#send-button:active {
+  transform: scale(0.95); /* Slightly shrink the button on click */
 }
 
-
-.hidden {
-display: none;
+/* System Message Popup Styling */
+#systemMessagePopup {
+  position: fixed; /* Fix the popup in the center */
+  top: 50%; /* Position it vertically at the center */
+  left: 50%; /* Position it horizontally at the center */
+  transform: translate(-50%, -50%); /* Truly center the popup */
+  background: rgba(0,0,0,0.7); /* Semi-transparent black background */
+  color: white; /* White text */
+  padding: 12px 24px; /* Padding inside the popup */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 16px; /* Set font size */
+  display: none; /* Initially hide the popup */
+  z-index: 10000; /* Ensure it's above other content */
+  pointer-events: none; /* Disable interaction with the popup */
+  user-select: none; /* Prevent text selection */
 }
-
-
-.call-overlay {
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 120px;
-height: 120px;
-display: none; /* Hidden by default */
-justify-content: center;
-align-items: center;
-border-radius: 50%;
-background-color: rgba(255, 255, 255, 0.1); /* Faint circle background */
-}
-
-.call-overlay.show {
-display: flex; /* Show when .show class is added */
-}
-
-.phone-icon {
-width: 80px;
-height: 80px;
-background-image: url('pic/pcon.png'); /* Replace with your phone icon */
-background-size: contain;
-background-repeat: no-repeat;
-animation: moveAround 3s ease-in-out infinite; /* Floating animation */
-}
-
-/* Keyframes for a subtle moving animation */
-@keyframes moveAround {
-0% { transform: translate(0, 0); }
-25% { transform: translate(5px, -5px); }
-50% { transform: translate(0, -10px); }
-75% { transform: translate(-5px, -5px); }
-100% { transform: translate(0, 0); }
-}
-
-#sendImageBtn {
-border: none; /* Removes the border */
-background-color: white; /* Sets the background to white */
-color: black; /* Optional: Sets the text color to black for contrast */
-padding: 10px 20px; /* Optional: Adjusts padding to make the button look better */
-font-size: 16px; /* Optional: Adjusts the font size */
-cursor: pointer; /* Optional: Adds a pointer cursor to indicate it's clickable */
-}
-
-/* Optional: Add a hover effect for better user experience */
-#sendImageBtn:hover {
-background-color: #f0f0f0; /* Light gray background on hover */
-}
-
-
-.friend-page {
-    display:none;
-}
-/* Video area */
-#videos {
-    width: 100%;
-    height: 100%;   
-}
-
-/* Remote video (big window) - Fullscreen */
-#remote-video {
-    position: fixed;  /* Keeps the video fixed in place */
-    top: 0;           /* Aligns to the top of the viewport */
-    left: 0;          /* Aligns to the left of the viewport */
-    width: 100%;     /* Makes the video take the full viewport width */
-    height: 100%;    /* Makes the video take the full viewport height */
-    object-fit: cover; /* Ensures the video covers the full screen without distortion */
-    /* Optional: background color if video fails to load */
-    z-index: 1;       /* Ensures the video stays below other elements (e.g., local video) */
-    background-image: url('pic/phcal.jpg');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-
-
-/* Local video (small window in the corner) */
-#local-video {
-    width: 240px;
-    height: 340px;
-    object-fit: cover;
-    position: absolute;
-    bottom: 100px;    /* Distance from the bottom */
-   left: 1000px;     /* Distance from the right */
-    border: 2px solid white;
-    border-radius: 10px;
-    z-index: 2;      /* Ensures it's on top of the remote video */
-    cursor: move;
-    background-image: url('pic/phcal.jpg');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-
-/* Waiting message */
-#waiting {
-    display: none;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background-color: yellow;
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 2;
-}
-
-/* Controls (Call, Hangup buttons) */
-#controls {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%); /* Center buttons horizontally */
-    z-index: 2;
-    display: flex;
-    float: left;
-    bottom: 0px;    /* Distance from the bottom */
-    align-items: center;
-    gap: 15px;
-}
-
-.vcbutton {
-    border: none;
-    padding: 10px 10px;
-    font-size: 1.2em;
-    color: white;
-    cursor: pointer;
-    border-radius: 50%;
-    width: 50px; /* Fixed width for buttons */
-}
-.callcome {
-    border: none;
-    padding: 2px 2px;
-    font-size: 0.6em;
-    color: rgb(255, 255, 255);
-    border-radius:50%
-    cursor: pointer;
-    /* Fixed width for buttons */
-}
-.callco {
-    background-color: #02f406;
-}
-.vcbutton1 {
-    background-color: #02f406;
-}
-.vcbutton2 {
-    background-color: #4f504f;
-}
-button:hover {
-    background-color: #2980b9;
-}
-
-/* Make the video elements stack correctly for smaller screens */
-@media screen and (max-width: 768px) {
-    /* Local video is slightly smaller on mobile */
-    #local-video {
-        position: absolute;
-        width: 120px;
-        height: 210px;
-        bottom:460px;
-        left: 240px;
-        cursor: move;
-        border: 2px solid white;
-        border-radius: 10px;
-    }
-
-    /* Hide the waiting message */
-    #waiting {
-        display: none;
-    }
-
-    /* Move buttons inside remote video for mobile */
-    #controls {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%); /* Center buttons horizontally */
-        z-index: 2;
-        display: flex;
-        float: left;
-        bottom: 0px;    /* Distance from the bottom */
-        align-items: center;
-        gap: 15px;
-    }
-}
-
-/* For very small screens */
-@media screen and (max-width: 480px) {
-    /* Local video becomes even smaller */
-  
-}
-
-
-
