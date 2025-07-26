@@ -3,7 +3,7 @@ body {
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
     font-family: Arial, sans-serif; /* Set font family */
-    background: #fff; /* Set background color to white */
+    background: #f7f7f7; /* Set background color to white */
 }
 
 /* Header Styling */
@@ -13,10 +13,10 @@ body {
     width: 100%; /* Full width */
     z-index: 10; /* Ensure it's above other content */
     padding: 4px 0; /* Add vertical padding */
-    background: #ffffff; /* White background */
+    background: #f7f7f7; /* White background */
     color: #0a0a0a; /* Dark text color */
     text-align: center; /* Center-align the text */
-    border: 1px solid #ebeaea; /* Light border at the bottom */
+    border: 1px solid #e0e0e0; /* Light border at the bottom */
 }
 .chat-header p {
     margin: 0; /* Remove paragraph margin */
@@ -49,7 +49,7 @@ body {
     display: flex; /* Use flexbox layout */
     justify-content: space-evenly; /* Distribute space evenly between items */
     align-items: center; /* Vertically center the items */
-    background: #fff; /* White background */
+    background: #f7f7f7; /* White background */
     border-top: 1px solid #ccc; /* Border at the top */
     gap: 5px; /* Add a small gap between items */
 }
@@ -77,11 +77,11 @@ body {
     margin: 10px; /* Add margin around each message */
 }
 .chat-message.self {
-    align-items: flex-start; /* Align self messages to the left */
+    align-items: flex-end; /* Align self messages to the right */
     margin-right: auto; /* Push self messages to the left */
 }
 .chat-message.user {
-    align-items: flex-end; /* Align user messages to the right */
+    align-items: flex-start; /* Align user messages to the left */
     margin-left: auto; /* Push user messages to the right */
 }
 .chat-message.self p,
@@ -99,7 +99,7 @@ body {
     background: #e0e0e0; /* Light gray background for self messages */
 }
 .chat-message.user p {
-    background: #95ec69; /* Green background for user messages */
+    background: #ffffff; /* Green background for user messages */
 }
 
 /* GPT Messages Styling */
