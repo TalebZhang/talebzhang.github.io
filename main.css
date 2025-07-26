@@ -5,10 +5,35 @@
 body {
   font-family: "Times New Roman", Times, serif;
   background-color: white;
+  font-weight: 700;
   color: black;
   margin: 0;
   padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
+
+  :root {
+    --bg-color: white;
+    --text-color: black;
+  }
+
+  .dark-mode {
+    --bg-color: black;
+    --text-color: white;
+  }
+
+  .mode-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    background: none;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+  }
 
 header {
   font-family: "Times New Roman", Times, serif;
@@ -20,7 +45,22 @@ header {
   width: 100%;
   top: 0;
   z-index: 999;
+ 
 }
+.marhead {
+  margin-top: 100px;
+}
+.introduce {
+  width: 60%;
+  margin: 80px auto 10px;
+}
+  h1 {
+    margin-bottom: 0.5em;
+  }
+  p {
+    line-height: 1.5;
+    font-size:20px;
+  }
 
 .hidden {
   display: none;
@@ -32,20 +72,6 @@ header {
   color:blue;
 }
 
-.intro:first-of-type {
-  margin-top: 100px; /* 避免被 header 遮住 */
-}
-.intro {
-    max-width: 95%;
-    margin: 0 auto;
-   padding: 0 10px;
-  }
-  h1 {
-    margin-bottom: 0.5em;
-  }
-  p {
-    line-height: 1.5;
-  }
 hr {
   height: 0.5px;
   color: #f5f5f5;
@@ -88,7 +114,7 @@ span {
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 20px auto 0 auto;
+  margin:0 auto;
   max-width: 1200px;
   padding: 0 10px;
 }
@@ -146,6 +172,11 @@ span {
   .page {
     flex-direction: column;
   }
+  .introduce {
+  width: 90%;
+  margin: 80px auto 20px;
+  font-size:20px;
+}
 
   .leftcolumn,
   .rightcolumn {
