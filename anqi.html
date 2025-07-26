@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja"> <!-- Set the language of the page to Japanese -->
+<head>
+    <meta charset="UTF-8"> <!-- Define the character encoding as UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Set up responsive design for mobile devices -->
+    <title>zhen zhang</title> <!-- Title of the web page displayed in the browser tab -->
+    <link rel="stylesheet" href="unchat.css"> <!-- Link to external CSS file for styling -->
+</head>
+<body>
+  <!-- Chat Header Section -->
+  <div class="chat-header">
+    <p class="headname">张振</p> <!-- Chat title, name of the person or bot -->
+    <p class="motto">聊天中</p> <!-- Motto or status (Chatting) -->
+  </div>
+  
+  <!-- Popup for system messages, hidden initially -->
+  <div id="systemMessagePopup"></div>
+
+  <!-- Chat Box to display chat messages -->
+  <div class="chat-box" id="chat-box"></div>
+  
+  <!-- Input Section for typing messages -->
+  <div class="chat-input-section">
+    <!-- Input Box for the message -->
+    <div class="input-box"> 
+      <input type="text" id="message-input" placeholder="Input..."> <!-- Input field with placeholder text -->
+    </div>
+    
+    <!-- Send Button to submit the message -->
+    <button id="send-button">➤</button>
+  </div>
+
+  <!-- External JavaScript for socket and message handling -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script> <!-- Socket.IO library for real-time communication -->
+  <script src="unchat.js"></script> <!-- External JS file for chat functionality -->
+</body>
+</html>
