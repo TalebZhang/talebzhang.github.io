@@ -56,7 +56,7 @@ const articles = [
   {
     class: "englishreading",
     hidden: false,
-    title: "True mastery lies in the restraint not to answer back with a question.",
+    title: "True mastery lies in the restraint not to respond with a rhetorical question.",
     href: "dontyougetit",
     time: "July 17, 2025",
     duration: "10min read",
