@@ -2,7 +2,7 @@ const articles = [
   {
     class: "englishlearning",
     hidden: false,
-    title: "我在干什么？",
+    title: "What I am doing now？",
     href: "now",
     time: null,
     duration: null,
@@ -11,7 +11,7 @@ const articles = [
   {
     class: "beautifulsongs",
     hidden: true,
-    title: "音乐播放器",
+    title: "Music Player",
     href: "./mysongs",
     time: "Feb 5",
     duration: "3min read",
@@ -20,7 +20,7 @@ const articles = [
   {
     class: "englishreading",
     hidden: false,
-    title: "勤奋>选择:驳斥目光短浅的投机主义者",
+    title: "Hard Work > Choices: Why hustle culture and short-sighted opportunism miss the point.",
     href: "pagra1",
     time: "Nov 6",
     duration: "30min read",
@@ -29,7 +29,7 @@ const articles = [
   {
     class: "englishreading",
     hidden: false,
-    title: "为什么我们就是不相信自己可以学好英语？",
+    title: "Why is it so hard for us to believe we can master a new language?",
     href: "pagra6",
     time: "July 17, 2025",
     duration: "10min read",
@@ -38,7 +38,7 @@ const articles = [
   {
     class: "englishreading",
     hidden: false,
-    title: "学英语有什么用？",
+    title: "Why should we learn English?",
     href: "englishuseful",
     time: "July 17, 2025",
     duration: "10min read",
@@ -47,7 +47,7 @@ const articles = [
   {
     class: "englishreading",
     hidden: false,
-    title: "我为什么决定停用支付宝？",
+    title: "The reasons behind my decision to stop using Alipay.",
     href: "noalipay",
     time: "July 17, 2025",
     duration: "10min read",
@@ -56,7 +56,7 @@ const articles = [
   {
     class: "englishreading",
     hidden: false,
-    title: "克制反问，是一种更深层次的掌控力",
+    title: "True mastery lies in the restraint not to answer back with a question.",
     href: "dontyougetit",
     time: "July 17, 2025",
     duration: "10min read",
@@ -65,7 +65,7 @@ const articles = [
   {
     class: "englishreading",
     hidden: false,
-    title: "被微信劫持的中国人：一场你从未察觉的数字战争(1)",
+    title: "China’s WeChat Captive: The Invisible Digital War You Never Saw Coming(1)",
     href: "lifewithoutwechat",
     time: "July 17, 2025",
     duration: "13min read",
@@ -74,7 +74,7 @@ const articles = [
   {
     class: "englishreading",
     hidden: false,
-    title: "被微信劫持的中国人：一场你从未察觉的数字战争(2)",
+    title: "China’s WeChat Captive: The Invisible Digital War You Never Saw Coming(2)",
     href: "lifewithoutwechat1",
     time: "July 18, 2025",
     duration: "15min read",
@@ -83,17 +83,16 @@ const articles = [
   {
     class: "englishreading",
     hidden: false,
-    title: "教育的迷思：为什么成绩优秀的学生，步入社会后的成就普遍低于预期？",
+    title: "The Education Paradox: Why Do Top Students Often Underperform in the Real World?",
     href: "education",
     time: "July 18, 2025",
     duration: "12min read",
     tag: "Education",
   },
-  
    {
     class: "englishreading",
     hidden: false,
-    title: "对微信使用的成本—收益模型分析",
+    title: "A Cost-Benefit Analysis of Using WeChat",
     href: "wechatornot",
     time: "July 24, 2025",
     duration: "25min read",
@@ -111,7 +110,7 @@ const articles = [
   {
     class: "jpread",
     hidden: true,
-    title: "日剧学习的分级推荐",
+    title: "A Level-Based Guide to Learning Japanese via J-Dramas",
     href: "./pagra3",
     time: "Feb 2",
     duration: "3min read",
@@ -120,7 +119,7 @@ const articles = [
   {
     class: "englishlearning",
     hidden: true,
-    title: "美剧学习的分级推荐",
+    title: "美A Level-Based Guide to Learning with American Dramas",
     href: "pagra4",
     time: "Feb 14",
     duration: "5min read",
