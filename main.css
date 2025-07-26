@@ -14,31 +14,10 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-  :root {
-    --bg-color: white;
-    --text-color: black;
-  }
-
-  .dark-mode {
-    --bg-color: black;
-    --text-color: white;
-  }
-
-  .mode-toggle {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.5em 1em;
-    cursor: pointer;
-    background: none;
-    border: 1px solid currentColor;
-    border-radius: 5px;
-  }
-
 header {
   font-family: "Times New Roman", Times, serif;
   background-color: white;
-  padding: 1px;
+  padding: 0px;
   font-size: 18px;
   position: fixed;
   overflow: hidden;
@@ -175,7 +154,7 @@ span {
   }
   .introduce {
   width: 90%;
-  margin: 80px auto 20px;
+  margin: 100px auto 20px;
   font-size:20px;
 }
 
