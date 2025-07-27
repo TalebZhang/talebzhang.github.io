@@ -97,9 +97,11 @@ body {
 }
 .chat-message.self p {
     background: #e0e0e0; /* Light gray background for self messages */
+    border: 1px solid #d1d1d1;
 }
 .chat-message.user p {
     background: #ffffff; /* Green background for user messages */
+    border: 1px solid #ddd;
 }
 
 /* GPT Messages Styling */
