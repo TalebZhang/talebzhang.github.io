@@ -98,6 +98,15 @@ const articles = [
     duration: "25min read",
     tag: "WechatOrNot",
   },
+   {
+    class: "englishreading",
+    hidden: false,
+    title: "The Power of Self-Respect — Reflections on Rockefeller’s Letters",
+    href: "selfrespect",
+    time: "July 27, 2025",
+    duration: "5min read",
+    tag: "Self-Respect",
+  },
   {
     class: "jpread",
     hidden: true,
