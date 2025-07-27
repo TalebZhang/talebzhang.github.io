@@ -145,37 +145,3 @@ articles.forEach(article => {
   `;
   container.appendChild(wrapper);
 });
-
-
-
-// below are catagory function
-function showSections(visibleClasses) {
-  const allSections = [
-    ".englishlearning",
-    ".myreading",
-    ".jpread",
-    ".beautifulsongs",
-    ".englishreading",
-    ".myexperience",
-    ".healthadvice"
-  ];
-
-  allSections.forEach(section => {
-    document.querySelectorAll(section).forEach(el => {
-      el.style.display = visibleClasses.includes(section) ? "block" : "none";
-    });
-  });
-}
-
-document.getElementById("myBtn").addEventListener("click", () => showSections([".englishlearning"]));
-document.getElementById("myBtn1").addEventListener("click", () => showSections([".jpread"]));
-document.getElementById("myBtn2").addEventListener("click", () => showSections([]));
-document.getElementById("myBtn3").addEventListener("click", () => showSections([".myexperience"]));
-document.getElementById("myBtn4").addEventListener("click", () => showSections([".myreading"]));
-document.getElementById("myBtn5").addEventListener("click", () => showSections([]));
-document.getElementById("myBtn6").addEventListener("click", () => showSections([]));
-document.getElementById("myBtn7").addEventListener("click", () => showSections([]));
-document.getElementById("myBtn8").addEventListener("click", () => showSections([]));
-document.getElementById("myBtn9").addEventListener("click", () => showSections([".beautifulsongs"]));
-document.getElementById("english").addEventListener("click", () => showSections([".englishreading"]));
-document.getElementById("chinese").addEventListener("click", () => showSections([".englishlearning", ".myreading", ".myexperience", ".healthadvice"]));
