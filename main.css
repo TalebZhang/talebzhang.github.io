@@ -40,6 +40,8 @@ header {
   p {
     line-height: 1.5;
     font-size:18px;
+    font-family:valkyrie_c4;
+};
   }
 
 .hidden {
