@@ -9,15 +9,6 @@ const articles = [
     tag: null,
   },
   {
-    class: "beautifulsongs",
-    hidden: true,
-    title: "Music Player",
-    href: "./mysongs",
-    time: "Feb 5",
-    duration: "3min read",
-    tag: "Beautiful Songs",
-  },
-  {
     class: "englishreading",
     hidden: false,
     title: "Hard Work > Choices: Why hustle culture and short-sighted opportunism miss the point.",
@@ -133,6 +124,15 @@ const articles = [
     time: "Feb 14",
     duration: "5min read",
     tag: "English Learning",
+  }，
+  {
+    class: "beautifulsongs",
+    hidden: true,
+    title: "Music Player",
+    href: "./mysongs",
+    time: "Feb 5",
+    duration: "3min read",
+    tag: "Beautiful Songs",
   }
 ];
 
