@@ -13,8 +13,8 @@ const articles = [
     hidden: false,
     title: "Hard Work > Choices: Why hustle culture and short-sighted opportunism miss the point.",
     href: "pagra1",
-    time: "Nov 6",
-    duration: "30min read",
+    time: "Nov 6, 2024",
+    duration: null,
     tag: "Thoughts",
   },
   {
@@ -23,7 +23,7 @@ const articles = [
     title: "Why is it so hard for us to believe we can master a new language?",
     href: "pagra6",
     time: "July 17, 2025",
-    duration: "10min read",
+    duration: null,
     tag: "English learning",
   },
   {
@@ -32,7 +32,7 @@ const articles = [
     title: "Why should we learn English?",
     href: "englishuseful",
     time: "July 17, 2025",
-    duration: "10min read",
+    duration: null,
     tag: "English learning",
   },
   {
@@ -41,7 +41,7 @@ const articles = [
     title: "The reasons behind my decision to stop using Alipay.",
     href: "noalipay",
     time: "July 17, 2025",
-    duration: "10min read",
+    duration:null,
     tag: "My Life",
   },
   {
@@ -50,7 +50,7 @@ const articles = [
     title: "True mastery lies in the restraint not to respond with a rhetorical question.",
     href: "dontyougetit",
     time: "July 17, 2025",
-    duration: "10min read",
+    duration:null,
     tag: "My Life",
   },
   {
@@ -59,7 +59,7 @@ const articles = [
     title: "China’s WeChat Captive: The Invisible Digital War You Never Saw Coming(1)",
     href: "lifewithoutwechat",
     time: "July 17, 2025",
-    duration: "13min read",
+    duration:null,
     tag: "My Life",
   },
   {
@@ -68,7 +68,7 @@ const articles = [
     title: "China’s WeChat Captive: The Invisible Digital War You Never Saw Coming(2)",
     href: "lifewithoutwechat1",
     time: "July 18, 2025",
-    duration: "15min read",
+    duration:null,
     tag: "My Life",
   },
   {
@@ -77,7 +77,7 @@ const articles = [
     title: "The Education Paradox: Why Do Top Students Often Underperform in the Real World?",
     href: "education",
     time: "July 18, 2025",
-    duration: "12min read",
+    duration:null,
     tag: "Education",
   },
    {
@@ -86,7 +86,7 @@ const articles = [
     title: "A Cost-Benefit Analysis of Using WeChat",
     href: "wechatornot",
     time: "July 24, 2025",
-    duration: "25min read",
+    duration:null,
     tag: "WechatOrNot",
   },
    {
@@ -95,7 +95,7 @@ const articles = [
     title: "The Power of Self-Respect — Reflections on Rockefeller’s Letters",
     href: "selfrespect",
     time: "July 27, 2025",
-    duration: "5min read",
+    duration:null,
     tag: "Self-Respect",
   },
   {
@@ -104,7 +104,7 @@ const articles = [
     title: "学問のすすめ",
     href: "./qxpone",
     time: "Feb 2",
-    duration: "3min read",
+    duration:null,
     tag: "Japanese Learning",
   },
   {
@@ -113,7 +113,7 @@ const articles = [
     title: "A Level-Based Guide to Learning Japanese via J-Dramas",
     href: "./pagra3",
     time: "Feb 2",
-    duration: "3min read",
+    duration: null,
     tag: "Japanese Learning",
   },
   {
@@ -122,18 +122,9 @@ const articles = [
     title: "A Level-Based Guide to Learning English with American Dramas",
     href: "pagra4",
     time: "Feb 14",
-    duration: "5min read",
+    duration: null,
     tag: "English Learning",
-  }，
-  {
-    class: "beautifulsongs",
-    hidden: true,
-    title: "Music Player",
-    href: "./mysongs",
-    time: "Feb 5",
-    duration: "3min read",
-    tag: "Beautiful Songs",
-  }
+  },
 ];
 
 const container = document.getElementById("article-list");
