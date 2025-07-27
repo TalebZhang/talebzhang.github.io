@@ -39,8 +39,9 @@ header {
   }
   p {
     line-height: 1.5;
-    font-size:18px;
+    font-size:15px;
     font-family:valkyrie_c4;
+    font-weight:400;
 };
   }
 
