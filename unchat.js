@@ -52,6 +52,12 @@ Notification.requestPermission().then(permission => {
 
 messaging.onMessage(payload => {
   console.log('Message received:', payload);
+   const { title, body } = payload.notification || {};
+  if (title && body) {
+    new Notification(title, {
+      body,
+    });
+  }
 });
 
 
