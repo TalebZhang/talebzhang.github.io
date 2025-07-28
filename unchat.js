@@ -32,24 +32,23 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-Notification.requestPermission().then(permission => {
-  if (permission === "granted") {
-    messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' }).then((currentToken) => {
-      if (currentToken) {
-        sendTokenToServer(currentToken, room);
-      }
-    }).catch(err => {
-      console.error('获取 FCM Token 失败:', err);
-    });
+// 3. 绑定 input 点击事件请求通知权限并发送token
+let permissionRequested = false;
+input.addEventListener("click", () => {
+  if (permissionRequested) return;
+  permissionRequested = true;
 
-    messaging.onTokenRefresh(() => {
-      messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' }).then(newToken => {
-        sendTokenToServer(newToken, room);
+  Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+      messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' }).then((currentToken) => {
+        if (currentToken) {
+          sendTokenToServer(currentToken, room);
+        }
       }).catch(err => {
-        console.error('刷新 Token 失败:', err);
+        console.error('获取 FCM Token 失败:', err);
       });
-    });
-  }
+    }
+  });
 });
 
 messaging.onMessage(payload => {
