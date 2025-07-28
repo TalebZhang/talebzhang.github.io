@@ -21,12 +21,14 @@ const renderedMessages = new Set(); // To keep track of already rendered message
 const room = window.location.pathname.split("/").pop().replace(".html", ""); // Get the room name from the URL
 
 firebase.initializeApp({
-  apiKey: "...",
-  authDomain: "...",
-  projectId: "...",
-  messagingSenderId: "...",
-  appId: "..."
+  apiKey: "AIzaSyAwOki0XUie9WKZDLYuV98kwXRkWJS4HU8",
+  authDomain: "unchat-82fee.firebaseapp.com",
+  projectId: "unchat-82fee",
+  storageBucket: "unchat-82fee.firebasestorage.app",
+  messagingSenderId: "299427116361",
+  appId: "1:299427116361:web:0139208f404a30b74c9698"
 });
+
 
 const messaging = firebase.messaging();
 
