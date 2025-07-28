@@ -1,3 +1,13 @@
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/firebase-messaging-sw.js')
+    .then(registration => {
+      console.log('Service Worker registered with scope:', registration.scope);
+    }).catch(err => {
+      console.error('Service Worker registration failed:', err);
+    });
+}
+
+
 const socket = io('https://dn.zhe.nz'); // Establish a connection with the server
 const chatBox = document.getElementById("chat-box"); // Get the chat container element
 const input = document.getElementById("message-input"); // Get the message input element
@@ -5,6 +15,55 @@ const sendButton = document.getElementById("send-button"); // Get the send butto
 const systemMessagePopup = document.getElementById("systemMessagePopup"); // Get the system message popup element
 const renderedMessages = new Set(); // To keep track of already rendered messages
 const room = window.location.pathname.split("/").pop().replace(".html", ""); // Get the room name from the URL
+
+firebase.initializeApp({
+  apiKey: "...",
+  authDomain: "...",
+  projectId: "...",
+  messagingSenderId: "...",
+  appId: "..."
+});
+
+const messaging = firebase.messaging();
+
+Notification.requestPermission().then(permission => {
+  if (permission === "granted") {
+    messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' }).then((currentToken) => {
+      if (currentToken) {
+        sendTokenToServer(currentToken, room);
+      }
+    }).catch(err => {
+      console.error('获取 FCM Token 失败:', err);
+    });
+
+    messaging.onTokenRefresh(() => {
+      messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' }).then(newToken => {
+        sendTokenToServer(newToken, room);
+      }).catch(err => {
+        console.error('刷新 Token 失败:', err);
+      });
+    });
+  }
+});
+
+messaging.onMessage(payload => {
+  console.log('Message received:', payload);
+});
+
+
+async function sendTokenToServer(token, room) {
+  try {
+    await fetch("https://dn.zhe.nz/api/save-fcm-token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ token, room })
+    });
+  } catch (error) {
+    console.error("Failed to send FCM token to server:", error);
+  }
+}
 
 // Retrieve pending and sent message timestamps from local storage
 let pendingTimestamps = JSON.parse(localStorage.getItem('pendingTimestamps') || '[]');
