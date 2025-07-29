@@ -1,17 +1,3 @@
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/firebase-messaging-sw.js')
-      .then(registration => {
-        console.log('Service Worker registered with scope:', registration.scope);
-      })
-      .catch(err => {
-        console.error('Service Worker registration failed:', err);
-      });
-  });
-}
-
-
-
 const socket = io('https://dn.zhe.nz'); // Establish a connection with the server
 const chatBox = document.getElementById("chat-box"); // Get the chat container element
 const input = document.getElementById("message-input"); // Get the message input element
@@ -32,30 +18,48 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-let permissionRequested = false;
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/firebase-messaging-sw.js')
+    .then(registration => {
+      console.log('Service Worker registered with scope:', registration.scope);
 
-sendButton.addEventListener("click", () => {
-  if (permissionRequested) return;
-  permissionRequested = true;
+      
+      messaging.useServiceWorker(registration);
 
-  Notification.requestPermission().then(permission => {
-    if (permission === "granted") {
-      messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' })
-      .then((currentToken) => {
-        if (currentToken) {
-          console.log("🎯 成功获取 FCM token:", currentToken);
-          sendTokenToServer(currentToken, room);
-        } else {
-          console.warn("⚠️ 获取到的 FCM token 为空！");
-        }
-      }).catch(err => {
-        console.error('获取 FCM Token 失败:', err);
-      });
-    } else {
-      console.warn("用户拒绝或未授予通知权限");
-    }
-  });
-});
+      if (Notification.permission === 'granted') {
+        messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' }).then(currentToken => {
+          if (currentToken) {
+            console.log('FCM token:', currentToken);
+            sendTokenToServer(currentToken, room);
+          } else {
+            console.warn('获取 FCM token 为空');
+          }
+        }).catch(err => {
+          console.error('获取 FCM token 失败:', err);
+        });
+      } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') {
+            messaging.getToken({ vapidKey: '你的 VAPID key' }).then(currentToken => {
+              if (currentToken) {
+                console.log('FCM token:', currentToken);
+                sendTokenToServer(currentToken, room);
+              } else {
+                console.warn('获取 FCM token 为空');
+              }
+            }).catch(err => {
+              console.error('获取 FCM token 失败:', err);
+            });
+          }
+        });
+      }
+    }).catch(err => {
+      console.error('Service Worker 注册失败:', err);
+    });
+} else {
+  console.warn('浏览器不支持 Service Worker');
+}
+
 
 
 messaging.onMessage(payload => {
