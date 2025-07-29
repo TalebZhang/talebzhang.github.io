@@ -23,18 +23,18 @@ self.addEventListener('push', function(event) {
   let data = {};
   if (event.data) {
     try {
-    data = event.data.json();
-  } catch (e) {
-    // 如果不是 JSON，就把文本当作消息体处理
-    data = { title: 'Notification', body: event.data.text() };
-  }
+      data = event.data.json();
+    } catch (e) {
+      // 如果不是 JSON，就把文本当作消息体处理
+      data = { title: 'Notification', body: event.data.text() };
+    }
   }
 
-  const title = data.notification?.title || 'Default title';
+  const title = data.title || 'Default title';
   const options = {
-    body: data.notification?.body || 'Default body',
-    icon: '/icon.png',  // 确保此路径图标存在
-    data: data.data || {}
+    body: data.body || 'Default body',
+    icon: data.icon || '/icon.png',  // 支持自定义图标路径
+    data: data  // 可用于 notificationclick 中识别来源
   };
 
   event.waitUntil(
@@ -42,16 +42,15 @@ self.addEventListener('push', function(event) {
   );
 });
 
-// (可选) 监听通知点击事件
+// 可选：监听通知点击事件
 self.addEventListener('notificationclick', function(event) {
   event.notification.close();
   event.waitUntil(
-    clients.matchAll({type: 'window', includeUncontrolled: true}).then(windowClients => {
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
       if (windowClients.length) {
         return windowClients[0].focus();
       }
-      return clients.openWindow('/');
+      return clients.openWindow('/');  // 可根据 data.url 定制打开路径
     })
   );
 });
-
