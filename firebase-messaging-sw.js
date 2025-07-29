@@ -22,7 +22,12 @@ self.addEventListener('push', function(event) {
 
   let data = {};
   if (event.data) {
+    try {
     data = event.data.json();
+  } catch (e) {
+    // 如果不是 JSON，就把文本当作消息体处理
+    data = { title: 'Notification', body: event.data.text() };
+  }
   }
 
   const title = data.notification?.title || 'Default title';
