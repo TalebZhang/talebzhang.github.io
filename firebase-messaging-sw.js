@@ -19,11 +19,12 @@ self.addEventListener('push', function(event) {
   if (!(self.Notification && self.Notification.permission === 'granted')) {
     return;
   }
-
+ console.log('Service Worker 收到 push 事件');
   let data = {};
   if (event.data) {
     try {
       data = event.data.json();
+      console.log('收到推送数据:', data);
     } catch (e) {
       // 如果不是 JSON，就把文本当作消息体处理
       data = { title: 'Notification', body: event.data.text() };
@@ -38,7 +39,11 @@ self.addEventListener('push', function(event) {
   };
 
   event.waitUntil(
-    self.registration.showNotification(title, options)
+    self.registration.showNotification(title, options).then(() => {
+      console.log('showNotification 调用成功');
+    }).catch(err => {
+      console.error('showNotification 调用失败:', err);
+    })
   );
 });
 
