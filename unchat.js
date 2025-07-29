@@ -79,7 +79,6 @@ messaging.onMessage(payload => {
   const icon = payload.notification?.icon || payload.data?.icon || '/icon.png';
 
   if (Notification.permission === 'granted' && title && body) {
-    alert("🔔 新通知:\n" + title + "\n" + body);
 
     new Notification(title, {
       body,
