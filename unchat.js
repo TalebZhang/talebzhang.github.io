@@ -41,9 +41,12 @@ input.addEventListener("click", () => {
   Notification.requestPermission().then(permission => {
     if (permission === "granted") {
       messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' }).then((currentToken) => {
-        if (currentToken) {
-          sendTokenToServer(currentToken, room);
-        }
+       if (currentToken) {
+    console.log("🎯 成功获取 FCM token:", currentToken);
+    sendTokenToServer(currentToken, room);
+  } else {
+    console.warn("⚠️ 获取到的 FCM token 为空！");
+  }
       }).catch(err => {
         console.error('获取 FCM Token 失败:', err);
       });
@@ -63,6 +66,10 @@ messaging.onMessage(payload => {
 
 
 async function sendTokenToServer(token, room) {
+  console.log("💡 正在尝试发送 FCM token 到服务器...");
+  console.log("📦 token =", token);
+  console.log("📦 room =", room);
+
   try {
     await fetch("https://dn.zhe.nz/api/save-fcm-token", {
       method: "POST",
@@ -71,6 +78,16 @@ async function sendTokenToServer(token, room) {
       },
       body: JSON.stringify({ token, room })
     });
+
+    console.log("🌐 fetch 请求已发送，等待服务器响应...");
+    
+    if (!response.ok) {
+      const text = await response.text();
+      console.error("❌ 服务器返回非 200 状态码:", response.status);
+      console.error("❌ 响应内容:", text);
+    } else {
+      console.log("✅ Token 成功发送至服务器");
+    }
   } catch (error) {
     console.error("Failed to send FCM token to server:", error);
   }
