@@ -18,14 +18,24 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
+/ Service Worker 注册
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/firebase-messaging-sw.js')
     .then(registration => {
       console.log('Service Worker registered with scope:', registration.scope);
 
-      
-      messaging.useServiceWorker(registration);
+      // 不需要使用 useServiceWorker，直接在后台消息处理时使用注册的 Service Worker
+      messaging.onBackgroundMessage((payload) => {
+        console.log('Background message received. ', payload);
+        const { title, body } = payload.notification || {};
+        if (title && body) {
+          new Notification(title, {
+            body,
+          });
+        }
+      });
 
+      // 获取 FCM token
       if (Notification.permission === 'granted') {
         messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' }).then(currentToken => {
           if (currentToken) {
@@ -40,7 +50,7 @@ if ('serviceWorker' in navigator) {
       } else if (Notification.permission !== 'denied') {
         Notification.requestPermission().then(permission => {
           if (permission === 'granted') {
-            messaging.getToken({ vapidKey: '你的 VAPID key' }).then(currentToken => {
+            messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' }).then(currentToken => {
               if (currentToken) {
                 console.log('FCM token:', currentToken);
                 sendTokenToServer(currentToken, room);
@@ -59,6 +69,7 @@ if ('serviceWorker' in navigator) {
 } else {
   console.warn('浏览器不支持 Service Worker');
 }
+
 
 
 
