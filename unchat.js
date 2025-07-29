@@ -80,7 +80,7 @@ messaging.onMessage(payload => {
     new Notification("测试通知", {
     body: "这是一条测试通知",
   });
-});
+}});
 
 
 async function sendTokenToServer(token, room) {
