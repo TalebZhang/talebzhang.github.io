@@ -74,10 +74,15 @@ if ('serviceWorker' in navigator) {
 messaging.onMessage(payload => {
   console.log('Message received:', payload);
    const { title, body } = payload.notification || {};
-  if (title && body) {
+   if (Notification.permission === 'granted' && title && body) {
+    alert("🔔 新通知:\n" + title + "\n" + body);
+
     new Notification(title, {
       body,
+      icon: '/icon.png', // 可选：设置图标
     });
+  } else {
+    console.warn("通知被拦截或权限未授予");
   }
 });
 
