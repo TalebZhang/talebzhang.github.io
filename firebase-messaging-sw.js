@@ -14,14 +14,39 @@ importScripts('https://www.gstatic.com/firebasejs/9.22.0/firebase-messaging-comp
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage(function(payload) {
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-    icon: '/icon.png', 
-    data: payload.data || {}
+// 监听 push 事件，使用 event.waitUntil 保证异步完成
+self.addEventListener('push', function(event) {
+  if (!(self.Notification && self.Notification.permission === 'granted')) {
+    return;
+  }
+
+  let data = {};
+  if (event.data) {
+    data = event.data.json();
+  }
+
+  const title = data.notification?.title || 'Default title';
+  const options = {
+    body: data.notification?.body || 'Default body',
+    icon: '/icon.png',  // 确保此路径图标存在
+    data: data.data || {}
   };
+
   event.waitUntil(
-  self.registration.showNotification(notificationTitle,
-    notificationOptions));
+    self.registration.showNotification(title, options)
+  );
 });
+
+// (可选) 监听通知点击事件
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({type: 'window', includeUncontrolled: true}).then(windowClients => {
+      if (windowClients.length) {
+        return windowClients[0].focus();
+      }
+      return clients.openWindow('/');
+    })
+  );
+});
+
