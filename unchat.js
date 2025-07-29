@@ -18,45 +18,48 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// Service Worker 注册
+// 注册 Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/firebase-messaging-sw.js')
     .then(registration => {
       console.log('Service Worker 注册成功:', registration.scope);
 
-      // 获取 FCM token
-      if (Notification.permission === 'granted') {
-        messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' })
-          .then(currentToken => {
-            if (currentToken) {
-              console.log('FCM token:', currentToken);
-              sendTokenToServer(currentToken, room); // 将 token 发给后台
-            } else {
-              console.warn('获取 FCM token 为空');
+      // Event listener for send button click
+      sendButton.addEventListener("click", () => {
+        // 获取 FCM token
+        if (Notification.permission === 'granted') {
+          messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' })
+            .then(currentToken => {
+              if (currentToken) {
+                console.log('FCM token:', currentToken);
+                sendTokenToServer(currentToken, room); // 将 token 发给后台
+              } else {
+                console.warn('获取 FCM token 为空');
+              }
+            })
+            .catch(err => {
+              console.error('获取 FCM token 失败:', err);
+            });
+        } else if (Notification.permission !== 'denied') {
+          // 请求通知权限
+          Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+              messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' })
+                .then(currentToken => {
+                  if (currentToken) {
+                    console.log('FCM token:', currentToken);
+                    sendTokenToServer(currentToken, room);
+                  } else {
+                    console.warn('获取 FCM token 为空');
+                  }
+                })
+                .catch(err => {
+                  console.error('获取 FCM token 失败:', err);
+                });
             }
-          })
-          .catch(err => {
-            console.error('获取 FCM token 失败:', err);
           });
-      } else if (Notification.permission !== 'denied') {
-        // 请求通知权限
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' })
-              .then(currentToken => {
-                if (currentToken) {
-                  console.log('FCM token:', currentToken);
-                  sendTokenToServer(currentToken, room);
-                } else {
-                  console.warn('获取 FCM token 为空');
-                }
-              })
-              .catch(err => {
-                console.error('获取 FCM token 失败:', err);
-              });
-          }
-        });
-      }
+        }
+      }); // <-- End of sendButton click event listener
     })
     .catch(err => {
       console.error('Service Worker 注册失败:', err);
