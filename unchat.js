@@ -85,7 +85,7 @@ async function sendTokenToServer(token, room) {
   console.log("📦 room =", room);
 
   try {
-    await fetch("https://dn.zhe.nz/api/save-fcm-token", {
+    const response = await fetch("https://dn.zhe.nz/api/save-fcm-token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
