@@ -79,7 +79,7 @@ messaging.onMessage(payload => {
 
     new Notification(title, {
       body,
-      icon: '/icon.png', // 可选：设置图标
+      icon: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4ac.svg',
     });
   } else {
     console.warn("通知被拦截或权限未授予");
