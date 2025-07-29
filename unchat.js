@@ -32,27 +32,31 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// 3. 绑定 input 点击事件请求通知权限并发送token
 let permissionRequested = false;
-input.addEventListener("click", () => {
+
+sendButton.addEventListener("click", () => {
   if (permissionRequested) return;
   permissionRequested = true;
 
   Notification.requestPermission().then(permission => {
     if (permission === "granted") {
-      messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' }).then((currentToken) => {
-       if (currentToken) {
-    console.log("🎯 成功获取 FCM token:", currentToken);
-    sendTokenToServer(currentToken, room);
-  } else {
-    console.warn("⚠️ 获取到的 FCM token 为空！");
-  }
+      messaging.getToken({ vapidKey: 'BHG5X8atDcbCXaTv81tTwX3hej4dkZEgLHe5GLRvruRWEBsc69ixxXNlrLANn9lZdmrcOgaKzEFUnAKsvXdwLBk' })
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log("🎯 成功获取 FCM token:", currentToken);
+          sendTokenToServer(currentToken, room);
+        } else {
+          console.warn("⚠️ 获取到的 FCM token 为空！");
+        }
       }).catch(err => {
         console.error('获取 FCM Token 失败:', err);
       });
+    } else {
+      console.warn("用户拒绝或未授予通知权限");
     }
   });
 });
+
 
 messaging.onMessage(payload => {
   console.log('Message received:', payload);
