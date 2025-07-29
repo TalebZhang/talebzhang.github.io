@@ -31,9 +31,9 @@ self.addEventListener('push', function(event) {
     }
   }
 
-  const title = data.title || 'Default title';
+  const title = data.title || '新消息！';
   const options = {
-    body: data.body || 'Default body',
+    body: data.body || '你有一条来自张振的新消息',
     icon: data.icon || '/icon.png',  // 支持自定义图标路径
     data: data  // 可用于 notificationclick 中识别来源
   };
