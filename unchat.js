@@ -77,13 +77,9 @@ messaging.onMessage(payload => {
    if (Notification.permission === 'granted' && title && body) {
     alert("🔔 新通知:\n" + title + "\n" + body);
 
-    new Notification(title, {
-      body,
-      icon: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4ac.svg',
-    });
-  } else {
-    console.warn("通知被拦截或权限未授予");
-  }
+    new Notification("测试通知", {
+    body: "这是一条测试通知",
+  });
 });
 
 
