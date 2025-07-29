@@ -73,14 +73,22 @@ if ('serviceWorker' in navigator) {
 
 messaging.onMessage(payload => {
   console.log('Message received:', payload);
-   const { title, body } = payload.notification || {};
-   if (Notification.permission === 'granted' && title && body) {
+  // 先从 notification 取，没有则从 data 取
+  const title = payload.notification?.title || payload.data?.title;
+  const body = payload.notification?.body || payload.data?.body;
+  const icon = payload.notification?.icon || payload.data?.icon || '/icon.png';
+
+  if (Notification.permission === 'granted' && title && body) {
     alert("🔔 新通知:\n" + title + "\n" + body);
 
-    new Notification("测试通知", {
-    body: "这是一条测试通知",
-  });
-}});
+    new Notification(title, {
+      body,
+      icon,
+    });
+  } else {
+    console.warn("通知被拦截或权限未授予");
+  }
+});
 
 
 async function sendTokenToServer(token, room) {
