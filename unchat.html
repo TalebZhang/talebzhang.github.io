@@ -459,7 +459,7 @@ backToFriendlistBtn.addEventListener('click', () => {
     //const socket = io('https://dn.zhe.nz'); 
     const myPhone = localStorage.getItem('phone');
 
-    const socket = io(API_BASE, {
+    const socket = io('https://dn.zhe.nz/', {
       auth: {
         token: localStorage.getItem('accessToken') // 或者 refreshToken，看你验证方式
       },
