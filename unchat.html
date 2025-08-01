@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Friend List</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #ececec;
+      color: #050505;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 2px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .letter-group {
+      margin-bottom: 6px;
+      margin:0 15px;
+    }
+
+    .letter-title {
+      font-weight: normal;
+      font-size: 0.8em;
+      margin-bottom: 4px;
+      padding-left: 8px;
+      color: #555555;
+    }
+
+    .friend {
+      padding: 12px;
+      border-bottom: 1px solid #faf8f8;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      background-color:#fff
+    }
+
+    .friend:hover {
+      background-color: #e0e0e0;
+    }
+
+    #closeChatBtn {
+  background: transparent;
+  border: none;
+  font-size: 10px;
+  color: #666;
+  padding: 4px 8px;
+}
+#closeChatBtn:hover {
+  color: #000;
+}
+
+
+/* General Body Styles */
+body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    font-family: Arial, sans-serif; /* Set font family */
+    background: #f7f7f7; /* Set background color to white */
+}
+
+/* Header Styling */
+.chat-header {
+    position: fixed; /* Fix the header at the top */
+    top: 0; /* Position it at the top */
+    width: 100%; /* Full width */
+    z-index: 10; /* Ensure it's above other content */
+    padding: 4px 0; /* Add vertical padding */
+    background: #f7f7f7; /* White background */
+    color: #0a0a0a; /* Dark text color */
+    text-align: center; /* Center-align the text */
+    border: 1px solid #e0e0e0; /* Light border at the bottom */
+}
+.chat-header p {
+    margin: 0; /* Remove paragraph margin */
+}
+.headname {
+    font-size: 20px; /* Set font size for header name */
+    font-weight: bold; /* Make the header name bold */
+}
+.motto {
+    font-size: 10px; /* Smaller font for motto */
+}
+
+/* Chat Box Styling */
+.chat-box {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Arrange children in column */
+    padding: 0px 10px 80px; /* Add padding, space for input section */
+    margin-top: 60px; /* Space for the fixed header */
+    height: calc(100vh - 60px); /* Take the full height minus header */
+    overflow-y: auto; /* Allow vertical scrolling */
+}
+
+/* Input Section Styling */
+.chat-input-section {
+    position: fixed; /* Fix the input section at the bottom */
+    bottom: 0; /* Position it at the bottom */
+    left: 0;
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding around the input */
+    display: flex; /* Use flexbox layout */
+    justify-content: space-evenly; /* Distribute space evenly between items */
+    align-items: center; /* Vertically center the items */
+    background: #f7f7f7; /* White background */
+    border-top: 1px solid #ccc; /* Border at the top */
+    gap: 5px; /* Add a small gap between items */
+}
+
+.input-box {
+    flex-grow: 1; /* Allow input box to grow and take available space */
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Vertically center the input field */
+    padding: 5px 0; /* Padding inside the box */
+    border: 1px solid #ccc; /* Border around input box */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.input-box input {
+    flex-grow: 1; /* Make input field grow and fill available space */
+    border: none; /* Remove default border */
+    outline: none; /* Remove outline when focused */
+    padding: 5px 0; /* Padding inside input */
+}
+
+/* Chat Messages Styling */
+.chat-message {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Stack message components vertically */
+    margin: 10px; /* Add margin around each message */
+}
+.chat-message.self {
+    align-items: flex-end; /* Align self messages to the right */
+    margin-left: auto; /* Push self messages to the left */
+}
+.chat-message.user {
+    align-items: flex-start; /* Align user messages to the left */
+    margin-right: auto; /* Push user messages to the right */
+}
+.chat-message.self p,
+.chat-message.user p {
+    padding: 10px 14px; /* Add padding inside message bubbles */
+    margin: 0; /* Remove margin */
+    max-width: 70vw; /* Set maximum width for message bubbles */
+    border-radius: 12px; /* Rounded corners for message bubbles */
+    white-space: pre-wrap; /* Preserve white space and wrap text */
+    word-break: break-word; /* Break words if necessary */
+    overflow-wrap: break-word; /* Break long words that overflow */
+    color: #000; /* Set text color to black */
+}
+.chat-message.self p {
+    background: #e0e0e0; /* Light gray background for self messages */
+    border: 1px solid #d1d1d1;
+}
+.chat-message.user p {
+    background: #ffffff; /* Green background for user messages */
+    border: 1px solid #ddd;
+}
+
+/* GPT Messages Styling */
+.chat-message.gpt {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Stack components vertically */
+    align-items: center; /* Center align the message */
+    width: 100%; /* Full width */
+    margin: 10px auto; /* Add margin and center it */
+    background: #eef; /* Light blue background */
+}
+
+.chat-message.gpt p {
+    background: #fff; /* White background for message bubble */
+    border: 1px solid #ddd; /* Light border around the message */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8); /* Shadow effect */
+    padding: 12px 16px; /* Padding inside message bubble */
+    border-radius: 10px; /* Rounded corners */
+    max-width: 60vw; /* Set maximum width for GPT message */
+    font-family: "Courier New", Courier, monospace; /* Use monospaced font for GPT messages */
+    color: #333; /* Dark gray text color */
+    white-space: pre-wrap; /* Preserve white space and wrap text */
+    user-select: text; /* Allow text selection */
+    word-break: break-word; /* Break long words */
+}
+
+/* Timestamp Styling */
+.timestamp {
+    font-size: 12px; /* Small font size for timestamp */
+    color: #888; /* Light gray color for timestamp */
+    width: 100%; /* Full width */
+    text-align: right; /* Align timestamp to the right */
+    margin-bottom: 0; /* Remove bottom margin */
+}
+
+/* New Message Reminder */
+.new-message-reminder {
+    position: fixed; /* Fix the reminder at the bottom */
+    bottom: 70px; /* Position above the input section */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Adjust position to truly center */
+    padding: 10px; /* Padding around the reminder */
+    font-size: 14px; /* Font size for reminder text */
+    color: #fff; /* White text color */
+    background: #4CAF50; /* Green background */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Shadow effect */
+    opacity: 0.8; /* Slight transparency */
+    text-align: center; /* Center-align the text */
+}
+
+/* Send Button Styling */
+#send-button {
+  background-color: #fbfcfb; /* Light background color */
+  color: rgb(170, 170, 170); /* Gray text color */
+  border: none; /* Remove border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 8px 14px; /* Padding inside the button */
+  font-size: 24px; /* Large font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover effect */
+  line-height: 1; /* Set line height */
+  user-select: none; /* Prevent text selection */
+  box-shadow: 0 2px 5px rgba(255, 254, 254, 0.89); /* Light shadow */
+  white-space: nowrap; /* Prevent text wrapping */
+  margin-right: 15px; /* Add margin to the right */
+}
+
+#send-button:hover {
+  background: #dadada; /* Change background color on hover */
+  transform: translateX(2px); /* Slightly shift button to the right */
+  color:white; /* Change text color to white */
+}
+
+#send-button:active {
+  transform: scale(0.95); /* Slightly shrink the button on click */
+}
+
+#add-friend-btn {
+  border-radius: 8px;             /* 圆角 */
+  border: 1px solid #ccc;         /* 浅灰色边框 */
+  background-color: #fff;         /* 白色背景 */
+  padding: 6px 14px;              /* 内边距 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 轻微阴影 */
+  cursor: pointer;                /* 鼠标指针 */
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+#add-friend-btn:hover {
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+#add-friend-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#search-phone {
+  border-radius: 8px;             /* 圆角 */
+  border: 1px solid #ccc;         /* 浅灰色边框 */
+  background-color: #fff;         /* 白色背景 */
+  padding: 6px 10px;              /* 内边距 */
+  outline: none;                  /* 去掉默认蓝色轮廓 */
+  box-sizing: border-box;         /* 包括内边距和边框在内 */
+  transition: box-shadow 0.3s ease;
+}
+
+#search-phone:focus {
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 聚焦时加蓝色阴影 */
+  border-color: #007bff;                       /* 聚焦时边框变蓝 */
+}
+
+#back-to-friendlist {
+  font-size: 17px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 0px;
+  margin-right: 2px;
+  display: none;
+  padding: 2px 1px 0px 1px;
+  transition: all 0.2s ease;
+}
+
+#back-to-friendlist:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+#notification-icon{
+  font-size: 18px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 2px 2px;
+  transition: all 0.2s ease;
+}
+
+.accept-btn {
+  background-color: #ffffff;       /* 白色背景 */
+  border: 1px solid #cccccc;       /* 浅灰色边框 */
+  color: #333333;                  /* 深灰色文字 */
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;       /* 平滑过渡 */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* 轻微阴影 */
+}
+
+.accept-btn:hover {
+  transform: translateY(-2px);     /* 轻微上浮 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 加强阴影 */
+}
+
+.addfrienders {
+  display: inline-block;
+  font-size: 14px;
+  
+  margin-left: 80px;      /* 和按钮留点距离 */
+  padding: 12px;
+      border-bottom: 1px solid #faf8f8;
+      cursor: pointer;
+      transition: background 0.2s ease;
+     
+ 
+}
+
+  </style>
+</head>
+<body>
+
+<div>
+  <!-- Friend List Header -->
+  <div style="display: flex; align-items: center; padding:15px 10px 10px 10px; ">
+  <button id="back-to-friendlist"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M15 18L9 12L15 6" stroke="#888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</button>
+ <div id="notification-icon" style="width:24px; height:24px; cursor:pointer;">
+  <svg fill="#888888" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 24c1.104 0 2-.895 2-2h-4c0 1.105.896 2 2 2zm6.707-6c-.352-.62-.707-1.552-.707-3v-4c0-3.07-1.64-5.64-4.707-6.32V4c0-.552-.447-1-1-1s-1 .448-1 1v.68C7.64 5.36 6 7.93 6 11v4c0 1.448-.355 2.38-.707 3H18.707z"/>
+  </svg>
+</div>
+  <input type="text" id="search-phone" placeholder="搜索好友或输入手机号" style="flex-grow: 1; margin-left: 10px; padding: 6px;">
+  <button id="add-friend-btn" style="margin-left: 10px; display: none;">添加好友</button>
+</div>
+
+
+  <!-- Notification Dropdown -->
+  <div id="notification-dropdown" style="display: none; position: absolute; top: 40px; left: 10px; background: #fff; border: 1px solid #ccc; border-radius: 5px; max-height: 200px; overflow-y: auto; padding: 10px; z-index: 20;">
+    <!-- 动态插入未读消息 -->
+     <p style="font-size: 10px;">您当前没有好友消息</p>
+  </div>
+
+  <!-- 好友请求列表，默认隐藏 -->
+<div id="friendRequests" style="display: none; padding: 0; font-size:12px;color:black; margin-left:10px;">
+  <!-- 动态渲染好友请求 -->
+</div>
+
+<p id="add-friend-message" style="color: rgb(68, 68, 68); padding: 0 10px; font-size: 10px;"></p>
+
+  <!-- Friend List -->
+  <div class="container" id="friendList">
+    <!-- 动态插入好友 -->
+  </div>
+
+  <!-- Chat Page -->
+  <div id="chatpage" style="display: none;">
+    <div class="chat-header">
+      <p class="headname">Ana</p>
+      <p class="motto">聊天中</p>
+      <button id="closeChatBtn" style="margin-left:auto; cursor:pointer;">关闭</button>
+    </div>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="chat-input-section">
+      <div class="input-box"> 
+        <input type="text" id="message-input" placeholder="Input...">
+      </div>
+      <button id="send-button">➤</button>
+    </div>
+  </div>
+</div>
+
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+ const searchInput = document.getElementById('search-phone');
+const addFriendBtn = document.getElementById('add-friend-btn');
+const friendRequestsDiv = document.getElementById('friendRequests');
+const addFriendMsg = document.getElementById('add-friend-message');
+const backToFriendlistBtn = document.getElementById('back-to-friendlist');
+const friendLists = document.getElementById('friendList');
+
+searchInput.addEventListener('input', () => {
+  const val = searchInput.value.trim();
+  friendLists.style.display = 'none';
+  friendRequestsDiv.style.display = 'block'; // 好友请求列表也隐藏
+   backToFriendlistBtn.style.display = 'inline-block'; // 显示返回键
+  if (val === '') {
+    addFriendBtn.style.display = 'none';   // 输入框为空，隐藏“添加好友”按钮
+    
+    addFriendMsg.style.display = 'none';
+   
+  } else {
+    
+    addFriendBtn.style.display = 'inline-block'; // 输入不为空时显示“添加好友”按钮
+    
+    addFriendMsg.style.display = 'block';
+  }
+  
+});
+backToFriendlistBtn.addEventListener('click', () => {
+  // 点击返回按钮时，显示好友请求和提示，隐藏返回按钮
+  friendLists.style.display = 'block';
+  addFriendMsg.style.display = 'none';
+  backToFriendlistBtn.style.display = 'none';
+  friendRequestsDiv.style.display = 'none';  
+  addFriendBtn.style.display = 'none';
+
+  // 清空输入框内容，避免误操作
+  searchInput.value = '';
+  searchInput.blur(); // 失焦
+});
+
+
+
+  // 通知图标点击展开/收起通知列表
+  document.getElementById('notification-icon').addEventListener('click', (e) => {
+    const dropdown = document.getElementById('notification-dropdown');
+    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    e.stopPropagation();
+  });
+
+
+  // 点击其他区域关闭通知栏
+  document.addEventListener('click', () => {
+    document.getElementById('notification-dropdown').style.display = 'none';
+  });
+
+  // 阻止点击通知图标时冒泡关闭通知栏
+  document.getElementById('notification-dropdown').addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+
+
+
+
+
+
+
+
+
+
+    const API_BASE = 'https://dn.zhe.nz';
+    //const socket = io('https://dn.zhe.nz'); 
+    const myPhone = localStorage.getItem('phone');
+
+    const socket = io(API_BASE, {
+      auth: {
+        token: localStorage.getItem('accessToken') // 或者 refreshToken，看你验证方式
+      },
+      withCredentials: true // 如果你服务器设置了 CORS 的 cookie 支持
+    });
+
+    const chatBox = document.getElementById("chat-box"); // Get the chat container element
+    const input = document.getElementById("message-input"); // Get the message input element
+    const sendButton = document.getElementById("send-button"); // Get the send button element
+    const renderedMessages = new Set(); // To keep track of already rendered messages
+
+    const token = localStorage.getItem('accessToken');
+    const unreadMessages = {}; // { friendPhone: [msgObj, msgObj, ...] }
+
+ 
+    
+    if (!token) {
+      // 没有token，跳转登录页
+      alert('请先登录');
+      window.location.href = './login.html';
+    } else {
+      // 验证token有效性
+      secureFetch(API_BASE + '/protected', {
+        method: 'GET'
+      })
+        .then(res => {
+          if (!res.ok) {
+            throw new Error('验证失败');
+            return res.json();
+          }
+          return res.json();
+        })
+          .then(data => {
+            // 显示欢迎信息
+            console.log('登录成功')
+          })
+        .catch(err => {
+          alert('登录失效，请重新登录');
+          localStorage.removeItem('accessToken');
+          window.location.href = './login.html';
+        });
+    }
+
+
+    async function refreshAccessToken() {
+      try {
+        const res = await fetch(API_BASE + '/token', {
+          method: 'POST',
+          credentials: 'include', // 必须带上 cookie（refreshToken）
+        });
+
+      if (!res.ok) {
+        throw new Error('刷新失败');
+      }
+
+      const data = await res.json();
+      // 将新的 accessToken 保存到内存或 localStorage
+      localStorage.setItem('accessToken', data.accessToken);
+
+      return data.accessToken;
+      } catch (err) {
+        console.error('无法刷新 access token', err);
+        // 引导用户重新登录
+        window.location.href = './login.html';
+      }
+    }
+
+
+    async function secureFetch(url, options = {}, retry = true) {
+      const accessToken = localStorage.getItem('accessToken');
+
+      const res = await fetch(url, {
+        ...options,
+        headers: {
+          ...options.headers,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (res.status === 401 && retry) {
+        // accessToken 可能过期了，尝试刷新
+        const newToken = await refreshAccessToken();
+        if (newToken) {
+          return secureFetch(url, options, false); // retry = false，防止死循环
+        }
+      }
+      return res;
+    }
+
+    let friends = [];
+
+    // 取出并转回数组
+    let friendsStr = localStorage.getItem('friends');
+   
+    if (friendsStr) {
+      friends = JSON.parse(friendsStr);
+      
+      // 你可以用这个数组去渲染列表
+    }
+
+    // 分组函数
+    function groupFriendsByLetter(friendes) {
+      if (!friendes || friendes.length === 0) {
+        console.log('好友列表为空');
+        return {};
+      }
+      console.log('好友列表不空');
+
+      const groups = {};
+      friendes.forEach(name => {
+        
+  if (typeof name !== 'string' || name.trim() === '') return; // 跳过非字符串或空字符串
+
+        let letter = name[0].toUpperCase();
+        if (!letter.match(/[A-Z]/)) {
+        letter = '#'; // 非字母归为 # 组
+        }
+        if (!groups[letter]) groups[letter] = [];
+        groups[letter].push(name);
+      });
+
+      // 排序
+      const sorted = {};
+      Object.keys(groups).sort((a, b) => {
+        if (a === '#') return 1;
+        if (b === '#') return -1;
+        return a.localeCompare(b);
+      }).forEach(letter => {
+        sorted[letter] = groups[letter].sort();
+      });
+        return sorted;
+    }
+
+
+    
+
+
+function updateNotificationDropdown() {
+  const dropdown = document.getElementById("notification-dropdown");
+  dropdown.innerHTML = "";
+
+  const sortedEntries = Object.entries(unreadMessages).sort((a, b) => {
+    const timeA = new Date(a[1][0].timestamp).getTime();
+    const timeB = new Date(b[1][0].timestamp).getTime();
+    return timeB - timeA; // 最新的排前面
+  });
+
+  if (sortedEntries.length === 0) {
+    dropdown.innerHTML = "<p>暂无未读消息</p>";
+    return;
+  }
+
+  sortedEntries.forEach(([phone, msgs]) => {
+    const div = document.createElement("div");
+    div.style.padding = "6px 0";
+    div.style.borderBottom = "1px solid #eee";
+    div.style.cursor = "pointer";
+
+    const latest = msgs[msgs.length - 1];
+    div.innerHTML = `<strong>${phone}</strong><br><small>${latest.text}</small>`;
+
+    div.addEventListener("click", () => {
+      showChatBox(phone);
+      delete unreadMessages[phone];
+      updateNotificationDropdown();
+    });
+
+    dropdown.appendChild(div);
+  });
+}
+function extractOtherUserFromRoom(room, myPhone) {
+  return room.split("_").find(phone => phone !== myPhone);
+}
+    // 1. 全局socket事件绑定（只绑定一次）
+    socket.on("connect", () => {
+      console.log("Connected to server");
+       socket.emit('login', myPhone);
+    });
+socket.on("notification", (msg) => {
+  // 这里不管当前打开哪个房间，收到通知，更新未读消息提醒
+  if (!currentRoom || !currentRoom.includes(msg.sender)) {
+    if (!unreadMessages[msg.sender]) unreadMessages[msg.sender] = [];
+    unreadMessages[msg.sender].push(msg);
+    updateNotificationDropdown();
+  }
+});
+
+socket.on('friendRequestNotification', async({ from, timestamp }) => {
+  alert(`用户 ${from} 向你发送了好友请求！`);
+
+  // 你可以选择：
+  // 1. 立即拉取最新好友请求列表刷新UI
+  await fetchFriendRequests();
+
+  // 2. 或者把这条通知插入到通知列表（你需要写一个插入函数）
+  // addNotification({ from, timestamp, type: 'friendRequest' });
+});
+
+socket.on('friendAcceptedNotice', async({ from }) => {
+  alert(`${from} 接受了你的好友请求`);
+  await fetchFriendsListAndRender();
+  
+});
+
+async function fetchFriendsListAndRender() {
+  try {
+    const res = await secureFetch(API_BASE + `/friends-list?phone=${encodeURIComponent(myPhone)}`, { method: 'GET' });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data.friends)) {
+        localStorage.setItem('friends', JSON.stringify(data.friends));
+        friends = data.friends;
+        renderFriendList();
+      }
+    }  else {
+      console.error('获取好友列表失败，状态码:', res.status);
+    }
+  } catch (err) {
+    console.error('获取好友列表失败', err);
+  }
+}
+
+
+
+    socket.on("chat message", (msg) => {
+       
+       const text = msg.text;
+       const timestamp = msg.timestamp;
+       console.log(msg.sender + "heress")
+        if (!currentRoom) {
+    // 当前没有打开聊天窗口，把消息当作“陌生人消息”处理
+    const sendee = msg.sender;
+    if (sendee !== myPhone) {  // 排除自己发的消息
+      if (!unreadMessages[sendee]) unreadMessages[sendee] = [];
+      unreadMessages[sendee].push({ text, timestamp });
+      localStorage.setItem('unreadMessages', JSON.stringify(unreadMessages));
+      updateNotificationDropdown();
+    }
+    return;
+  }
+
+
+       // 当前房间的双方手机号
+  const [roomPhone1, roomPhone2] = currentRoom.split('_');
+
+  // 如果发送者不是当前聊天双方之一，才是“陌生人消息”
+  if (msg.sender !== roomPhone1 && msg.sender !== roomPhone2) {
+    const sendee = msg.sender;
+    if (!unreadMessages[sendee]) unreadMessages[sendee] = [];
+    unreadMessages[sendee].push({ text, timestamp });
+    localStorage.setItem('unreadMessages', JSON.stringify(unreadMessages));
+    updateNotificationDropdown();
+    return;
+  }
+
+      const isSelf = msg.sender === myPhone;
+  const sender = isSelf ? "self" : "user";
+ 
+
+    
+    appendMessage(msg.text, sender, msg.timestamp, msg.id);
+  
+
+    
+  
+    });
+
+
+    sendButton.addEventListener("click", () => sendTextMessage());
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") sendTextMessage();
+    });
+
+    function renderFriendList() {
+      friendsStr = localStorage.getItem('friends');
+   
+    if (friendsStr) {
+      friends = JSON.parse(friendsStr);
+      
+      // 你可以用这个数组去渲染列表
+    }
+      const grouped = groupFriendsByLetter(friends);
+      const container = document.getElementById("friendList");
+      container.innerHTML = "";
+
+      for (const letter in grouped) {
+        const group = document.createElement("div");
+        group.className = "letter-group";
+
+        const title = document.createElement("div");
+        title.className = "letter-title";
+        title.textContent = letter;
+
+        group.appendChild(title);
+
+        grouped[letter].forEach(name => {
+          const friend = document.createElement("div");
+          friend.className = "friend";
+          friend.textContent = name;
+
+          friend.addEventListener("click", () => {
+            showChatBox(name);
+
+          });
+          group.appendChild(friend);
+        });
+
+        container.appendChild(group);
+      }
+    }
+  
+    // 初始连接 socket
+    let currentRoom = null;
+
+    function showChatBox(friendName) {
+      localStorage.setItem("currentChatFriend", friendName);
+      document.querySelector('.headname').textContent = friendName;
+
+
+      chatBox.innerHTML = ''
+      renderedMessages.clear(); 
+      document.getElementById("friendList").style.display = "none";
+      document.getElementById("chatpage").style.display = "block";
+      //document.getElementById("chatTitle").textContent = `与 ${friendName} 的聊天`;
+ 
+      currentRoom = generateRoomName(myPhone, friendName); // 生成唯一房间名
+      socket.emit('join room', currentRoom); // 加入这个房间，开始收发消息
+      
+      loadChatHistory(friendName);
+    }
+
+    function generateRoomName(userA, userB) {
+      // 双重指针思路：确保房间名一致性（无论谁先发起）
+      return [userA, userB].sort().join("_");
+    }
+
+
+    // Function to send a text message
+    function sendTextMessage() {
+      if (!currentRoom) return; // 防止未选中房间时发送
+      const text = input.value.trim(); // Get the trimmed message text
+      if (!text) return; // If the message is empty, do nothing
+      const now = Date.now(); // Get the current timestamp
+     
+      socket.emit('chat message', {text, room: currentRoom, clientTimestamp: now }); // Send the message to the server with the room, text, and timestamp
+      input.value = ""; // Clear the input field after sending the message
+    }
+
+
+
+
+
+      // Convert a timestamp to milliseconds, handling both string and number formats
+      const toMillisTimestamp = time => typeof time === 'number' ? time : (typeof time === 'string' ? new Date(time).getTime() : 0);
+
+    // Function to load the chat history from the server
+    async function loadChatHistory(friendName) {
+      
+      try {
+        const res = await secureFetch(API_BASE + '/chat-history?room='+ encodeURIComponent(currentRoom), {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          
+        }
+      });
+        
+        if (!res.ok) throw new Error('Failed to get chat history'); // Handle error if the fetch fails
+        const messages = await res.json(); // Parse the response as JSON
+        
+        messages.forEach(msg => {
+          const sender = msg.sender === myPhone ? "self" : "user";
+          appendMessage(msg.text, sender, msg.timestamp, msg.id); // Append the message to the chat box
+        });
+      } catch (e) {
+        console.error("Failed to load chat history:", err);
+      }
+    }
+
+    // Function to append a new message to the chat box
+    function appendMessage(text, sender, timeStr, id) {
+      id = id || `${text}|${timeStr}`; // Generate a unique id for the message
+      if (renderedMessages.has(id)) return; // Avoid rendering the same message again
+      renderedMessages.add(id); // Add the message id to the rendered messages set
+
+      const msg = document.createElement("div"); // Create a new div for the message
+      msg.className = `chat-message ${sender}`; // Assign class based on sender type
+
+      const time = document.createElement("div"); // Create a div for the timestamp
+      time.className = "timestamp"; // Assign timestamp class
+      time.innerText = timeStr ? new Date(timeStr).toLocaleString() : new Date().toLocaleString(); // Format the timestamp
+
+      const bubble = document.createElement("p"); // Create a paragraph for the message text
+      bubble.innerText = text; // Set the message text
+
+      msg.appendChild(time); // Append the timestamp to the message
+      msg.appendChild(bubble); // Append the message text to the message
+      chatBox.appendChild(msg); // Add the message to the chat box
+      chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom of the chat box
+    }
+
+     document.getElementById('add-friend-btn').addEventListener('click', async () => {
+    const yphone = document.getElementById('search-phone').value.trim();
+    const messageEl = document.getElementById('add-friend-message');
+    
+    if (!yphone) {
+      messageEl.textContent = '请输入手机号';
+      messageEl.style.color = 'black';
+       messageEl.style.fontWeight = '400';
+      return;
+    }
+
+    try {
+      const res = await secureFetch(API_BASE + '/addfriends', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: yphone, myphone: myPhone })
+      });
+      
+
+       console.log('请求已发送')
+      
+  const data = await res.json();
+  console.log('成功解析:', data);
+
+
+
+      if (res.ok) {
+        messageEl.textContent = '好友请求已发送';
+        messageEl.style.color = 'black';
+        document.getElementById('search-phone').value = '';
+         messageEl.style.fontWeight = '500';
+         // 发送 socket 通知给对方
+  socket.emit('friendRequestSent', {
+    to: yphone,
+    from: myPhone,
+    timestamp: Date.now(),
+  });
+      } else {
+        messageEl.textContent = data.message || '添加失败';
+        messageEl.style.color = 'grey';
+        messageEl.style.fontWeight = '600';
+      }
+    } catch (err) {
+      console.error('添加好友失败:', err);
+      messageEl.textContent = '网络错误';
+      messageEl.style.color = 'grey';
+       messageEl.style.fontWeight = '700';
+    }
+  });
+
+const contain = document.getElementById('friendRequests');
+
+// 拉取好友请求函数
+async function fetchFriendRequests() {
+  console.log('拉取好友开始')
+  try {
+    const res = await secureFetch(API_BASE + `/friends-requests?phone=${encodeURIComponent(myPhone)}`, {
+  method: 'GET',
+});
+console.log('拉取ss好友开始')
+    if (!res.ok) {
+      console.error('获取好友请求失败', await res.text());
+      return;
+    }
+    const requests = await res.json();
+
+    // 清空旧内容
+   contain.innerHTML = '';
+if (!Array.isArray(requests) || requests.length === 0) {
+  contain.innerHTML = '<span class="no-requests">暂无好友请求</span>';
+  return;
+}
+
+    // 动态生成列表
+    requests.forEach(req => {
+      const div = document.createElement('div');
+      div.className = 'friend-request';
+      div.dataset.phone = req.phone;
+      div.innerHTML = `
+        <span class="addfrienders">${req.phone} 请求添加你为好友</span>
+        <button class="accept-btn">接受</button>
+      `;
+      contain.appendChild(div);
+    });
+  } catch (err) {
+    console.error('拉取好友请求出错', err);
+    console.log('拉取好友结束')
+  }
+}
+
+
+// 绑定点击事件（事件委托）
+contain.addEventListener('click', async (e) => {
+  if (!e.target.classList.contains('accept-btn')) return;
+
+  const parent = e.target.closest('.friend-request');
+  const friendPhone = parent.dataset.phone;
+  
+  console.log('kaishiqingqiu', friendPhone, myPhone)
+  try {
+    const res = await secureFetch(API_BASE + '/friends-accept', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ requesterPhone: friendPhone, receiverPhone: myPhone })
+});
+
+    if (res.ok) {
+      // 接受成功，移除该条请求
+      parent.remove();
+      alert('已接受好友请求');
+      // 更新 localStorage 中的朋友列表
+       const result = await res.json()
+  if (result.friends) {
+    if (Array.isArray(result.friends)) {
+    localStorage.setItem('friends', JSON.stringify(result.friends));
+    friends = result.friends; 
+    renderFriendList();}
+  }
+  // ✅ 通知服务器或对方用户
+  socket.emit('friendAccepted', {
+    from: myPhone,
+    to: friendPhone // 你在这段代码中要能访问这个 req.phone
+  });
+    } else {
+      const data = await res.json();
+      alert('接受失败：' + (data.message || '未知错误'));
+    }
+  } catch (err) {
+    console.error('接受好友请求失败', err);
+    console.log('kaishiqingqiussss')
+  }
+});
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      friendsStr = localStorage.getItem("friends");
+  if (friendsStr) {
+    friends = JSON.parse(friendsStr);
+  } else {
+    friends = []; // 避免 undefined
+  }
+
+  // 渲染好友列表
+  renderFriendList();
+      
+      fetchFriendRequests();
+      const savedFriend = localStorage.getItem("currentChatFriend");
+if (savedFriend) {
+  showChatBox(savedFriend);
+}
+
+    });
+
+
+    const closeChatBtn = document.getElementById('closeChatBtn');
+
+    closeChatBtn.addEventListener('click', () => {
+      if (currentRoom) {
+    socket.emit("leave room", currentRoom); // 通知后端退出房间
+  }
+      document.getElementById("chatpage").style.display = "none";
+      document.getElementById("friendList").style.display = "block";
+      chatBox.innerHTML = ""; // 清空聊天内容
+      currentRoom = null;
+      localStorage.removeItem("currentChatFriend");
+
+    });
+
+  </script>
+</body>
+</html>

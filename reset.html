@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>UnChat密码重置</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #message {
+      color: red;
+      margin-top: 10px;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2>重置密码</h2>
+    <input type="text" id="phone" placeholder="请输入手机号" />
+    <input type="text" id="token" placeholder="Authenticator验证码" maxlength="6" />
+    <input type="password" id="new-password" placeholder="输入新密码" />
+    <button onclick="resetPassword()">确认重置</button>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    const API_BASE = 'https://dn.zhe.nz';
+
+    function showMessage(text, color = 'red') {
+      const el = document.getElementById('message');
+      el.style.color = color;
+      el.textContent = text;
+    }
+
+    async function resetPassword() {
+      const phone = document.getElementById('phone').value.trim();
+      const token = document.getElementById('token').value.trim();
+      const newPassword = document.getElementById('new-password').value.trim();
+
+      if (!phone || !token || !newPassword) {
+        return showMessage('请完整填写所有信息');
+      }
+
+      try {
+        const res = await fetch(API_BASE + '/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone, token, newPassword }),
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          showMessage('密码重置成功！请返回登录', 'green');
+          window.location.href = './login.html';
+        } else {
+          showMessage(data.message || '重置失败');
+        }
+      } catch (err) {
+        console.error(err);
+        showMessage('请求失败，请稍后重试');
+      }
+    }
+  </script>
+</body>
+</html>

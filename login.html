@@ -1,245 +1,319 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login and Register</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  <meta charset="UTF-8" />
+  <title>UnChat注册</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+      width: 320px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: #007bff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #message {
+      margin-top: 15px;
+      min-height: 24px;
+      color: red;
+      font-weight: 500;
+    }
+    #twofa-section {
+      margin-top: 20px;
+      display: none;
+    }
+    #twofa-login {
+      margin-top: 20px;
+      display: none;
+    }
+    #twofa-section input {
+      margin-bottom: 10px;
+    }
+    button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f5;
-    font-family: Arial, sans-serif;
-}
-
-.container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.form-container {
-    text-align: center;
-}
-
-.form-header {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.tab-btn {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    background: none;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.tab-btn.active {
-    color: #3498db;
-    border-bottom: 2px solid #3498db;
-}
-
-.form {
-    display: none;
-    text-align: left;
-}
-
-.form.active {
-    display: block;
-}
-
-h2 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-label {
-    margin-top: 10px;
-    display: block;
-    color: #666;
-}
-
-input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.submit-btn:hover {
-    background: #2980b9;
-}
-
-    </style>
+  </style>
 </head>
 <body>
+  <div id="container">
+    <h2>手机号注册 / 登录</h2>
 
-<div class="container">
-    <div class="form-container">
-        <div class="form-header">
-            <button class="tab-btn active" onclick="showForm('login')">Login</button>
-            <button class="tab-btn" onclick="showForm('register')">Register</button>
-        </div>
-        
-        <!-- Login Form -->
-        <form id="loginForm" class="form active">
-            <h2>Login to Your Account</h2>
-            <label for="loginEmail">Email</label>
-            <input type="email" id="loginEmail" placeholder="Enter your email" required>
-            
-            <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" placeholder="Enter your password" required>
-            
-            <button type="submit" class="submit-btn">Login</button>
-        </form>
-        
-        <!-- Register Form -->
-        <form id="registerForm" class="form">
-            <h2>Create an Account</h2>
-            <label for="regName">Full Name</label>
-            <input type="text" id="regName" placeholder="Enter your full name" required>
-            
-            <label for="regEmail">Email</label>
-            <input type="email" id="regEmail" placeholder="Enter your email" required>
-            
-            <label for="regPassword">Password</label>
-            <input type="password" id="regPassword" placeholder="Create a password" required>
-            
-            <button type="submit" class="submit-btn">Register</button>
-        </form>
-    </div>
+    <form id="auth-form">
+    <input type="text" id="phone" placeholder="请输入手机号" />
+    <input type="password" id="password" placeholder="请输入密码" />
+    <div style="text-align: right; margin-top: -5px; margin-bottom: 10px;">
+  <a href="reset.html" style="font-size: 12px; text-decoration: underline; color: #007bff; cursor: pointer;">忘记密码？</a>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+    <button type="button" id="btn-register">注册</button>
+    <button type="button" id="btn-login">登录</button>
+    <button type="button" id="btn-enable-2fa">开启双重验证</button>
+    <div id="message"></div>
+   </form>
 
-<script>
-    function showForm(formId) {
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-    const loginBtn = document.querySelector('.tab-btn:first-child');
-    const registerBtn = document.querySelector('.tab-btn:last-child');
+    <div id="twofa-section">
+      <p>请输入Authenticator App验证码</p>
+      <input type="text" id="twofa-token" placeholder="6位验证码" maxlength="6" />
+      <button id="btn-2fa-verify">验证</button>
+    </div>
+    <div id="twofa-login">
+      <p>请输入Authenticator App验证码</p>
+      <input type="text" id="2fa-token" placeholder="6位验证码" maxlength="6" />
+      <button id="btn-2fa-login">请验证</button>
+    </div>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+ <script>
+    const API_BASE = 'https://dn.zhe.nz';
+    const messageEl = document.getElementById('message');
+    const twofaSection = document.getElementById('twofa-section');
+    const twofaLogin = document.getElementById('twofa-login');
+    const loginBtn = document.getElementById('btn-login');
+
+    function showMessage(text, color='red') {
+      messageEl.style.color = color;
+      messageEl.textContent = text;
+    }
+
+
+    async function register(event) {
+      event.preventDefault();
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if (!phone || !password) return showMessage('手机号和密码不能为空');
+      try {
+        const res = await fetch(API_BASE + '/register', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ phone, password }),
+          credentials: 'include',
+        });
+        console.log('Register response status:', res.status);
+        const data = await res.json();
+        console.log('Register response data:', data);
+        
+        if (res.ok) {
+          showMessage('注册成功！请登录', 'green');
+        } else {
+          showMessage(data.message || '注册失败');
+        }
+      } catch (error) {
+        console.error('Register error:', error);
+        showMessage('注册请求失败，请稍后重试');
+      }
+    }
+
+    async function login() {
+
+      console.log('login button clicked');
+      // 禁用按钮，显示加载文本
+  loginBtn.disabled = true;
+  loginBtn.textContent = '登录中...';
+
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!phone || !password) return showMessage('手机号和密码不能为空');
+        console.log(`Attempt login with phone=${phone}`);
+        try {
+          const res = await fetch(API_BASE + '/login', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json',
+            },
+            body: JSON.stringify({ phone, password }),
+            credentials: 'include',
+          });
+
+          console.log('Login response received:', res);
+          const data = await res.json();
+
+          if (res.ok) {
+            if (data.need2fa) {
+              showMessage('需要双重验证，请输入验证码');
+              twofaLogin.style.display = 'block';
+            } else if (data.accessToken) {
+              localStorage.setItem('accessToken', data.accessToken);
+              localStorage.setItem('phone', data.phone);  // 保存手机号
+              localStorage.setItem('friends', JSON.stringify(data.friends));
+              showMessage('登录成功！', 'green');
+              twofaLogin.style.display = 'none';
+             
+              // 延迟跳转（可选：给用户一点反馈时间）
+              setTimeout(() => {
+                window.location.href = './my.html';
+              }, 1000); // 1秒后跳转
+            }
+          } else {
+            showMessage(data.message || '登录失败');
+          }
+        } catch (error) {
+          console.error('Login error:', error);
+          showMessage('登录请求失败，请稍后重试');
+        } finally {
+    // 恢复按钮
+    loginBtn.disabled = false;
+    loginBtn.textContent = '登录';
+  }
+      }
+
+
+      async function twofalogin() {
+
+      console.log('login button clicked');
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const token = document.getElementById('2fa-token').value.trim();
+
+      if (!phone || !password) return showMessage('手机号和密码不能为空');
+        console.log(`Attempt login with phone=${phone}`);
+        try {
+          const res = await fetch(API_BASE + '/login2fa', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json',
+            },
+            body: JSON.stringify({ phone, password, token}),
+            credentials: 'include',
+          });
+
+          console.log('Login response received:', res);
+          const data = await res.json();
+
+          if (res.ok) {
+            
+              localStorage.setItem('accessToken', data.accessToken);
+              localStorage.setItem('phone', data.phone);  // 保存手机号
+              localStorage.setItem('friends', JSON.stringify(data.friends));
+              showMessage('登录成功！', 'green');
+              document.getElementById('btn-2fa-login').style.display = 'none';
+              
+              // 延迟跳转（可选：给用户一点反馈时间）
+              setTimeout(() => {
+                window.location.href = './my.html';
+              }, 1000); // 1秒后跳转
+          }
+         
+        } catch (error) {
+          console.error('Login error:', error);
+          showMessage('登录请求失败，请稍后重试');
+        }
+      }
+
+    // 示例代码（前端 JS）
+let currentSecret = null; 
+    async function verify2fa() {
+      const phone = document.getElementById('phone').value.trim();
+      const token = document.getElementById('twofa-token').value.trim();
+
+      if (!phone || !token) return showMessage('请输入验证码');
+
+      try {
+      const res = await fetch(API_BASE + '/2fa/verify', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ phone, secret: currentSecret, token }),
+        credentials: 'include',
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        showMessage('双重验证开启成功！请重新登录', 'green');
+        twofaSection.style.display = 'none';
+      } else {
+        showMessage(data.message || '验证失败');
+      } }catch (err) {
+    console.error('2FA verify error:', err);
+    showMessage('网络错误');
+  }
+    }
+
+    // 全局变量保存secret
+    async function setup2FA() {
+      const phone = document.getElementById('phone').value.trim();
+      if (!phone) return showMessage('请先输入手机号');
+
+      try {
+        const res = await fetch(API_BASE + '/2fa/setup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.otpauth_url) {
+           currentSecret = data.secret; // 保存secret
+          messageEl.textContent = ''; 
+          showMessage('请用 Authenticator app扫码', 'green');
+
+          QRCode.toCanvas(data.otpauth_url, { width: 200, margin: 2 }, function (error, canvas) {
+            if (error) {
+              console.error(error);
+              return;
+            }
+            messageEl.appendChild(canvas);
+          });
+
+          /*const linkEl = document.createElement('p');
+          linkEl.textContent = data.otpauth_url;
+          linkEl.style.wordBreak = 'break-all';
+          messageEl.appendChild(linkEl);*/
+         document.getElementById('twofa-section').style.display = 'block';
+
+        } else {
+          showMessage(data.message || '开启失败');
+        }
+      } catch (err) {
+        console.error('2FA setup error:', err);
+        showMessage('网络错误');
+      }
+    }
+
+    document.getElementById('btn-enable-2fa').addEventListener('click', setup2FA);
+    document.getElementById('btn-register').addEventListener('click', register);
+    document.getElementById('btn-login').addEventListener('click', login);
+    document.getElementById('btn-2fa-verify').addEventListener('click', verify2fa);
     
-    if (formId === 'login') {
-        loginForm.classList.add('active');
-        registerForm.classList.remove('active');
-        loginBtn.classList.add('active');
-        registerBtn.classList.remove('active');
-    } else {
-        loginForm.classList.remove('active');
-        registerForm.classList.add('active');
-        loginBtn.classList.remove('active');
-        registerBtn.classList.add('active');
-    }
-}
+    document.getElementById('btn-2fa-login').addEventListener('click', twofalogin);
 
-
-    // URL to your backend server (replace with your actual backend URL)
-const API_URL = 'https://chatapp-bsrk.onrender.com';
-
-// Login function
-async function login(email, password) {
-    try {
-        const response = await fetch(`${API_URL}/api/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            alert(`Login successful: ${data.message}`);
-            // Hash the password (client-side, for demonstration; this is insecure)
-        const hashedPassword = await bcrypt.hash(data.user.password, 10);
-
-        // Store hashed password in localStorage
-        localStorage.setItem('userEmail', data.user.email);
-        localStorage.setItem('userPassword', hashedPassword);  
-           // localStorage.setItem('user', JSON.stringify(data.user)); // Assuming 'data.user' contains user info
-            // Redirect to the chat page
-            window.location.href = 'https://yozipic.top/chat.html';
-        } else {
-            alert(`Login failed: ${data.message}`);
-            // Handle failure (e.g., show error message to user)
-        }
-    } catch (error) {
-        console.error('Error logging in:', error);
-    }
-}
-
-// Register function
-async function register(chatId, email, password) {
-    try {
-        const response = await fetch(`${API_URL}/api/auth/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ chatId, email, password })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            alert(`Registration successful: ${data.message}`);
-            // Handle success (e.g., redirect to login page or update UI)
-            showForm('login');
-            // You can also perform other actions here, such as clearing the form or redirecting
-        } else {
-            alert(`Registration failed: ${data.message}`);
-            // Handle failure (e.g., show error message to user)
-        }
-    } catch (error) {
-        console.error('Error registering:', error);
-    }
-}
-
-// Event listeners for form submissions
-document.getElementById('loginForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    login(email, password);
+    document.getElementById('auth-form').addEventListener('submit', e => {
+  e.preventDefault();
 });
 
-document.getElementById('registerForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const chatId = document.getElementById('regName').value;
-    const email = document.getElementById('regEmail').value;
-    const password = document.getElementById('regPassword').value;
-    register(chatId, email, password);
-});
-
-</script>
-
+  </script>
 </body>
 </html>
