@@ -834,7 +834,7 @@ async function fetchFriendsListAndRender() {
           const sender = msg.sender === myPhone ? "self" : "user";
           appendMessage(msg.text, sender, msg.timestamp, msg.id); // Append the message to the chat box
         });
-      } catch (e) {
+      } catch (err) {
         console.error("Failed to load chat history:", err);
       }
     }
