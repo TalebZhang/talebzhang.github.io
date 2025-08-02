@@ -681,6 +681,7 @@ function updateNotificationDropdown() {
     div.innerHTML = `<strong>${phone}</strong><br><small>${latest.text}</small>`;
 
     div.addEventListener("click", () => {
+      document.getElementById('notification-dropdown').style.display = 'none';
       showChatBox(phone);
       delete unreadMessages[phone];
       updateNotificationDropdown();
@@ -1094,6 +1095,7 @@ if (savedFriend) {
   </script>
 </body>
 </html>
+
 
 
 
