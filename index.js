@@ -9,15 +9,6 @@ const articles = [
     tag: null,
   },
   {
-    class: "englishreading",
-    hidden: false,
-    title: "A Cost-Benefit Analysis of Using WeChat",
-    href: "pages/wechatornot.html",
-    time: "July 24, 2025",
-    duration: null,
-    tag: "WeChat",
-  },
-  {
     class: "jpread",
     hidden: false,
     title: "A Level-Based Guide to Learning Japanese via J-Dramas",
