@@ -1,0 +1,266 @@
+:root {
+  --bg-color: #fcfcfc;
+  --text-color: #222222;
+  --accent-color: #0066cc;
+  --border-color: #e0e0e0;
+  --header-bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --accent-color: #66b2ff;
+  --border-color: #333333;
+  --header-bg: #1e1e1e;
+  --card-bg: #1a1a1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --accent-color: #66b2ff;
+    --border-color: #333333;
+    --header-bg: #1e1e1e;
+    --card-bg: #1a1a1a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-serif);
+  margin: 0;
+  padding: 40px 20px 80px 20px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 19px;
+  line-height: 1.65;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 1. Top Reading Scroll Progress Bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--accent-color);
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.1s linear;
+}
+
+/* Container & Header Navigation */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* 2. Theme Toggle Switch */
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+h3 {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin: 44px 0 16px 0;
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 4px;
+}
+
+p { margin-top: 0; margin-bottom: 16px; }
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+a:hover { text-decoration: underline; opacity: 0.85; }
+
+/* 3. Interactive Table Filter Input */
+.table-filter-input {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.table-filter-input:focus { border-color: var(--accent-color); }
+
+/* Custom Sleek Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  margin: 8px 0 24px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  background-color: var(--header-bg);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tr:last-child td { border-bottom: none; }
+tbody tr:hover { background-color: var(--header-bg); }
+
+/* 4. Filterable Article Cards & Tags */
+.tag-filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  font-family: var(--font-sans);
+}
+
+.tag-btn {
+  background: var(--header-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tag-btn.active, .tag-btn:hover {
+  background: var(--accent-color);
+  color: #ffffff;
+  border-color: var(--accent-color);
+}
+
+#article-list .article-item {
+  margin: 14px 0;
+  font-family: var(--font-sans);
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+#article-list .article-item:hover {
+  background-color: var(--header-bg);
+}
+
+#article-list .title1 { font-size: 17px; font-weight: 500; }
+#article-list .meta { font-size: 13px; color: #888; margin-top: 4px; }
+#article-list .tag {
+  background-color: var(--header-bg);
+  border: 1px solid var(--border-color);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+/* Web Apps Container Grid */
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 20px 0 32px 0;
+}
+
+/* Individual App Card Component */
+/* Web Apps Container Grid at Page Bottom */
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 16px 0 40px 0;
+}
+
+.app-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background-color: var(--header-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.app-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+}
+
+.app-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.app-name {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.app-desc {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+}

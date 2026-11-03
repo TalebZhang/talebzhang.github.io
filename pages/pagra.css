@@ -1,0 +1,94 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color:white;
+  color:black;
+}
+
+header {
+  font-family:"PingFang SC", serif;
+  background-color:white;
+  padding: 1px;
+  font-size: 15px;
+  position: fixed;
+  overflow: hidden;
+  width:100%;
+  top: 0;
+  z-index:999;
+}
+.txtitle {
+  font-family: "PingFang SC", sans-serif; 
+}
+hr {
+ height:0.5px;
+ color: #f5f5f5;
+}
+
+.txtbody {
+  font-family: "KaiTi", "Kaiti SC", "STKaiti", 'Times New Roman', "FangSong_GB2312", "FangSong", "仿宋", "STFangsong", "PingFang SC", serif;
+}
+.center-text {
+  text-align: center;
+}
+.headname {
+  margin-left:180px;
+}
+
+.authorpage{
+  color: #242424;
+  padding: 0px 2px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.tention {
+  color: #828282;
+  padding: 0px 2px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px; 
+}
+
+.content {
+  width:95%;
+  margin:auto;
+  margin-top: 90px;
+}
+
+a {
+  text-decoration: none;
+  color:black;
+}
+
+/* visited link */
+a:visited {
+  color: black;
+}
+
+/* mouse over link */
+a:hover {
+  color: black;
+}
+
+/* selected link */
+a:active {
+  color: hotpink;
+}
+
+.topic {
+  margin-right:10px;
+  margin-top: 10px; 
+  background-color: #f2f2f2;
+  color: #828282;
+  border-radius: 15px;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+}

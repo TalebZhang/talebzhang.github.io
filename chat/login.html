@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UnChat 注册 / 登录</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background: #07c160;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #06ad56; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    #message { margin-top: 15px; min-height: 24px; color: red; font-weight: 500; }
+    #twofa-section, #twofa-login { margin-top: 20px; display: none; }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2>手机号注册 / 登录</h2>
+    <form id="auth-form">
+      <input type="text" id="phone" placeholder="请输入手机号" />
+      <input type="password" id="password" placeholder="请输入密码" />
+      <div style="text-align: right; margin-bottom: 10px;">
+        <a href="reset.html" style="font-size: 12px; color: #07c160;">忘记密码？</a>
+      </div>
+      <button type="button" id="btn-login">登录</button>
+      <button type="button" id="btn-register" style="background:#576b95;">注册</button>
+      <button type="button" id="btn-enable-2fa" style="background:none; color:#576b95; margin-top:5px;">开启双重验证</button>
+      <div id="message"></div>
+    </form>
+
+    <div id="twofa-section">
+      <p>请使用 Authenticator App 扫码验证</p>
+      <input type="text" id="twofa-token" placeholder="6位验证码" maxlength="6" />
+      <button id="btn-2fa-verify">验证并开启</button>
+    </div>
+
+    <div id="twofa-login">
+      <p>请输入 2FA 验证码</p>
+      <input type="text" id="2fa-token" placeholder="6位验证码" maxlength="6" />
+      <button id="btn-2fa-login">提交验证</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    const API_BASE = 'http://localhost:3000/api';
+    const messageEl = document.getElementById('message');
+    let currentSecret = null;
+
+    function showMessage(text, color='red') {
+      messageEl.style.color = color;
+      messageEl.textContent = text;
+    }
+
+    async function login() {
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if (!phone || !password) return showMessage('手机号和密码不能为空');
+
+      try {
+        const res = await fetch(API_BASE + '/login', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ phone, password }),
+          credentials: 'include',
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          if (data.need2fa) {
+            showMessage('需要双重验证');
+            document.getElementById('twofa-login').style.display = 'block';
+          } else if (data.accessToken) {
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('phone', data.phone);
+            localStorage.setItem('friends', JSON.stringify(data.friends || []));
+            showMessage('登录成功！', 'green');
+            setTimeout(() => { window.location.href = './'; }, 800);
+          }
+        } else {
+          showMessage(data.message || '登录失败');
+        }
+      } catch (err) {
+        showMessage('请求失败');
+      }
+    }
+
+    document.getElementById('btn-login').addEventListener('click', login);
+  </script>
+</body>
+</html>

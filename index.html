@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Zhen Zhang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Personal website and reading notes of Zhen Zhang.">
+  <link rel="stylesheet" href="./main.css">
+</head>
+
+<body>
+  <!-- Scroll Progress Indicator Bar -->
+  <div id="scroll-progress"></div>
+
+  <div class="container">
+    <div class="header-row">
+      <h1>Zhen Zhang</h1>
+      <button class="theme-toggle" id="theme-btn">🌙 Dark Mode</button>
+    </div>
+    
+    <h3>Me in 10 Seconds</h3>
+    <p>
+      I have lived in Beijing, Hangzhou, and Tokyo.<br><br>
+      I enjoy reading classics, mathematics, and autobiographies.
+      I’m skilled at learning languages and like to stand out just
+      a little—different, but not too much.
+      I pursue worldly wisdom.<br><br>
+      Originally from Zhejiang, I now live in Guangzhou.
+    </p>
+
+    <h3>Contact Me</h3>
+    <p>
+      I love meeting new people, and I reply to every email, 
+      so say hello: <a href="mailto:zhen.a@outlook.com">zhen.a@outlook.com</a>
+    </p>
+
+    <h3>Books I Re-read Often</h3>
+    <p><i>Antifragile</i>, <i>The Black Swan</i>, <i>Skin in the Game</i>, <i>Fooled by Randomness</i>, 《论语》(<i>The Analects</i>), 《大学》(<i>The Great Learning</i>), 《中庸》(<i>The Doctrine of the Mean</i>), <i>Poor Charlie’s Almanack</i>, <i>The Autobiography of Benjamin Franklin</i>, <i>The 38 Letters from Rockefeller to His Son</i></p>
+
+    <h3>My Minimal, Open-Source Android Setup</h3>
+    <input type="text" class="table-filter-input" placeholder="🔍 Search Android setup apps..." onkeyup="filterTable(this, 'android-table')">
+    <table id="android-table">
+      <thead>
+        <tr><th>Category</th><th>App Name</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>⌨️ Keyboard</td><td><strong>Fcitx5</strong></td><td>Privacy-first input method framework</td></tr>
+        <tr><td>🛍 App Store</td><td><strong>F-Droid</strong></td><td>Trusted open-source app store</td></tr>
+        <tr><td>🎥 Video Player</td><td><strong>VLC</strong></td><td>Versatile media player with broad codec support</td></tr>
+        <tr><td>📷 Camera</td><td><strong>Open Camera</strong></td><td>Full-featured camera app with manual controls</td></tr>
+        <tr><td>🏠 Launcher</td><td><strong>Lawnchair</strong></td><td>Clean, Pixel-like launcher with customization</td></tr>
+        <tr><td>🌐 Browser</td><td><strong>Firefox + LeechBlock</strong></td><td>Privacy-first web browser</td></tr>
+        <tr><td>🎵 Music Player</td><td><strong>Vanilla Music</strong></td><td>Lightweight local music player</td></tr>
+        <tr><td>💬 Chat App</td><td><strong>Delta Chat / Element</strong></td><td>Email-based secure messenger</td></tr>
+        <tr><td>📩 SMS App</td><td><strong>QUIK SMS</strong></td><td>Minimal open-source SMS app</td></tr>
+        <tr><td>⏱ Screen Monitor</td><td><strong>StayFree</strong></td><td>Screen time tracker and usage manager</td></tr>
+      </tbody>
+    </table>
+
+    <h3>My Minimal, Open-Source Windows Setup</h3>
+    <input type="text" class="table-filter-input" placeholder="🔍 Search Windows setup apps..." onkeyup="filterTable(this, 'windows-table')">
+    <table id="windows-table">
+      <thead>
+        <tr><th>Category</th><th>App Name</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>⌨️ Text Editor</td><td><strong>Vim</strong></td><td>Efficient coding and text editing tool</td></tr>
+        <tr><td>🎥 Video Player</td><td><strong>VLC</strong></td><td>Versatile media player with broad codec support</td></tr>
+        <tr><td>🌐 Browser</td><td><strong>Firefox + LeechBlock</strong></td><td>Privacy-first web browser</td></tr>
+        <tr><td>💬 Chat App</td><td><strong>Element</strong></td><td>Decentralized chat tool</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Newest Articles</h3>
+    <div class="tag-filter-bar" id="tag-filter-bar"></div>
+    <div id="article-list"></div>
+  </div>
+<h3>Web Applications</h3>
+    <div class="apps-grid">
+      <a href="./chat/index.html" class="app-card">
+        <div class="app-icon">💬</div>
+        <div class="app-details">
+          <div class="app-name">WeChat Web Clone</div>
+          <div class="app-desc">Real-time messaging platform</div>
+        </div>
+      </a>
+
+      <a href="./store/index.html" class="app-card">
+        <div class="app-icon">🛍️</div>
+        <div class="app-details">
+          <div class="app-name">Minimal Store</div>
+          <div class="app-desc">Minimalist web shop</div>
+        </div>
+      </a>
+    </div>
+
+  </div> <!-- end of container -->
+
+  <script src="index.js"></script>
+</body>
+</html>
+  <script src="index.js"></script>
+</body>
+</html>

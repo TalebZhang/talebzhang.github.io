@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>YOZi</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="pic/YOZi.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style>
+        .main {
+            width: 100%;
+            float: left;
+            padding-left: 0px 0px 0px 0px;
+            background-color:white;
+            }
+
+		.icon {
+			float: right;
+		    }
+
+		.icon-custom {
+			font-size: 44px; /* Adjust icon size */
+			font-weight: 50; /* Adjust icon weight */
+			color: #020609; /* Customize icon color */
+			padding-left: 20px;
+			margin-right: 10px;
+		    }
+
+        .col-1 {width: 8.33%;}
+        .col-2 {width: 16.66%;}
+        .col-3 {width: 25%;}
+        .col-4 {width: 33.33%;}
+        .col-5 {width: 41.66%;}
+        .col-6 {width: 50%;}
+        .col-7 {width: 58.33%;}
+        .col-8 {width: 66.66%;}
+        .col-9 {width: 75%;}
+        .col-10 {width: 83.33%;}
+        .col-11 {width: 91.66%;}
+        .col-12 {width: 100%;}
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+            }
+
+            [class*="col-"] {
+            float: left;
+            padding: 0px;
+            }
+        .card {
+            box-shadow: 0 4px 0px 0 rgba(255, 255, 255, 0.99);
+            width: 50%;
+            margin: 4px 0px 4px 0px;
+            text-align: left;
+            font-family: arial;
+            line-height: normal;
+            padding: 0px 0px 0px 1px;
+            border:#faf8f8 solid 1px;
+            }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover{
+            color:#de7921
+        }
+        li {
+            display: block; /* Ensures each <li> is on a new line */
+            margin-top:6px;
+        }
+ 
+        ul {
+            list-style-type: none; /* Remove bullets */
+            padding: 0; /* Remove default padding */
+            margin: 0px 10px 0px 10px; /* Remove default margin */
+        }
+
+        .back-to-top {
+            background-color: white;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 30px;
+        }
+
+        .back-to-top a {
+            color: #6d6d6d;
+            text-decoration: none;
+            font-weight: normal;
+            font-size: 10px;
+        }
+
+        .back-to-top a:hover {
+            color: black;
+        }
+
+        .black-friday-banner {
+    background-color: #b1275d;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 1px 2px;
+    margin-top: 5px;
+    border-radius: 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+        .search-bar-container {
+            display: flex;
+            justify-content: space-between;
+            background-color: #121921;
+            padding: 0px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 0px;
+        }
+
+        .language-switcher {
+            height: 45px;
+            width: 53px;
+            margin-left: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+        .rating {
+            color: #fda103; /* Amazon-style yellow for stars */
+            font-size: 10px;
+            margin-bottom: -6px; 
+        }
+        .ratenum{
+            font-size: 10px;
+        }
+        .primg{
+            width:100%;
+            aspect-ratio: 1; 
+            border-radius: 5px;
+            margin-bottom: -16px;
+            }
+        .listul{ margin: 0;
+            padding: 0;
+            list-style-type: none;
+            
+        }
+        .ltitle{
+            font-weight:200;font-size: 10px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; /* Limits to 2 lines */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2em; /* Adjust line height as needed */
+            max-height: 2.4em; /* Should match line-height * 2 */
+            }
+            .prize {
+                color:#b1275d;font-size:12px;font-weight: bold;
+            }
+
+        .price-cart-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px; /* Optional: add some space from the previous section */
+            padding-right: 2px;
+        }
+
+
+
+        .cart-icon {
+            color: #fff; /* Icon color */
+            font-size: 0.8em; /* Adjust icon size as needed */
+            background-color: #f39c12; /* Background color for the cart icon */
+            padding: 4px 8px; /* Horizontal padding to create an ellipse */
+            border-radius: 20px; /* Rounds the background into an ellipse */
+            cursor: pointer;
+        }
+
+
+        .selln {
+            font-size: 8px;
+        }
+        .litit{
+            margin-bottom: -6px;
+        }
+        .ensize{
+            color:#b1275d;
+            font-size: 9px;  
+        }
+
+        .category-container {
+            text-align: center;
+            margin: 5px;
+            padding-bottom: 0px;
+        }
+        .category-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .icons-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+    
+        .icon-item {
+            width: 60px;
+            margin: 0 10px;
+            text-align: center;
+        }
+        .icon-item i {
+            font-size: 36px;
+            color: #555;
+        }
+        .icon-label {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .gallery-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%; /* adjust based on the number of images */
+        }
+        .gallery-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .gallery-slide img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            top: 0;
+            right:0;
+            width: 100%;
+            z-index: 1000; /* Ensures the header stays on top of other elements */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
+        }
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .shadow-hr {
+            position: relative;
+            height: 1px;
+            background-color: #fdfcfc;
+            margin: 20px 0;
+        }
+
+        .shadow-hr::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -4px; /* Adjust to control shadow's distance */
+            height: 2px;  /* Shadow height */
+            background: rgba(216, 216, 216, 0.3); /* Shadow color */
+            border-radius: 100%; /* Optional, adds a softer shadow */
+        }
+
+        .padbod{
+            padding-top: 50px;
+        }
+
+        .footer-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .footer-item {
+            text-align: center;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .footer-item i {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .footer-bar a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        #floating-cart {
+    position: fixed;
+    top: 50%; /* Center vertically */
+    right: 0; /* Flush with the right side of the screen */
+    transform: translateY(-50%); /* Center vertically */
+    background-color: #f39c12;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Makes the icon circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+#floating-cart i {
+    margin: 0; /* Center icon in the circle */
+}
+
+#cart-count {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 0.6em;
+    padding: 2px 2px;
+    border-radius: 50%;
+    min-width: 18px;
+    text-align: center;
+}
+.cartcolor {
+    color: white;
+}
+
+
+
+	</style>
+</head>
+
+<body class=".txtbody padbod">
+	
+    <div class="header">
+        <div class="logo">YOZi</div>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search...">
+        </div>
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+
+      <!-- Image Gallery -->
+    <div class="gallery-container">
+        <div class="gallery-slides" id="slides">
+            <div class="gallery-slide"><img src="pic/slide1.jpg" alt="Image 1"></div>
+            <div class="gallery-slide"><img src="pic/slide2.jpg" alt="Image 2"></div>
+            <div class="gallery-slide"><img src="pic/slide3.jpg" alt="Image 3"></div>
+        <!-- Add more images as needed -->
+        </div>
+    </div>
+
+
+    <div class="category-container">
+        <div class="icons-row">
+            <div class="icon-item" data-category="sale">
+                <i class="fa-solid fa-tags"></i>
+                <div class="icon-label">お買い得</div>
+            </div>
+            <div class="icon-item"  data-category="helmet">
+                <i class="fa-solid fa-helmet-safety"></i>
+                <div class="icon-label">ヘルメット</div>
+            </div>
+            <div class="icon-item"  data-category="light">
+                <i class="fa-solid fa-lightbulb"></i>
+                <div class="icon-label">ライト</div>
+            </div>
+            <div class="icon-item" data-category="lock">
+                <i class="fa-solid fa-lock"></i>
+                <div class="icon-label">ロック</div>
+            </div>
+            <div class="icon-item" data-category="grove">
+                <i class="fa-solid fa-hand-paper"></i>
+                <div class="icon-label">グローブ</div>
+            </div>
+        </div>
+        <div class="icons-row">
+            <div class="icon-item" data-category="saddle">
+                <i class="fa-solid fa-chair"></i>
+                <div class="icon-label">サドル</div>
+            </div>
+            <div class="icon-item" data-category="kit">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <div class="icon-label">修理キット</div>
+            </div>
+            <div class="icon-item" data-category="oil">
+                <i class="fa-solid fa-oil-can"></i>
+                <div class="icon-label">オイル・潤滑剤</div>
+            </div>
+            <div class="icon-item" data-category="pump">
+                <i class="fa-solid fa-pump-soap"></i>
+                <div class="icon-label">ポンプ</div>
+            </div>
+            <div class="icon-item" data-category="tyre">
+                <i class="fa-solid fa-wheelchair"></i>
+                <div class="icon-label">タイヤ</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="shadow-hr"></div>
+    <div class="main">
+        <div class="row">
+            <div class="products-container">
+                <!-- Product cards will be dynamically generated here -->
+            </div>
+              
+        </div>
+    </div>
+      
+
+
+<!-- Floating Cart Icon with Counter -->
+<div id="floating-cart">
+    <span id="cart-count">0</span>
+    <a href="cart.html" class="cartcolor"><i class="fas fa-shopping-cart"></i></a>
+</div>
+
+
+    <div class="back-to-top">
+        <a href="#top">トップに戻る</a>
+    </div>
+
+    <div class="footer-bar">
+        <a href="index.html" class="footer-item">
+            <i class="fa-solid fa-home"></i>
+            <div class="footer-label">ホーム</div>
+        </a>
+        <a href="cart.html" class="footer-item">
+            <i class="fa-solid fa-shopping-cart"></i>
+            <div class="footer-label">カート</div>
+        </a>
+        <a href="mypage.html" class="footer-item">
+            <i class="fa-solid fa-user"></i>
+            <div class="footer-label">マイページ</div>
+        </a>
+    </div>
+    
+    
+      
+    <script>
+        const slides = document.getElementById('slides');
+        const totalSlides = document.querySelectorAll('.gallery-slide').length;
+        let currentIndex = 0;
+
+        function slideShow() {
+            currentIndex++;
+            if (currentIndex >= totalSlides) {
+                currentIndex = 0; // Reset to first slide
+            }
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`; // Move to the next slide
+        }
+
+        // Change slide every 2 seconds (2000 milliseconds)
+        setInterval(slideShow, 2000);
+
+
+        // Array of produst data (used previously as 'produsts')
+const produsts = [
+    {
+        title: "折りたたみ傘 メンズ 24本骨 順折り式 折り畳み傘 96cm ワンタッチ 晴雨両用 日傘 UVカット ブラック",
+        imageUrl: "pic/umber.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥980",
+        sold: "4.1K+ sold",
+        rating: 4, // out of 5 stars
+        reviews: 63,
+        category: "sale",
+        discount: "40%"
+    },
+    {
+        title: "自転車 虫ゴム不要 スーパーバルブ 德式 (4個セット)  むしゴム不要 バルブ",
+        imageUrl: "pic/chozi.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥330",
+        sold: "2.3K+ sold",
+        rating: 5,
+        reviews: 120,
+        category: "tyre",
+        discount: "70%"
+    },
+    {
+        title: "多色 星型・球型 LED ガーランドライト クリスマスライト 長さ3m 20灯",
+        imageUrl: "pic/star.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥560",
+        sold: "4.1K+ sold",
+        rating: 4, // out of 5 stars
+        reviews: 993,
+        category: "sale",
+        discount: "65%"
+    },
+    {
+        title: "秋の ペンケース型 ミニ折りたたみ椅子 アウトドア 旅行 キャンプ釣り用 超軽量",
+        imageUrl: "pic/ptpic/chair.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥1160",
+        sold: "6.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 998,
+        category: "sale",
+        discount: "50%"
+    },
+    {
+        title: "TSA ロック  3桁ダイヤル式ロック ワイヤータイプ 旅行用 安心 防犯グッズ",
+        imageUrl: "pic/ptpic/suitlock.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥750",
+        sold: "9.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 887,
+        category: "lock",
+        discount: "60%"
+    },
+    {
+        title: "片手操作 自転車用 携帯ホルダー モーターバイク用 スマホ固定 360回転減震",
+        imageUrl: "pic/ptpic/phoneholder.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥2080",
+        sold: "12.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 3567,
+        category: "sale",
+        discount: "42%"
+    },
+    {
+        title: "インソール サポーティブリバウンドインソール 中敷き(23.5-24cm)",
+        imageUrl: "pic/ptpic/atinsole.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥500",
+        sold: "7.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 1978,
+        category: "sale",
+        discount: "46%"
+    },
+    {
+        title: "シルク スカーフ ロゴ入り クリーム色・緑色 約70cm x 70cm",
+        imageUrl: "pic/ptpic/silk.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥780",
+        sold: "3.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 234,
+        category: "sale",
+        discount: "49%"
+    },
+    {
+        title: "超長 140cm スニーカーヘッズ専用 シューレース靴ひも100%綿 白",
+        imageUrl: "pic/ptpic/shoelace.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥599",
+        sold: "9.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 667,
+        category: "sale",
+        discount: "79%"
+    },
+    {
+        title: "折りたたみ傘 メンズ 24本骨 順折り式 折り畳み傘 96cm ワンタッチ 晴雨両用 日傘 UVカット ネイビー",
+        imageUrl: "pic/ptpic/umbre.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥980",
+        sold: "8.1K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 563,
+        category: "sale",
+        discount: "60%"
+    },
+    {
+        title: "シルバー 金属製 右側大音量自転車用 大人用ベル 子供用アクセサリー ホーン付き",
+        imageUrl: "pic/ptpic/bell.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥580",
+        sold: "6.6K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 433,
+        category: "kit",
+        discount: "35%"
+    },
+    {
+        title: "アロマポット 中空香りのよい炉 アロマバーナー 陶器 アロマディフューザー茶香炉",
+        imageUrl: "pic/ptpic/pot.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥1380",
+        sold: "7.6K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 833,
+        category: "sale",
+        discount: "55%"
+    },
+    {
+        title: "iPhone16シリーズソフトシリコンケース 完全保護 MagSafe快速充電",
+        imageUrl: "pic/ptpic/phonecase.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥1680",
+        sold: "9.6K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 2333,
+        category: "sale",
+        discount: "57%"
+    },
+    {
+        title: "自転車カバー雨避け UV加工 盗難防止 210D ロックホール「ロックなし」",
+        imageUrl: "pic/ptpic/cover.jpg",
+        productLink: "https://jp.mercari.com/item/m27640156234?utm_source=android&utm_medium=share&utm_campaign=share-2&source_location=share",
+        price: "￥1880",
+        sold: "1.6K+ sold",
+        rating: 5, // out of 5 stars
+        reviews: 333,
+        category: "sale",
+        discount: "38%"
+    },
+
+    // Add more produsts as needed
+];
+
+// Function to generate produst cards dynamically
+function generateProdustCards() {
+    const container = document.querySelector('.products-container');
+    
+    produsts.forEach(produst => {
+        // Create produst card element
+        const produstCard = document.createElement('div');
+        produstCard.classList.add('col-6', 'card');
+        produstCard.setAttribute('data-category', produst.category);
+
+        // Create produst content
+        const saleWord = "セール"; // Common Japanese sale word
+
+        produstCard.innerHTML = `
+           
+    <img src="${produst.imageUrl}" alt="produstimg" class="primg">
+
+<ul class="listul">
+    <li class="litit">
+        <span class="black-friday-banner">${saleWord} ${produst.discount}</span>
+        <a class="produst-title ltitle" href="${produst.productLink}">
+            ${produst.title}
+        </a>
+    </li>
+    <li class="rating">
+        ${generateStars(produst.rating)}
+        <span class="ratenum">(${produst.reviews})</span>
+    </li>
+    <li class="price-cart-row">
+        <a class="prize" href="${produst.productLink}">
+            ${produst.price}<span class="ensize">円</span>
+        </a>
+        <i class="fas fa-shopping-cart cart-icon"></i>
+    </li>
+</ul>
+
+        `;
+
+        // Append the produst card to the container
+        container.appendChild(produstCard);
+    });
+}
+
+// Function to generate star rating icons
+function generateStars(rating) {
+    let stars = '';
+    for (let i = 0; i < 5; i++) {
+        if (i < rating) {
+            stars += '<i class="fas fa-star"></i>';
+        } else {
+            stars += '<i class="far fa-star"></i>';
+        }
+    }
+    return stars;
+}
+
+// Call the function to generate produst cards
+generateProdustCards();
+
+// Select all icons and product cards
+const icons = document.querySelectorAll('.icon-item');
+const productCards = document.querySelectorAll('.card');
+
+// Function to show products based on selected category
+function showProducts(category) {
+    productCards.forEach(product => {
+        // Show product if its data-category matches the selected category
+        if (product.getAttribute('data-category') === category || category === 'all') {
+            product.style.display = 'block';
+        } else {
+            product.style.display = 'none';
+        }
+    });
+}
+
+// Add click event listeners to each icon for category filtering
+icons.forEach(icon => {
+    icon.addEventListener('click', () => {
+        const category = icon.getAttribute('data-category');
+        showProducts(category);
+    });
+});
+
+// For searching through product titles
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', () => {
+    const searchValue = searchInput.value.toLowerCase();
+
+    productCards.forEach(product => {
+        const title = product.querySelector('.produst-title').textContent.toLowerCase();
+        
+        if (title.includes(searchValue)) {
+            product.style.display = 'block'; // Show the product if the title contains the search word
+        } else {
+            product.style.display = 'none'; // Hide the product if no match
+        }
+    });
+});
+
+
+// Initialize cart count
+let cartCount = 0;
+
+// Function to update the cart count display
+function updateCartCount() {
+    const cartCountElement = document.getElementById('cart-count');
+    cartCountElement.textContent = cartCount;
+}
+
+// Add event listener to each product cart icon
+document.querySelectorAll('.cart-icon').forEach(icon => {
+    icon.addEventListener('click', () => {
+        cartCount++; // Increase cart count
+        updateCartCount(); // Update the cart display
+    });
+});
+
+
+
+ // Redirect to cart page on click
+//  document.getElementById("floating-cart").addEventListener("click", function() {
+//         window.location.href = "./cart.html"; // Update with your actual cart page URL
+//     });
+document.addEventListener('DOMContentLoaded', () => {
+            // Add event listeners to all cart icons
+            document.querySelectorAll('.cart-icon').forEach(icon => {
+                icon.addEventListener('click', (e) => {
+                    const productCard = e.target.closest('.product-card');
+                    const productTitle = productCard.querySelector('.produst-title').textContent;
+                    const productPrice = parseFloat(productCard.querySelector('.price-cart-row .prize').textContent.replace('￥', '').replace('円', ''));
+                    const productImage = productCard.querySelector('.primg').src;
+                    const productLink = productCard.querySelector('.produst-title').getAttribute('href');
+                    const discountPercentage = parseFloat(productCard.querySelector('.black-friday-banner') ? productCard.querySelector('.black-friday-banner').textContent.replace('%', '') : '0');
+                    const originalPrice = productPrice / (1 - discountPercentage / 100); // Calculate the original price
+
+                    // Get the current cart from localStorage or initialize an empty array
+                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                    // Check if the product already exists in the cart
+                    const existingProduct = cart.find(item => item.title === productTitle);
+
+                    if (existingProduct) {
+                        existingProduct.quantity++;
+                    } else {
+                        cart.push({
+                            title: productTitle,
+                            price: productPrice,
+                            quantity: 1,
+                            image: productImage,
+                            productLink: productLink,
+                            originalPrice: originalPrice
+                        });
+                    }
+
+                    // Save the updated cart to localStorage
+                    localStorage.setItem('cart', JSON.stringify(cart));
+
+                    // Update the cart count
+                    updateCartCount();
+                });
+            });
+
+            // Function to update the cart item count in the header or cart icon
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+                const cartCountElement = document.getElementById('cart-count');
+                if (cartCountElement) {
+                    cartCountElement.textContent = cartCount;
+                }
+            }
+
+            // Update the cart count on page load
+            updateCartCount();
+        });
+
+
+        function toggleCategory(element) {
+          element.classList.toggle("open");
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</blog>
+</html>

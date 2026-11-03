@@ -1,0 +1,169 @@
+/* Base */
+:root {
+  color-scheme: light;
+  --sky: #d4e1f2;
+  --ink: #46546a;
+  --muted: #8f969f;
+  --page-width: 1120px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  background: linear-gradient(180deg, #d4e1f2 0, #fff 42rem, #d4e1f2 100%);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+
+/* Hero */
+.hero {
+  display: grid;
+  min-height: 250px;
+  place-items: center;
+  padding: 3.5rem 1.5rem 2rem;
+  text-align: center;
+}
+
+.hero__title-wrap {
+  width: min(100%, var(--page-width));
+}
+
+.hero__title {
+  margin: 0;
+  color: #de466c;
+  background: url("/taleb-zhang.github.io/summer2021/assets/bg-643a8dac.jpg") center / cover no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: clamp(3.25rem, 9vw, 6.25rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+
+.hero__date {
+  margin: 0.5rem 0 0;
+  color: #aaa3ad;
+  font-family: "Franklin Gothic Medium", Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+/* Photo collection */
+/* Photo collection */
+.memories {
+  padding: 1.5rem 1.5rem 4rem;
+}
+
+.memories__grid {
+  display: grid;
+  width: min(100%, var(--page-width));
+  margin: 0 auto;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.memory {
+  overflow: hidden;
+  margin: 0;
+  border-radius: 0.35rem;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 8px 24px rgba(55, 75, 105, 0.10);
+}
+
+.memory img {
+  display: block;
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.memory--feature {
+  grid-column: span 1;
+}
+
+.memory--feature img {
+  height: 140px;
+}
+
+
+.memory:hover img {
+  transform: scale(1.025);
+}
+
+
+
+/* Footer */
+.footer {
+  padding: 2.5rem 1.5rem 5rem;
+  text-align: center;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.footer__message {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1.5rem, 4vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Responsive layout */
+@media (max-width: 760px) {
+  .hero {
+    min-height: 210px;
+  }
+.gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .memories__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .memory--feature {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero {
+    min-height: 180px;
+    padding-top: 2.5rem;
+  }
+
+  .memories {
+    padding-inline: 0.9rem;
+  }
+
+  .memories__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .memory img {
+    transition: none;
+  }
+}

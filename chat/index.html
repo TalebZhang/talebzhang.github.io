@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>微信</title>
+  <link rel="stylesheet" href="unchat.css">
+</head>
+<body>
+
+<div id="app-container">
+  <!-- Top Navigation Bar -->
+  <div class="wechat-header" id="top-header">
+    <span class="header-title" id="header-title">微信</span>
+    <div class="header-actions">
+      <button class="icon-btn search-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn add-btn">+</button>
+    </div>
+  </div>
+
+  <!-- Content Viewport -->
+  <div class="content-viewport">
+    
+    <!-- Tab 1: 微信 (Chats) -->
+    <div id="tab-chats" class="tab-view active">
+      <div id="chat-list-container">
+        <!-- Rendered chat history items -->
+      </div>
+    </div>
+
+    <!-- Tab 2: 通讯录 (Contacts) -->
+    <div id="tab-contacts" class="tab-view">
+      <!-- Top Fixed Functional Cards -->
+      <div class="contact-fixed-group">
+        <div class="contact-row">
+          <div class="wx-icon-avatar orange"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9 0c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/></svg></div>
+          <div class="contact-name">新的朋友</div>
+        </div>
+        <div class="contact-row">
+          <div class="wx-icon-avatar orange-light"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div>
+          <div class="contact-name">仅聊天的朋友</div>
+        </div>
+        <div class="contact-row">
+          <div class="wx-icon-avatar green"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3z"/></svg></div>
+          <div class="contact-name">群聊</div>
+        </div>
+        <div class="contact-row">
+          <div class="wx-icon-avatar blue-light"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42z"/></svg></div>
+          <div class="contact-name">标签</div>
+        </div>
+        <div class="contact-row">
+          <div class="wx-icon-avatar blue"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 2A10 10 0 0 0 2 12a9.89 9.89 0 0 0 2.27 6.33l-1.2 3.6 3.75-1.17A9.94 9.94 0 0 0 12 22a10 10 0 0 0 10-10A10 10 0 0 0 12 2z"/></svg></div>
+          <div class="contact-name">公众号</div>
+        </div>
+      </div>
+
+      <!-- Contact Alphabetical Index Side Column -->
+      <div class="alphabet-index">
+        <span>↑</span><span>☆</span><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span><span>#</span>
+      </div>
+
+      <!-- Dynamic Contacts list -->
+      <div id="contacts-list-container"></div>
+    </div>
+
+    <!-- Tab 3: 发现 (Discover) -->
+    <div id="tab-discover" class="tab-view">
+      <div class="wechat-cell-group">
+        <div class="wechat-cell">
+          <div class="cell-left"><span class="cell-icon text-red">🔴</span><span>朋友圈</span></div>
+          <span class="arrow">&gt;</span>
+        </div>
+      </div>
+      <div class="wechat-cell-group">
+        <div class="wechat-cell">
+          <div class="cell-left"><span class="cell-icon">📷</span><span>视频号</span></div>
+          <span class="arrow">&gt;</span>
+        </div>
+      </div>
+      <div class="wechat-cell-group">
+        <div class="wechat-cell">
+          <div class="cell-left"><span class="cell-icon">🔍</span><span>搜一搜</span></div>
+          <span class="arrow">&gt;</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: 我 (Me) -->
+    <div id="tab-me" class="tab-view">
+      <div class="profile-card">
+        <div class="profile-avatar" id="me-avatar">
+          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=WeChat" alt="avatar" />
+        </div>
+        <div class="profile-info">
+          <div class="profile-name" id="me-phone">内部记分板</div>
+          <div class="profile-id">微信号：<span id="me-wxid">zhe0nz</span></div>
+          <div class="status-badge">+ 状态 <span class="dots">...</span></div>
+        </div>
+        <div class="qr-code-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#888"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm14 0h4v4h-4zm-4 4h4v4h-4zm4 0h4v4h-4z"/></svg>
+          <span class="arrow">&gt;</span>
+        </div>
+      </div>
+
+      <div class="wechat-cell-group">
+        <div class="wechat-cell">
+          <div class="cell-left"><span class="cell-icon green">❇️</span><span>服务</span></div>
+          <span class="arrow">&gt;</span>
+        </div>
+      </div>
+
+      <div class="wechat-cell-group">
+        <div class="wechat-cell">
+          <div class="cell-left"><span class="cell-icon blue">📦</span><span>收藏</span></div>
+          <span class="arrow">&gt;</span>
+        </div>
+        <div class="wechat-cell">
+          <div class="cell-left"><span class="cell-icon pink">🖼️</span><span>朋友圈</span></div>
+          <span class="arrow">&gt;</span>
+        </div>
+        <div class="wechat-cell">
+          <div class="cell-left"><span class="cell-icon gold">💳</span><span>卡包</span></div>
+          <span class="arrow">&gt;</span>
+        </div>
+        <div class="wechat-cell">
+          <div class="cell-left"><span class="cell-icon yellow">😀</span><span>表情</span></div>
+          <span class="arrow">&gt;</span>
+        </div>
+      </div>
+
+      <div class="wechat-cell-group">
+        <div class="wechat-cell" id="btn-logout">
+          <div class="cell-left"><span class="cell-icon blue-gray">⚙️</span><span>设置</span></div>
+          <span class="arrow">&gt;</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation Tabbar -->
+  <div class="wechat-tabbar">
+    <div class="tabbar-item active" onclick="switchTab('chats', '微信', this)">
+      <div class="tabbar-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+      </div>
+      <span class="tabbar-label">微信</span>
+    </div>
+    <div class="tabbar-item" onclick="switchTab('contacts', '通讯录', this)">
+      <div class="tabbar-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3z"/></svg>
+      </div>
+      <span class="tabbar-label">通讯录</span>
+    </div>
+    <div class="tabbar-item" onclick="switchTab('discover', '发现', this)">
+      <div class="tabbar-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+      </div>
+      <span class="tabbar-label">发现</span>
+    </div>
+    <div class="tabbar-item" onclick="switchTab('me', '', this)">
+      <div class="tabbar-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      </div>
+      <span class="tabbar-label">我</span>
+    </div>
+  </div>
+
+  <!-- Active Chat Overlay Room -->
+  <div id="active-chat-window" class="chat-window-overlay">
+    <div class="wechat-header">
+      <button class="back-btn" onclick="closeChatWindow()">〈</button>
+      <span class="header-title" id="chat-friend-name">聊天</span>
+      <span style="width: 40px;"></span>
+    </div>
+    <div class="chat-messages-area" id="chat-messages-box"></div>
+    <div class="chat-input-bar">
+      <input type="text" id="chat-msg-input" placeholder="" />
+      <button class="wechat-send-btn" id="send-btn">发送</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="unchat.js"></script>
+</body>
+</html>

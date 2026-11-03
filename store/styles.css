@@ -1,0 +1,411 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color:white;
+  color:black;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+header {
+  font-family:"Times New Roman", Times, serif;
+  background-color:white;
+  padding: 1px;
+  font-size: 15px;
+  position: fixed;
+  overflow: hidden;
+  width:100%;
+  top: 0;
+  z-index:999;
+}
+
+hr {
+ height:0.5px;
+ color: #f5f5f5;
+}
+
+.title1 {
+  font-size: 18px;
+  font-weight: 800;
+  color: black;
+  letter-spacing: 1px;
+}
+.center-text {
+text-align: center;
+}
+span {
+  color:#828282;
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+  color:black;
+}
+
+/* visited link */
+a:visited {
+  color: black;
+}
+
+/* mouse over link */
+a:hover {
+  color: black;
+}
+
+/* selected link */
+a:active {
+  color: hotpink;
+}
+
+.button {
+  background-color: #f2f2f2;
+  color: #828282;
+  border-radius: 15px;
+  padding: 4px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+
+
+
+.page {
+ margin-left:auto;
+ margin-right:auto;
+ margin-top: 100px;
+
+}
+
+.nav {
+  color:#f5f5f5;
+  margin-left:20px;
+  margin-right:20px;
+ }
+ 
+ .navtitle{
+   margin-right:120px;
+ }
+ 
+ .navtitle:hover{
+   color:black;
+   font-weight: 800;
+ }
+ 
+ .navdiv {
+   margin-left:120px;
+   margin-right:0px;
+ }
+ .content {
+   color:#7b7b7b;
+   font-size: 12px;
+   font-weight:500;
+   text-align: justify;
+ }
+ 
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+  float: left;
+}
+
+ /* Left column */
+.leftcolumn {   
+  width: 25%;
+  padding-left: 15px;
+}
+
+.leftcolumn2 {   
+ 
+  width: 10%;
+}
+
+.rightcolumn2 {   
+
+  width: 10%;
+}
+
+/* Right column */
+.rightcolumn {
+  width: 55%;
+  padding-right: 15px;
+}
+
+
+/* 控制标题区块间距 */
+.englishreading {
+  margin-bottom: 40px;  /* 统一标题块间距 */
+}
+
+/* 标题下间距 */
+.title1 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 800;
+  color: black;
+  letter-spacing: 1px;
+}
+
+/* 段落间距 */
+.content {
+  margin-bottom: 15px;
+}
+
+/* 空段落隐藏，避免占位 */
+
+
+.topic {
+  margin-right:10px;
+  margin-top: 10px; 
+  background-color: #f2f2f2;
+  color: #828282;
+  border-radius: 15px;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+}
+
+.headnames {
+  margin-left:120px;
+}
+
+.txtbody {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.txtitle {
+  
+  font-size: 25px;
+}
+
+.songtitle {
+  font-size: 25px;
+  text-align:center;
+
+}
+
+.headname {
+  margin-left:180px;
+}
+
+.audioplay {
+  border-radius:10px;
+  width: 100px;
+  height: 30px;
+  float:right;
+  
+}
+
+.contentxt {
+  width:95%;
+  margin:auto;
+}
+
+.tention {
+  color: #828282;
+  padding: 0px 2px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px; 
+}
+
+.authorpage{
+  color: #242424;
+  padding: 0px 2px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+
+
+ul{
+  list-style-type: none;
+}
+
+.txtfont{
+  font-family: 'Times New Roman', serif;
+}
+.engfont{
+  font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size:20px;
+  letter-spacing:0.004em;
+  font-weight:400;
+  line-height:1.58;
+  color:#2f2f2f;
+}
+
+.tooltip {
+  position: relative;
+  display: inline;
+  border-bottom: 1px dotted gray;
+  font-size: 20px;
+  color:black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 176px;
+  height:177px;
+  border-radius: 10%;
+  background-color: transparent;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -35px;
+}
+
+.tooltip .tooltiptext1 {
+  visibility: hidden;
+  width: 150px;
+  height:87px;
+  border-radius: 10px;
+  background-color: black;
+  line-height:1.1;
+  color: #fff;
+  text-align: center;
+  padding: 5px 5px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -35px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip:hover .tooltiptext1 {
+  visibility: visible;
+}
+
+.expic {
+  width:120;
+  height:120;
+  border-radius: 10%;
+}
+
+.topiclist {
+  color: black;
+  font-size:20px;
+}
+
+.txtsong{
+  font-family: 'Times New Roman', serif;
+  text-align: center;
+  position: relative;
+  animation-name: example;
+  animation-duration: 215s;
+  animation-delay: 24.5s;
+  animation-timing-function: linear;
+}
+
+
+@keyframes example {
+  0%   {bottom:-100px;}
+  100% {bottom:2800px;}
+}
+
+@media screen and (max-width: 600px) {
+    .row {
+    display: block;
+  }
+
+  .leftcolumn, .rightcolumn, .leftcolumn2, .rightcolumn2 {
+    width: 100%;
+    float: none;
+  }
+  .headnames {
+  margin-left:30px;
+}
+  .headname {
+  margin-left:30px;
+}
+  .navtitle{
+   margin-right:10px;
+ }
+  .navdiv {
+   margin-left:100px;
+   margin-right:0px;
+ }
+ 
+ .engfont{
+  font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size:17px;
+  letter-spacing:0.004em;
+  font-weight:400;
+  line-height:1.58;
+  color:#2f2f2f;
+}
+ 
+ .tooltip {
+  position: relative;
+  display: inline;
+  border-bottom: 1px dotted gray;
+  font-size: 17px;
+  color:black;
+}
+
+.contentxt {
+  width:77%;
+  margin:auto;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 176px;
+  height:177px;
+  border-radius: 10%;
+  background-color: transparent;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -90px;
+}
+
+.tooltip .tooltiptext1 {
+  visibility: hidden;
+  width: 150px;
+  height:100px;
+  border-radius: 10px;
+  background-color: black;
+  line-height:1.1;
+  color: #fff;
+  text-align: center;
+  padding: 5px 5px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -75px;
+}
+}
